@@ -1,85 +1,15 @@
-\chapter{Schreibstil}
+\chapter{Videospiele}
 
-\section{Rechtschreibung und Wortbenutzung}
+Bei Videospielen handelt es sich um interaktive Medien, welche Spielern eine immersive und unterhaltsame Erfahrung bieten sollen. Sie erm�glichen eine Interaktion zwischen einem Spieler und einer Hardware, mit gelegentlich weiteren Spielern. Diese Interaktion erfolgt mithilfe von Eingabeger�ten in einer fiktionalen Spielwelt, welche �ber die Ausgabeger�te der Hardware visuell, akustisch oder haptisch simuliert wird. Bei den Eingabeger�ten kann es sich um eine Maus, Tastatur, Gamepad oder Touch-Display handeln. Der Spieler wird dabei durch seine Handlungen und seinen Konsequenzen innerhalb dieses Kontexts emotional beeinflusst.  Die Spielwelt wird von Game-Developern mithilfe einer Game-Engine entwickelt. In den letzten Jahren haben sich Videospiele zu einem wesentlichen Bestandteil der Popkultur sowie einer milliardenschweren Industrie entwickelt.
 
-Beachten Sie die Hinweise zur Wortbenutzung, Rechtschreibung und Zeichensetzung im Anhang~\ref{AnhangA}. Hier finden Sie Tipps zur Übersetzung von deutschen und englischen Begriffen, zur Zeichensetzung und Wortbenutzung.
+\section{Genres}
 
-\section{Fremdsprachige Begriffe}
+Ein Genre klassifiziert k�nstlerische Werke nach ihren Eigenschaften, wie Inhalt und Art. Wie auch Filme, Musik und Literatur geh�ren Videospiele auch zu k�nstlerischen Werken. Videospiele lassen sich in nach ihrer Spielart und Spielinhalte unterteilen. Klassische Videospiel-Genre w�ren: Abenteuer-, Shooter-, Rollen-, Strategie-, Horror- oder Simulations-Spiele. Ein Videospiel muss nicht unbedingt ein Genre erf�llen und kann in mehrere Genres eingegliedert werden. So f�llt das Videospiel �F.E.A.R First Encounter Assault Recon� in das Genre: Horror und Shooter.
 
-Wenn Sie Ihre Arbeit auf Deutsch verfassen, gehen Sie sparsam mit englischen Ausdrücken um. Natürlich brauchen Sie etablierte englische Fachbegriffe, wie z.\,B. \textit{Interrupt}, nicht zu übersetzen. Sie sollten aber immer dann, wenn es einen gleichwertigen deutschen Begriff gibt, diesem den Vorrang geben. Den englischen Begriff (\textit{term}) können Sie dann in Klammern oder in einer Fußnote\footnote{Englisch: \textit{footnote}.} erwähnen. Absolut unakzeptabel sind deutsch gebeugte englische Wörter oder Kompositionen aus deutschen und englischen Wörtern wie z.\,B. downgeloadet, upgedated, Keydruck oder Beautyzentrum.
+\section{Perspektiven}
 
-\section{Zitate}
+Wie auch in Filmen und Literatur erfasst der Nutzer sein Medium �ber eine Perspektive. So werden Filme �ber verschiedene Kameraperspektiven gedreht. Diese Kameraperspektiven sind auch in Videospielen vorhanden. In Videospielen spricht man von den Perspektiven: Third-Person und First-Person.
 
-\subsection{Zitate im Text}
+Bei der Third-Person-Perspektive handelt es sich um eine Perspektive au�erhalb der gesteuerten Spielfigur. Die Perspektive kommt in 2D und 3D-Videospielen vor. Sie kommt in allen Genres vor, sowohl auch Shootern.
 
-Wichtig ist das korrekte Zitieren von Quellen, wie es auch von \cite{Kornmeier2011} dargelegt wird. Interessant ist in diesem Zusammenhang auch der Artikel von \cite{Kramer2009}. Häufig werden die Zitate auch in Klammern gesetzt, wie bei \parencite{Kornmeier2011} und mit Seitenzahlen versehen \parencite[S. 22--24]{Kornmeier2011}.
-
-Bei Webseiten wird auch die URL und das Abrufdatum mit angegeben \parencite{Gao2017}. Wenn die URL nicht korrekt umgebrochen wird, lohnt es sich, an den Parametern \textit{biburl*penalty} in der \texttt{preambel.tex} zu drehen. Kleinere Werte erhöhen die Wahrscheinlichkeit, dass getrennt wird. 
-
-Veröffentlichungen in Konferenzbänden werden in sogenannten Inbooks oder Inproceedings veröffentlicht und besitzen meist eine \gls{doi} (\zb{} \cite{Lang2022}).
-
-\subsection{Zitierstile}
-
-Verwenden Sie eine einheitliche und im gesamten Dokument konsequent durchgehaltene Zitierweise\index{Zitierweise}. Es gibt eine ganze Reihe von unterschiedlichen Standards für das Zitieren und den Aufbau eines Literaturverzeichnisses. Sie können entweder mit Fußnoten oder Kurzbelegen im Text arbeiten. Welches Verfahren Sie einsetzen ist Ihnen überlassen, nur müssen Sie es konsequent durchhalten. Stimmen Sie sich im Vorfeld mit Ihrem Betreuer ab -- diese Vorlage unterstützt alle gängigen Zitierweisen.
-
-In der Informatik ist das Zitieren mit Kurzbelegen\index{Zitat!Kurzbeleg} im Text (Harvard"=Zitierweise) weit verbreitet, wobei für das Literaturverzeichnis häufig die Regeln der \gls{acm} oder \gls{ieee} angewandt werden.\footnote{Einen Überblick über viele verschiedene Zitierweisen finden Sie in der \url{http://amath.colorado.edu/documentation/LaTeX/reference/faq/bibstyles.pdf}}
-
-Am einfachsten ist es, wenn Sie das \verb+\autocite{}+-Kommando verwenden. Bei diesem Kommando können Sie in der Datei \texttt{perambel.tex} festlegen, wie die Zitate generell aussehen sollen, \zb{} ob sie in Fußnoten erfolgen sollen oder nicht. Wollen Sie von dem globalen Zitierstil abweichen, können Sie weiterhin spezielle Kommandos benutzen:
-
-\begin{itemize}
-	\item \verb+\autocite{Willberg2021}+: \autocite{Willberg2021}
-	\item \verb+\cite{Willberg2021}+: \cite{Willberg2021}
-	\item \verb+\parencite{Willberg2021}+: \parencite{Willberg2021}
-	\item \verb+\footcite{Willberg2021}+: \footcite{Willberg2021}
-	\item \verb+\citeauthor{Willberg2021}+: \citeauthor{Willberg2021}
-	\item \verb+\citeauthor*{Willberg2021}+: \citeauthor*{Willberg2021}
-	\item \verb+\citetitle{Willberg2021}+: \citetitle{Willberg2021}
-	\item \verb+\fullcite{Willberg2021}+: \fullcite{Willberg2021}
-\end{itemize}
-
-Denken Sie daran, dass das Übernehmen einer fremden Textstelle ohne entsprechenden Hinweis auf die Herkunft in wissenschaftlichen Arbeiten nicht akzeptabel ist und dazu führen kann, dass die Arbeit nicht anerkannt wird. Plagiate\index{Plagiat!Bewertung} werden mit mangelhaft (5,0) bewertet und können weitere rechtliche Schritte nach sich ziehen.
-
-
-\subsection{Zitieren von Internetquellen}
-
-Internetquellen\index{Zitat!Internetquellen} sind normalerweise \textit{nicht} zitierfähig. Zum einen, weil sie nicht dauerhaft zur Verfügung stehen und damit für den Leser möglicherweise nicht beschaffbar sind und zum anderen, weil häufig der wissenschaftliche Anspruch fehlt.\footnote{Eine lesenswerte Abhandlung zu diesem Thema findet sich (im Internet) bei \cite{Weber2006}}
-
-Wenn ausnahmsweise doch eine Internetquelle zitiert werden muss, z.\,B. weil für eine Arbeit dort Informationen zu einem beschriebenen Unternehmen oder einer Technologie abgerufen wurden, sind folgende Punkte zu beachten:
-
-\begin{itemize}
-\item Die Webseite ist in ein PDF-Dokument zu drucken, damit Sie die Informationen ablegen können,
-\item das Datum des Abrufs und die URL sind anzugeben,
-\item verwenden Sie Internet"=Seiten ausschließlich zu illustrativen Zwecken (z.\,B. um einen Sachverhalt noch etwas genauer zu erläutern), aber nicht zur Faktenvermittlung (z.\,B. um eine Ihrer Thesen zu belegen).
-\end{itemize}
-
-Sprechen Sie mit Ihrer Betreuerin bzw. Ihrem Betreuer ab, ob diese die PDFs der Internetquellen mit der Arbeit zusammen abgegeben bekommen möchten. Als Abgabeformat der elektronischen Quellen ist PDF/A\footnote{Bei PDF/A handelt es sich um eine besonders stabile Variante des \gls{pdf}, die von der \gls{iso} standardisiert wurde.} vorteilhaft, weil es von allen Formaten die größte Stabilität besitzt.
-
-Wikipedia\index{Zitat!Wikipedia} stellt einen immensen Wissensfundus dar und enthält zu vielen Themen hervorragende Artikel. Sie müssen sich aber darüber im Klaren sein, dass die Artikel in Wikipedia einem ständigen Wandel unterworfen sind und nicht als Quelle für wissenschaftliche Fakten genutzt werden sollten. Es gelten die allgemeinen Regeln für das Zitieren von Internetquellen. Sollten Sie doch Wikipedia nutzen müssen, verwenden Sie bitte ausschließlich den Perma"=link\footnote{Sie erhalten den Permalink über die Historie der Seite und einen Klick auf das Datum.}\index{Permalink} zu der Version der Seite, die Sie aufgerufen haben.
-
-
-% Jedes Kapitel besteht aus Unterkapiteln (section)
-\section{Gliederung: Zweite Ebene}
-
-Die Gliederung im Inhaltsverzeichnis erfolgt mit Kapiteln \lstinline|\chapter{Titel}|, Abschnitten \lstinline|\section{Titel}|, Unterabschnitten \lstinline|\subsection{Titel}|.
-
-Zusätzlich können noch Unterunterabschnitte \lstinline|\subsubsection{Titel}| und Absätze \lstinline|\paragraph{Titel}| verwendet werden. Damit kommt man auf maximal fünf Ebenen; für eine Abschlussarbeit mehr als ausreichend.
-
-Auf jeder Ebene sollten Sie erläutern, was in den darunter liegenden Ebene beschrieben wird, sodass im Normalfall keine Gliederungsebene leer ist und nur aus Untereinheiten besteht. Im Folgenden zeigt dieses Template, wie man weitere Ebenen mit \LaTeX{} erzeugt.
-
-% Unterkapitel können noch einmal durch subsections untergliedert
-% werden (jetzt auf der 3. Ebene)
-\subsection{Gliederung: Dritte Ebene}
-
-% Mit Labels können Sie sich später im Text wieder auf diese Stelle beziehen
-\label{Gliederung:EbeneDrei}
-
-% Einträge für den Index anlegen. Ein Index wird normalerweise in einer Abschluss-
-% arbeit nicht benötigt.
-\index{Gliederung!Ebenen}
-
-% Auf der 4. Ebene liegen die subsubsections. In diesem Template bekommt die
-% 4. Ebene keinen Nummern mehr und erscheint auch nicht im Inhaltsverzeichnis.
-\subsubsection{Gliederung: Vierte Ebene}
-
-% Auf der 5. Ebene werden einzelne Absätze mit Überschriften versehen.
-\paragraph{Gliederung: Fünfte Ebene} Anders als in diesem Beispiel darf in Ihrer Arbeit kein Gliederungspunkt auf seiner Ebene alleine stehen. D.\,h. wenn es ein 1.1 gibt, muss es auch ein 1.2 geben.
+Das Gegenst�ck zu Third-Person-Perspektive ist die First-Person-Perspektive, oder auch Egoperspektive genannt. Dabei handelt es sich um eine Perspektive aus den Augen der Spielfigur. Sie kommen in 3D-Videospielen und in Genre wie Shooter (FPS) vor.
