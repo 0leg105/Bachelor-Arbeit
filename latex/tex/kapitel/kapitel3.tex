@@ -1,0 +1,70 @@
+\chapter{Entscheidungssysteme}
+
+Man unterscheidet zwischen open-loop und closed-loop Systemen. Bei nondeterministischen environments, also unversehbaren Umgebungen sollten closed-loop Systeme benutzt werden
+
+\section{Entscheidungssysteme in der Game-AI}
+
+Die Entscheidungsfindung, also die Entscheidung welche Aktionen für einen NPC gewählt werden, werden über sogenannte Entscheidungssysteme realisiert. Basierend auf den Zustand des NPC führen sie verschiedene Aktionen durch.
+
+\subsection{Ad-Hoc Behavioring Authoring}
+
+Zu den populärsten Entscheidungssystemen der Game AI gehören Ad-Hoc Behaviour Authoring Methoden. Dazu gehören Finite State Machines und Behavior Trees. Diese Arten dominieren die Entscheidungsfindung der NPC in der Game AI. Bei diesen Methoden wird die Verhaltensweise explizit programmiert. Sie besitzen normalerweise keine Art von Algorithmen zum Lernen oder Suchen. Sie sind leicht zu implementieren, visualisieren und debugen. Mit steigender Komplexität wird es jedoch schwieriger das Entscheidungssystem zu designen, erweitern oder anzupassen.
+
+\subsubsection{Finite State Machine}
+
+Eine Finite State Machine (FSM) wird als Graph repräsentiert. Die FSM speichert dabei Informationen in Knoten (Zustände), welche wiederum Kanten (Übergänge) besitzen, welche zu anderen Knoten führen. Eine FSM kann sich zu jedem Zeitpunkt nur in einem Zustand befinden. Ein Zustandswechsel passiert, wenn die Bedingung für den entsprechenden Übergang erfüllt ist. In der Game AI repräsentieren die Knoten Zustände des NPC, wie z.B. Patrouillieren oder Angreifen. Diese Knoten beinhalten Aktionen, die ausgeführt werden und an den jeweiligen Zustand angepasst sind. So benötigt der Zustand patrouillieren Aktionen, die ihn zu bestimmten Punkten bewegen. Die Übergänge zwischen den Zuständen passieren über Bedingungen. So kann ein NPC vom Zustand Patrouillieren in Angreifen wechseln, sobald die Bedingung erfüllt ist, dass dieser den Spieler sieht. Nach Fertigstellung zeigen NPC mit FSM vorhersehbares Verhalten. Der FPS Half-Life wurde beispielsweise über eine FSM realisiert.
+
+\subsubsection{Behavior Tree}
+
+Der Behavior Tree modelliert eine Baumstruktur. Statt Zustände besitzt der Behavior Tree Tasks. Diese Tasks können in verschiedene Typen kategorisiert werden. Sie erhalten über den Prozessor Zeit ihre Aufgaben durchzuführen.
+
+Nach der Ausführung geben diese einer der folgenden Werte zurück: Run, Success oder Failure. Run impliziert, dass das Verhalten noch aktiv ist, Success, dass das Verhalten erfolgreich abgeschlossen wurde und Failure, dass das Verhalten fehlgeschlagen ist.
+
+Die Kategorien dieser Tasks sind Conditions, Actions und Composites. Die Condition Task prüft Bedingungen, die einen Wert wie success oder failure zurückgibt, wie z.B. ob der Spieler zu sehen ist. Meistens findet die Ausführung der Condition Task vor der Action Task statt.  Diese wiederum führt Aktionen des NPC durch, wie z.B. schießen oder hinter eine Deckung gehen. Beide Tasks sind dabei die leaf nodes des Baums.
+
+Die letzte Kategorie ist die Composite Task, welche die Sammlung der Child-Tasks: Condition und Action - Tasks verwalten. Das Verhalten basiert des Composite Task basiert dabei auf dem Verhalten der Child-Tasks. Die Composite Task kann man in zwei weitere Kategorien aufteilen: Sequences und Selectors. Beide Kategorien erwarten den Rückgabewert ihrer Child-Tasks. Basierend auf dem Rückgabewert wird entschieden ob, der nächste Child-Task ausgeführt wird oder der Composite stoppt und selbst einen Rückgabewert zurückgibt. So gibt ein Selector den Rückgabewert Success, sobald einer seiner Child-Tasks Success zurückgibt. Sollte ein Child-Task Failure zurückgeben, so wird der nächste Child-Task ausgeführt, bis keine Child-Tasks verfügbar sind und der Selector folglich Failure an seinen Parent zurückgibt. So führen Selectors die erste mögliche Aktion in ihrem Set aus. Eine Sequence gibt Failure als Rückgabewert, sobald einer seiner Child-Tasks Failure zurückgibt. Erst wenn alle Child-Tasks Success zurückgeben, gibt die Sequence den Rückgabewert Success. Eine Sequence repräsentiert eine Sequenz an Aktionen, die durchgeführt werden müssen. Ein Beispiel für die Umsetzung des BT als Entscheidungssystem für NPC war der FPS Halo 2.
+
+\subsection{Suchalgorithmen}
+
+Aufgaben der AI können auch als Suchprobleme formuliert werden, die durch das Finden des besten Pfades gelöst werden. Die Suchalgorithmen konstruieren einen Baum, bei dem der Wurzelknoten den Ausgangszustand darstellt, die Kanten die Operationen des Agenten repräsentieren, die zu einem neuen Knoten führen, welcher einen neuen Zustand repräsentiert. Aus einem Zustand sind mehrere Operationen möglich. Einer der bekannteren Suchalgorithmen ist der Monte Carlo Tree Search (MCTS), welcher Bestandteil von AlphaGo ist. Ein weiterer bekannter Suchalgorithmus ist A-Stern, welcher sowohl die Navigation der NPC als auch die Entscheidungsfindung in GOAP realisiert.
+
+\subsection{Machine Learning}
+
+Die Machine-Learning-Algorithmen kann man in supervised learning (SL), unsupervised learning (UL) und reinforcment learning(RL) unterteilen.
+
+So bekommt SL gelabelte Daten und UL Rohdaten mit denen sie trainieren. Während RL auf Basis der Umgebung lernt und durch richtige Aktionen belohnt wird. So wird Deep Learning, ein Teil von SL, für Spracherkennung und natural language processing benutzt. Im Strategiespiel StarCraft wird RL für die Entscheidungsfindung der NPC benutzt.
+
+\subsection{Evolutionäre-Algorithmen}
+
+Die Evolutionäre-Algorithmen sind inspiriert durch Darwins Theorie der Evolution. Sie optimieren dabei eine Population, wo jedes Individuum eine Lösung repräsentiert und mit einer Fitness-Wert gekennzeichnet ist. Durch Iterationen finden Selektionen und Mutationen in der Population statt, welche den Fitness-Wert der optimalen Lösung erhöhen. Im Bereich der Videospielentwicklung optimierte der Algorithmus beispielsweise die Baureihenfolge der NPC im Strategiespiel StarCraft.
+
+\section{Entscheidungssysteme in der Robotik}
+
+\subsection{Finite State Machine}
+Bei der Entwicklung eines Roboter-Verhalten wird darauf geachtet, dass die vielen Komponenten, die für das Verhalten nötig sind, möglichst effizient zusammenarbeiten. Einer der simpelsten Architekturen für eine Umsetzung eines Roboter Verhalten ist die Finite State Machines (FSM).
+
+Ein einfaches Beispiel wäre ein Linien-Folgender-Roboter der mithilfe von Finite State Machines (FSM) umsetzbar ist. Die FSM bestimmt die Aktion basierend auf seinen derzeitigen Zustand. Er kann seinen Zustand und somit seine Aktion wechseln. Sollte ein Sensor erkennen, dass der Roboter sich nicht innerhalb der schwarzen Linie bewegt, so wechselt er in einen Zustand. Der neue Zustand soll den Kurs durch seine Aktionen korrigieren.
+
+\subsection{Behavior Tree}
+
+Der Behavior Tree (BT) wäre ein weiteres Entscheidungssystem in der Robotik, welches eigentlich aus der Spieleentwicklung kommt.  Sie werden wie auch FSM für die Aufgabenorchestrierung eines Roboters umgesetzt. Der Behavior Tree ist zwar komplexer umzusetzen, hat jedoch im Vergleich zu FSM Vorteile. So können individuelle Aktionen im Behavior Tree leichter wiederverwendet und sind einfacher hinsichtlich Skalierbarkeit werden. Die Behavior Trees müssen im Gegensatz zu FSM, nicht definieren, wie eine Aktion im Bezug zu einer nachfolgenden Aktion steht.  Das Argument für einfachere Wiederverwendbarkeit in Bezug auf Entscheidungssysteme tritt auch in der Spielentwicklung auf.
+
+Ein Konzept für die Nutzung eines Behavior Tree in der Robotik wäre die Umsetzung auf einem unbemannten Luftfahrzeug (UAV). Dabei könnte der Behavior Tree als Controller für einen Luftkampf dienen.
+
+\subsection{GOAP}
+
+Das Entscheidungssystem Goal Oriented Action Planner (GOAP) spielt in der Robotik keine große Rolle und hat besitzt wenige Studien in dem Bereich. Doch GOAP basiert auf einem älteren Entscheidungssystem mit dem Namen Stanford Research Institute Problem Solver (STRIPS), welches im Roboter „Shakey“ eingesetzt wurde.
+
+\subsection{Stanford Research Institute Problem Solver (STRIPS)}
+
+Der Stanford Research Institute Problem Solver ist der Vorgänger von GOAP. Er wurde erstmals für den mobilen Roboter mit dem Nicknamen „Shakey“ als Plansystem für die Aktionen implementiert. [Die folgenden Informationen stammen aus der Dokumentation Shakey the Robot]. Der Roboter wurde als Wissenschaftliches Projekt von 1966 bis 1972 im Labor für künstliche Intelligenz des Stanford Research Institutes entwickelt. Das Ziel des Projekts war es Konzepte und Techniken der künstlichen Intelligenz zu entwickeln. Diese Konzepte sollen Automaten ermöglichen unabhängig in realistischen Umgebungen zu agieren. Die benutzte Hardware dem [Bild] entnehmen. Der Roboter konnte nach Fertigstellung in Räumen fahren, Hindernisse und Änderungen in der Umgebung erkennen sowie Boxen verschieben. Gibt man dem Roboter ein Ziel als logische-Formel, so sollte der STRIPS eine gültige Sequenz an Aktionen zurückgeben, welche das Ziel erreichen sollen.
+STRIPS benötigte einen Anfangszustand, der das derzeitige Wissen des Agenten repräsentierte. Die gegebene logische Formel als Ziel galt dann als Zielzustand.
+
+\subsubsection{Unterschiede STRIPS und GOAP}
+
+Die Hauptunterschiede von STRIPS und GOAP befinden sich dabei bei den eigentlichen Aktionen. Aktionen in GOAP haben Kosten und statt einer Add und Delete List ein Array an Preconditions und Effekten, die den World State verändern.
+Aktionen in STRIPS haben im Gegensatz zu GOAP keine Kosten. Anhand der Kosten kann der GOAP Aktionen über andere Aktionen bestimmen. So sollen Aktionen mit geringeren Kosten bevorzugt werden.
+
+STRIPS realisiert Effekte einer Aktion über eine Add und Delete List. Die Delete List löscht Wissen über Zustände. Während die Add List neues Wissen Zustände hinzufügt. In GOAP haben Aktionen Arrays die Preconditions und Effekte speichern. Procedural Preconditions Checks sorgen in GOAP dabei, dass nur Effekte genutzt werden, die erfüllte Preconditions haben. Die Effekte der GOAP Aktionen werden auch nicht direkt umgesetzt. Die Aktionen besitzen eine Funktion, die die Aktion ausführt. Während der Ausführung der Aktion können sich dabei die gewünschten Zustände ändern. 
+
+
