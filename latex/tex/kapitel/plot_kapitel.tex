@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+
+\begin{document}
+
+\begin{tikzpicture}
+    \begin{axis}[
+				width=15cm,
+				height=15cm,
+        xlabel={NPC-Anzahl},
+        ylabel={Durchschnittliche FPS},
+        title={GOAP FPS-Graph},
+        grid=major,
+        legend style={at={(1.05,1)}, anchor=north west},
+    ]
+    \addplot 
+		table [x=NPC, y=FPS, col sep=comma] {csv/goap_plot_data.csv};
+    \addlegendentry{GOAP}
+		\addplot 
+		table [x=NPC, y=FPS, col sep=comma] {csv/fsm_plot_data.csv};
+    \addlegendentry{FSM}
+		\addplot 
+		table [x=NPC, y=FPS, col sep=comma] {csv/bt_plot_data.csv};
+    \addlegendentry{BT}
+    \end{axis}
+\end{tikzpicture}
+
+\end{document}
