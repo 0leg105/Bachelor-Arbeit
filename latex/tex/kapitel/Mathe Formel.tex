@@ -1,7 +1,9 @@
 \chapter{Suchalgorithmen}
-Ein Agent muss für ein bestimmtes Ziel die richtige Wahl von Aktion treffen und vorausplanen, eine Sequenz an Aktionen erstellen. Der Prozess für die Findung der Sequenz an Aktionen wird als Suche bezeichnet und durch Suchalgorithmen gefunden. Für das Finden benötigt der Agent einen Raum mit Regeln und Informationen, der im Suchproblem definiert wird.
+
+Ein Agent muss für ein bestimmtes Ziel die richtige Wahl von Aktion treffen und vorausplanen, eine Sequenz an Aktionen erstellen. Der Prozess für die Findung der Sequenz an Aktionen wird als Suche bezeichnet und durch Suchalgorithmen gefunden. Für das Finden benötigt der Agent einen Raum mit Regeln und Informationen, der im Suchproblem definiert wird. Die Informationen des folgenden Kapitel stammen aus den Wissenschaftlichen Arbeiten \autocite{RN2020}, \autocite{4082128} und \autocite{Felner2011}.
 
 \section{Suchproblem}
+
 Ein Suchproblem wird definiert über einen Satz an möglichen Zuständen (\textit{states}), einen Ausgangszustand (\textit{initial state}), Zielzustände (\textit{goal states}), Aktionen (\textit{actions}), Übergangsmodel (\textit{transition model}) und Aktion-Kosten (\textit{action costs}).
 
 Die Zustände beschreiben dabei die Umwelt und einen Ausgangszustand $s$, aus welchem der Agent startet. Ein Agent bekommt ein oder mehrere Ziele die in Zielzuständen beschrieben werden.
@@ -25,7 +27,8 @@ Durch eine Aktion-Kosten Funktion $ACTIONCOST(s,a,s^*)$ erhalten wir die Kosten 
 Die Lösung für ein Suchproblem ist dabei ist die Sequenz an Aktionen, also der Plan der vom Ausgangszustand zum Zielzustand führen soll. Der gewählte Pfad sollte die geringsten Kosten von allen möglichen Lösungen haben und somit eine optimale Lösung darstellen. Der Satz an möglichen Zuständen kann dabei als Graph dargestellt werden, wobei die Kanten als Aktionen und die Knoten als Zustände dargestellt werden.
 
 \section{Suchalgorithmen}
-Das Suchproblem soll mit seinen Informationen durch einen Suchalgorithmus gelöst werden. Ein Suchalgorithmus erzeugt aus dem Suchproblem einen Suchbaum. Wie beim Graphen besteht ein Suchbaum aus Knoten $n$ und Kanten $a$, welche zu weiteren Knoten führen und Aktionen darstellen. Ein Knoten speichert dabei:
+
+Das Suchproblem soll mit seinen Informationen durch einen Suchalgorithmus gelöst werden. Ein Suchalgorithmus erzeugt aus dem Suchproblem einen Suchbaum. Wie beim Graphen besteht ein Suchbaum aus Knoten $n$ und Kanten $a$, welche zu weiteren Knoten führen. Ein Knoten speichert dabei:
 \begin{itemize}
 	\item Einen Zustand, zu dem die Aktion des jeweiligen Knoten geführt hat
 	\item Eine Aktion, die auf dem Eltern-Knoten ausgeführt wurde
@@ -33,23 +36,26 @@ Das Suchproblem soll mit seinen Informationen durch einen Suchalgorithmus gelös
 	\item Die Pfad-Kosten, der die summierten Kosten vom Ausgangsknoten bis zum jeweiligen Knoten speichert
 \end{itemize}
 Der Wurzelknoten ist dabei der Ausgangszustand des Agenten. Der Suchbaum beschreibt dabei Pfade zu Knoten und Ziel-Knoten, wobei mehrere Pfade zum selben Zustand führen können, jedoch jeder Knoten im Suchbaum einen eindeutigen Pfad zurück zur Wurzel hat.
+
 Bei der Expandierung schaut sich der Suchalgorithmus über die $TRANSITIONS(n)$ -Funktion alle möglichen Kanten $ACTIONS(n)$ für den derzeitigen Knoten $n$ an.Zu den Kanten werden die dazugehörigen Kind-Knoten generiert, welche in eine offene-Liste hinzugefügt werden. Der Suchalgorithmus bestimmt den nächsten zu expandierenden Knoten aus der offenen Liste basierend auf dem jeweiligen Suchverfahren und dessen Bewertungsfunktion $f(n)$.
+
+Im Bereich der Suchalgorithmen wird zwischen informierten und uniformierten Algorithmen unterschieden. Informierte Algorithmen können dabei die Distanz zum Ziel über eine Heuristik schätzen, während uniformierte eine solche Schätzung nicht durchführen können. Unter die uninformierten Suchalgorithmen fallen beispielsweise die Breitensuche, Dijkstra und Tiefensuche. Zu den informierten Suchalgorithmen gehören unter anderem \textit{Greedy best-first-search} und der A* Algorithmus. Informierte Suchalgorithmen können einen Pfad durch die Informationen der Heuristik effizienter finden, als uninformierte Suchalgorithmen.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=15cm]{Suchalgorithmen/suchbaum2}
+  \includegraphics[width=15cm]{Suchalgorithmen/SAS}
 	\captionsetup{justification=justified, format=plain}
   \caption{Suchbaum: Fängt vom Ausgangszustand an und soll den Zielzustand $\lnot \textit{PlayerAlive}$ erreichen. Grüne Knoten sind expandierte Knoten, welche in eine geschlossene Liste hinzugefügt werden. Blaue Knoten sind offene gefundene Nachbarknoten aus der offenen-Liste. Gestrichelte Knoten sind nicht entdeckte Knoten. Im Falle des Beispiels hat sich der Suchalgorithmus für den Knoten GunLoaded entschieden, da dieser optimaler als andere Nachbarknoten ist. Von dort aus ist der Zielzustand erreichbar und der Algorithmus würde eine Sequenz von Aktionen geben: \textit{[Reload,Shoot]}}
   \label{Suchalgorithmen}
 \end{figure}
-
-Im Bereich der Suchalgorithmen wird zwischen informierten und uniformierten Algorithmen unterschieden. Informierte Algorithmen können dabei die Distanz zum Ziel über eine Heuristik schätzen, während uniformierte eine solche Schätzung nicht durchführen können. Unter die uninformierten Suchalgorithmen fallen beispielsweise die Breitensuche, Dijkstra und Tiefensuche. Zu den informierten Suchalgorithmen gehören unter anderem \textit{Greedy best-first-search} und der A* Algorithmus. Informierte Suchalgorithmen können einen Pfad durch die Informationen der Heuristik effizienter finden, als uninformierte Suchalgorithmen.
+\clearpage
 
 \section{A* Algorithmus}
 
 Gehört zu den informierten und heuristischen Suchverfahren. Er ist ein so genannter vollständiger Algorithmus und findet einen Pfad zur Lösung, wenn einer vorhanden ist. Der Einsatz des Algorithmus wird oft für Routenplaner benutzt. So benutzt Godot 4.3 den A* Algorithmus für die Navigation. Der GOAP benutzt A* für das Suchen einer optimalen Sequenz an Aktionen.
 
-\subsection{A* Bewertungsfunktion}
+\subsection{Bewertungsfunktion}
+
 Suchalgorithmen, wie A* benutzen eine Bewertungsfunktion $f(n)$, welche dazu dient die Priorität eines Knoten $n$ während der Suche zu bewerten. Es werden dabei alle Pfad-Kosten $g(n)$ vom Ausgangsknoten bis zu Knoten $n$ mit der Heuristik $h(n)$ des Knoten $n$ bis zum Zielknoten summiert.
 \begin{align*}
 f(n) = g(n) + h(n)
@@ -60,7 +66,8 @@ Mit jeder Erweiterung des Pfades $n$ zu $n^{\ast}$ steigen die Kosten $g(n)$, wa
 g(n) + ACTIONCOST(n,a,n^*) + h(n^*) &= g(n^*) + h(n^*)
 \end{align*}
 
-\subsection{A* Heuristik}
+\subsection{Heuristik}
+
 Ein Suchalgorithmus sollte einen Pfad mit möglichst geringen Kosten (\textit optimalen-Pfad) zum Ziel finden. Ob A* einen optimalen Pfad findet richtet sich nach den Eigenschaften der Heuristik $h(n)$. Eine Heuristik hat die Eigenschaften der Zulässigkeit und Konsistenz.
 Bei einer zulässigen Heuristik werden die Kosten stets unterschätzt oder genau geschätzt. Sie bleibt im Intervall $[0, h^{\ast}(n)]$ wobei $h^{\ast}(n)$ die tatsächlichen Kosten sind.
 \begin{align*}
@@ -76,7 +83,8 @@ Die konsistente Heuristik hat eine stärkere Eigenschaft als eine zulässige Heu
 
 Mit einer inkonsistenten Heuristik können Pfade auftreten, welche denselben Zustand erreichen. Somit können mehrere Pfade mit unterschiedlichen Kosten aber selben Zustand in der offenen Liste auftreten, was zur höheren Zeit und Speicherkosten führt.
 
-\subsection{Beweis für Optimalität von A*}
+\subsection{Beweis für Optimalität}
+
 Arbeitet der A* Algorithmus mit einer zulässigen oder konsistenten Heuristik, so wird diese den optimalen Pfad zu einem optimalen Ziel finden.
 
 Vorraussetzung:
@@ -108,3 +116,47 @@ Beweis:
 	\end{align*}
 \end{enumerate}
 Aus 1. und 2. folgt: $f(n) < f(G_o) < f(G_s_o)$. Somit würde A* nicht zu $G_s_o$ führen und ist mit einer zulässigen Heuristik ist optimal.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=15cm]{Suchalgorithmen/A_Erweiterung}
+	\captionsetup{justification=justified, format=plain}
+  \caption{A Suchalgorithmus: Der Pfad \textit{[Reload,Shoot]} hat mit $f(n)=20$ die geringsten Pfadkosten. Das Beispiel kommt aus  Abbildung 1.1. Wie genau $g(n)$ und $h(n)$ am Beispiel von NPC-Aktionen berechnet wird, wird im GOAP Kapitel erklärt.}
+  \label{Suchalgorithmen}
+\end{figure}
+
+%\subsection{A* Beispiel}
+
+%\begin{table}[ht]
+  %\caption{Ziel-Zustand}
+  %\label{Kap4:Ziel}
+  %\renewcommand{\arraystretch}{1.2}
+  %\centering
+  %\small
+    %\begin{tabularx}{0.95\textwidth}{X X}
+      %\toprule
+      %\textbf{Goal} & \textbf{Ziel-Zustand}\\
+      %\toprule
+      %Spieler eliminieren & \lnot PlayerAlive
+      %\bottomrule
+    %\end{tabularx}
+%\end{table}
+%
+%\begin{table}[ht]
+  %\caption{Aktionen ihre Effekte und Vorausgesetzte Zustände}
+  %\label{Kap4:Aktionen}
+  %\renewcommand{\arraystretch}{1.2}
+  %\centering
+  %\small
+    %\begin{tabularx}{0.95\textwidth}{X X X X}
+      %\toprule
+      %\textbf{Aktion} & \textbf{Effekt} & \textbf{Vorausgesetzten Zustände} & \textbf{Kosten}\\
+      %\toprule
+      %Shoot & PlayerAlive & GunLoaded & 1\\
+			%Melee & PlayerAlive & AtPlayer & 1\\
+      %Reload & GunLoaded & - & 1\\
+      %GoToCover & AtCover & - & 10\\
+			%GoToPlayer & AtPlayer & -& 5\\
+      %\bottomrule
+    %\end{tabularx}
+%\end{table}

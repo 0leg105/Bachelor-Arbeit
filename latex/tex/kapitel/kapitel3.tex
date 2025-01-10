@@ -1,6 +1,6 @@
 \chapter{Entscheidungssysteme}
 
-Man unterscheidet zwischen open-loop und closed-loop Systemen. Bei nondeterministischen environments, also unversehbaren Umgebungen sollten closed-loop Systeme benutzt werden
+%Man unterscheidet zwischen open-loop und closed-loop Systemen. Bei nondeterministischen environments, also unversehbaren Umgebungen sollten closed-loop Systeme benutzt werden
 
 \section{Entscheidungssysteme in der Game-AI}
 
@@ -14,6 +14,14 @@ Zu den populärsten Entscheidungssystemen der Game AI gehören Ad-Hoc Behaviour Au
 
 Eine Finite State Machine (FSM) wird als Graph repräsentiert. Die FSM speichert dabei Informationen in Knoten (Zustände), welche wiederum Kanten (Übergänge) besitzen, welche zu anderen Knoten führen. Eine FSM kann sich zu jedem Zeitpunkt nur in einem Zustand befinden. Ein Zustandswechsel passiert, wenn die Bedingung für den entsprechenden Übergang erfüllt ist. In der Game AI repräsentieren die Knoten Zustände des NPC, wie z.B. Patrouillieren oder Angreifen. Diese Knoten beinhalten Aktionen, die ausgeführt werden und an den jeweiligen Zustand angepasst sind. So benötigt der Zustand patrouillieren Aktionen, die ihn zu bestimmten Punkten bewegen. Die Übergänge zwischen den Zuständen passieren über Bedingungen. So kann ein NPC vom Zustand Patrouillieren in Angreifen wechseln, sobald die Bedingung erfüllt ist, dass dieser den Spieler sieht. Nach Fertigstellung zeigen NPC mit FSM vorhersehbares Verhalten. Der FPS Half-Life wurde beispielsweise über eine FSM realisiert.
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=10cm]{Videospielentwicklung/FSM}
+	\captionsetup{justification=justified, format=plain}
+  \caption{Finite State Machine Beispiel an einem FPS-NPC}
+  \label{FSM}
+\end{figure}
+
 \subsubsection{Behavior Tree}
 
 Der Behavior Tree modelliert eine Baumstruktur. Statt Zustände besitzt der Behavior Tree Tasks. Diese Tasks können in verschiedene Typen kategorisiert werden. Sie erhalten über den Prozessor Zeit ihre Aufgaben durchzuführen.
@@ -23,6 +31,14 @@ Nach der Ausführung geben diese einer der folgenden Werte zurück: Run, Success o
 Die Kategorien dieser Tasks sind Conditions, Actions und Composites. Die Condition Task prüft Bedingungen, die einen Wert wie success oder failure zurückgibt, wie z.B. ob der Spieler zu sehen ist. Meistens findet die Ausführung der Condition Task vor der Action Task statt.  Diese wiederum führt Aktionen des NPC durch, wie z.B. schießen oder hinter eine Deckung gehen. Beide Tasks sind dabei die leaf nodes des Baums.
 
 Die letzte Kategorie ist die Composite Task, welche die Sammlung der Child-Tasks: Condition und Action - Tasks verwalten. Das Verhalten basiert des Composite Task basiert dabei auf dem Verhalten der Child-Tasks. Die Composite Task kann man in zwei weitere Kategorien aufteilen: Sequences und Selectors. Beide Kategorien erwarten den Rückgabewert ihrer Child-Tasks. Basierend auf dem Rückgabewert wird entschieden ob, der nächste Child-Task ausgeführt wird oder der Composite stoppt und selbst einen Rückgabewert zurückgibt. So gibt ein Selector den Rückgabewert Success, sobald einer seiner Child-Tasks Success zurückgibt. Sollte ein Child-Task Failure zurückgeben, so wird der nächste Child-Task ausgeführt, bis keine Child-Tasks verfügbar sind und der Selector folglich Failure an seinen Parent zurückgibt. So führen Selectors die erste mögliche Aktion in ihrem Set aus. Eine Sequence gibt Failure als Rückgabewert, sobald einer seiner Child-Tasks Failure zurückgibt. Erst wenn alle Child-Tasks Success zurückgeben, gibt die Sequence den Rückgabewert Success. Eine Sequence repräsentiert eine Sequenz an Aktionen, die durchgeführt werden müssen. Ein Beispiel für die Umsetzung des BT als Entscheidungssystem für NPC war der FPS Halo 2.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=15cm]{Videospielentwicklung/BT}
+	\captionsetup{justification=justified, format=plain}
+  \caption{Behavior Tree Beispiel an einem FPS-NPC}
+  \label{BT}
+\end{figure}
 
 \subsection{Suchalgorithmen}
 
@@ -41,6 +57,7 @@ Die Evolutionäre-Algorithmen sind inspiriert durch Darwins Theorie der Evolution
 \section{Entscheidungssysteme in der Robotik}
 
 \subsection{Finite State Machine}
+
 Bei der Entwicklung eines Roboter-Verhalten wird darauf geachtet, dass die vielen Komponenten, die für das Verhalten nötig sind, möglichst effizient zusammenarbeiten. Einer der simpelsten Architekturen für eine Umsetzung eines Roboter Verhalten ist die Finite State Machines (FSM).
 
 Ein einfaches Beispiel wäre ein Linien-Folgender-Roboter der mithilfe von Finite State Machines (FSM) umsetzbar ist. Die FSM bestimmt die Aktion basierend auf seinen derzeitigen Zustand. Er kann seinen Zustand und somit seine Aktion wechseln. Sollte ein Sensor erkennen, dass der Roboter sich nicht innerhalb der schwarzen Linie bewegt, so wechselt er in einen Zustand. Der neue Zustand soll den Kurs durch seine Aktionen korrigieren.
@@ -57,12 +74,22 @@ Das Entscheidungssystem Goal Oriented Action Planner (GOAP) spielt in der Roboti
 
 \subsection{Stanford Research Institute Problem Solver (STRIPS)}
 
-Der Stanford Research Institute Problem Solver ist der Vorgänger von GOAP. Er wurde erstmals für den mobilen Roboter mit dem Nicknamen „Shakey“ als Plansystem für die Aktionen implementiert. [Die folgenden Informationen stammen aus der Dokumentation Shakey the Robot]. Der Roboter wurde als Wissenschaftliches Projekt von 1966 bis 1972 im Labor für künstliche Intelligenz des Stanford Research Institutes entwickelt. Das Ziel des Projekts war es Konzepte und Techniken der künstlichen Intelligenz zu entwickeln. Diese Konzepte sollen Automaten ermöglichen unabhängig in realistischen Umgebungen zu agieren. Der Roboter konnte nach Fertigstellung in Räumen fahren, Hindernisse und Änderungen in der Umgebung erkennen sowie Boxen verschieben. Gibt man dem Roboter ein Ziel als logische-Formel, so sollte der STRIPS eine gültige Sequenz an Aktionen zurückgeben, welche das Ziel erreichen sollen.
-STRIPS benötigte einen Anfangszustand, der das derzeitige Wissen des Agenten repräsentierte. Die gegebene logische Formel als Ziel galt dann als Zielzustand.
+Der Stanford Research Institute Problem Solver ist der Vorgänger von GOAP. Er wurde erstmals für den mobilen Roboter mit dem Nicknamen „Shakey“ als Plansystem für die Aktionen implementiert. [Die folgenden Informationen stammen aus der Dokumentation Shakey the Robot]. Der Roboter wurde als Wissenschaftliches Projekt von 1966 bis 1972 im Labor für künstliche Intelligenz des Stanford Research Institutes entwickelt. Das Ziel des Projekts war es Konzepte und Techniken der künstlichen Intelligenz zu entwickeln. Diese Konzepte sollen Automaten ermöglichen unabhängig in realistischen Umgebungen zu agieren. Insbesondere boten sie den Kontext und die Motivation für die Entwicklung des A*-Suchalgorithmus. Der Roboter konnte nach Fertigstellung in Räumen fahren, Hindernisse und Änderungen in der Umgebung erkennen sowie Boxen verschieben. Gibt man dem Roboter ein Ziel als logische-Formel, so sollte der STRIPS eine gültige Sequenz an Aktionen zurückgeben, welche das Ziel erreichen sollen.
+
+STRIPS besteht aus den folgenden Komponenten: Einen Ausgangszustand, eine Sammlung an Aktionen und einen gegebenen Zielzustand.
+
+Der Ausgangszustand repräsentiert das derzeitige Wissen über die Welt des Agenten, also seinen Status. Im Falle von „Shakey“ wäre es die Position, in welcher sich der Roboter befindet und das Wissen über seine Umwelt, wie z.B. die Verbindung der Räume.
+
+Die Aktionen besitzen Effekte und Vorbedingungen. Die Vorbedingungen einer Aktion entscheiden, ob es möglich ist diese in den Plan aufzunehmen. Effekte werden über eine Add- und Delete -List realisiert. Die Delete-List löscht Wissen über Zustände, während die Add-List neues Wissen über Zustände hinzufügt. Durch die Durchführung der Add- und Delete -List werden somit Zustände geändert.
+
+Der Zielzustand wurde im Falle von „Shakey“ durch die logische-Formel vom Benutzer gegeben. STRIPS baut aus dem Ausgangszustand einen Plan an Aktionen, welche folglich in ihrer Reihenfolge ausgeführt werden. So soll die Ausführung der Aktionen und ihrer Effekte die Welt so verändern, dass der Agent zum Zielzustand kommt.
+
+Um einen Plan von Aktionen zu erzeugen, muss STRIPS die Effekte und Vorbedingungen dieser Aktionen kennen. STRIPS prüft, ob der Zielzustand bereits durch den Ausgangszustand erfüllt ist. Sollte der Zielzustand nicht erfüllt sein, wählt STRIPS eine Aktion aus, deren Effekte den Zielzustand am ehesten erreichen können. Dabei wird nach einer Aktion gesucht, deren Add- und Delete-Listen dazu beitragen können, den Zielzustand zu erreichen. Sollte die relevante Aktion nicht erfüllte Vorbedingungen durch das derzeitige Zustandsmodell besitzen, werden die Vorbedingungen als Unterziel hinzugefügt und müssen ebenfalls durch andere Aktionen erfüllt werden. Es können mehrere relevante Aktionen gefunden werden, was zu einem Suchbaum führen kann. Der Prozess wird so lange wiederholt, bis alle Unterziele erfüllt sind. Sobald die Unterziele erfüllt sind, wird das Ausgangsmodell basierend auf der Add- und Delete-List der Aktionen in ein neues Zustandsmodell transformiert. Dieses neue Zustandsmodell repräsentiert eine hypothetische Welt, die durch die Anwendung der ausgewählten Aktion entsteht. Es wird als neuer Ausgangspunkt für die nächste Selektion einer Aktion verwendet, um den Zielzustand schrittweise zu erreichen. Sollte der neue Ausgangspunkt nicht dem Zielzustand entsprechen, wird der Prozess fortgesetzt. Entspricht der Ausgangspunkt schließlich dem Zielzustand, so wurde ein Plan an Aktionen gefunden.
 
 \subsubsection{Unterschiede STRIPS und GOAP}
 
 Die Hauptunterschiede von STRIPS und GOAP befinden sich dabei bei den eigentlichen Aktionen. Aktionen in GOAP haben Kosten und statt einer Add und Delete List ein Array an Preconditions und Effekten, die den World State verändern.
+
 Aktionen in STRIPS haben im Gegensatz zu GOAP keine Kosten. Anhand der Kosten kann der GOAP Aktionen über andere Aktionen bestimmen. So sollen Aktionen mit geringeren Kosten bevorzugt werden.
 
 STRIPS realisiert Effekte einer Aktion über eine Add und Delete List. Die Delete List löscht Wissen über Zustände. Während die Add List neues Wissen Zustände hinzufügt. In GOAP haben Aktionen Arrays die Preconditions und Effekte speichern. Procedural Preconditions Checks sorgen in GOAP dabei, dass nur Effekte genutzt werden, die erfüllte Preconditions haben. Die Effekte der GOAP Aktionen werden auch nicht direkt umgesetzt. Die Aktionen besitzen eine Funktion, die die Aktion ausführt. Während der Ausführung der Aktion können sich dabei die gewünschten Zustände ändern. 
