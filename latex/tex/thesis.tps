@@ -17,8 +17,8 @@ Class=LaTeXView
 Document=thesis.tex
 
 [Frame0_View0,0]
-TopLine=58
-Cursor=4300
+TopLine=79
+Cursor=4298
 
 [Frame1]
 Flags=0
@@ -71,7 +71,7 @@ Class=LaTeXView
 Document=kapitel\kapitel3.tex
 
 [Frame3_View0,0]
-TopLine=141
+TopLine=106
 Cursor=5518
 
 [Frame4]
@@ -89,7 +89,7 @@ Class=LaTeXView
 Document=kapitel\Mathe Formel.tex
 
 [Frame4_View0,0]
-TopLine=15
+TopLine=19
 Cursor=2509
 
 [Frame5]
@@ -104,7 +104,7 @@ NormalPos.top=36
 NormalPos.right=1558
 NormalPos.bottom=1514
 Class=LaTeXView
-Document=kapitel\code_kapitel.tex
+Document=kapitel\plot_kapitel.tex
 
 [Frame5_View0,0]
 TopLine=0
@@ -122,11 +122,11 @@ NormalPos.top=36
 NormalPos.right=1558
 NormalPos.bottom=1514
 Class=LaTeXView
-Document=kapitel\plot_kapitel.tex
+Document=info_kapitel\kapitel2.tex
 
 [Frame6_View0,0]
-TopLine=0
-Cursor=0
+TopLine=168
+Cursor=6727
 
 [Frame7]
 Flags=0
@@ -140,11 +140,11 @@ NormalPos.top=36
 NormalPos.right=1558
 NormalPos.bottom=1514
 Class=LaTeXView
-Document=info_kapitel\kapitel2.tex
+Document=info_kapitel\kapitel3.tex
 
 [Frame7_View0,0]
-TopLine=120
-Cursor=6727
+TopLine=0
+Cursor=1295
 
 [Frame8]
 Flags=0
@@ -158,13 +158,31 @@ NormalPos.top=36
 NormalPos.right=1558
 NormalPos.bottom=1514
 Class=LaTeXView
-Document=info_kapitel\kapitel3.tex
+Document=kapitel\Code Kapitel.tex
 
 [Frame8_View0,0]
+TopLine=0
+Cursor=1067
+
+[Frame9]
+Flags=0
+ShowCmd=1
+MinPos.x=-1
+MinPos.y=-1
+MaxPos.x=-1
+MaxPos.y=-1
+NormalPos.left=4
+NormalPos.top=36
+NormalPos.right=1558
+NormalPos.bottom=1514
+Class=LaTeXView
+Document=kapitel\GOAP.tex
+
+[Frame9_View0,0]
 TopLine=0
 Cursor=1295
 
 [SessionInfo]
-FrameCount=9
-ActiveFrame=4
+FrameCount=10
+ActiveFrame=9
 

@@ -1,11 +1,11 @@
-\documentclass{article}
-\usepackage{listings}
-\usepackage{xcolor}
-
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\section{Code}
+
+\subsection{Aus einer Datei}
 
 \lstdefinelanguage{Godot}{
 	keywords={class_name, func, for, return, in range, is, var}
@@ -32,12 +32,4 @@
 
 \lstset{style=mystyle}
 
-\begin{document}
-
-\section{Code}
-
-\subsection{Aus einer Datei}
-
-\lstinputlisting[firstline=2, language=Godot, caption={GOAP Action Interface}, label=lst:caption]{action.gd}
-
-\end{document}
+\lstinputlisting[firstline=2, language=Godot, caption={GOAP Action Interface}, label=lst:caption]{code/action.gd}
