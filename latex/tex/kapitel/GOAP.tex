@@ -134,8 +134,9 @@ Der A* ist in der Videospiel-Entwicklung für die Suche des Navigation-Pfades be
 
 Es ist zwar möglich aus dem Ausgangszustand zu suchen, könnte aber einem \textit{Brute Force} ähneln und dadurch ineffizient sein. Die Aktion wird nicht wie bei der Navigation vom Ausgangszustand ausgewählt, sondern aus dem Zielzustand $s_z$ aus. Von dort aus wird die Suche nach Aktionen fortgesetzt, die die Vorbedingungen der zuvor gewählten Aktion erfüllen. Die Suche wird fortgesetzt bis alle Vorbedingungen von Aktionen erfüllt wurden. Der Planer speichert dabei die Auswahl der Aktionen in einer Sequenz ab.
 
+%---------------------------------------------------------------------------------------------------------------------------------------
 
-\subsection{Beispiel}
+\section{Beispiel}
 
 Wir setzten das Beispiel mit dem Wissen über den GOAP Planner fort.
 \[
@@ -166,7 +167,10 @@ Wir setzten das Beispiel mit dem Wissen über den GOAP Planner fort.
       \bottomrule
     \end{tabularx}
 \end{table}
+
 Der GOAP Planer wählt das Ziel mit der höchsten Priorität und Gültigkeit. Nehmen wir an, dass das Ziel \textit{Patrol} aufgrund der \textit{VALID(s,Patrol)} Funktion nicht gültig ist, so würde das Ziel ausfallen. Es verbleiben die Ziele: \textit{EliminatePlayer} und \textit{SearchEnemy}. Da \textit{EliminatePlayer} mit $PRIORTIY(s,EliminatePlayer) = 3$ die höhere Priorität hat, wird diese als Ziel ausgewählt.
+
+\subsubsection{Suche nach der Aktion-Sequenz}
 
 \begin{table}[h]
   \caption{Aktionen ihre Effekte und Vorausgesetzte Zustände}
@@ -179,7 +183,7 @@ Der GOAP Planer wählt das Ziel mit der höchsten Priorität und Gültigkeit. Ne
       \textbf{Aktion} & \textbf{Effekt} & \textbf{Vorausgesetzte Zustände} & \textbf{Kosten}\\
       \toprule
       Shoot & \lnot$ PlayerAlive & GunLoaded, PlayerVisible & 1\\
-			Melee & \lnot$ PlayerAlive & AtPlayer, PlayerVisible & 1\\
+			Melee & \lnot$ PlayerAlive & AtPlayer, PlayerVisible & 3\\
       Reload & GunLoaded & \lnot$ GunLoaded & 1\\
       GoTo & AtCover, AtPlayer & - & 10 \\
 			Heal & Healed &  AtCover & 1 &
@@ -188,7 +192,55 @@ Der GOAP Planer wählt das Ziel mit der höchsten Priorität und Gültigkeit. Ne
 \end{table}
 $
 
-Der Algorithmus erstellt nun einen Suchbaum. Der Wurzelknoten im Suchbaum speichert, dabei den erwünschten Zielzustand des Zieles. Im Falle des Beispieles ist der Zielzustand $s_z = GOAL(EliminatePlayer) = \{\lnot PlayerAlive\}$. Nun sucht der Planner alle möglichen Aktionen die den Zielzustand erreichen $ACTIONS(s_z) = {Shoot, Melee}$.
+Der Algorithmus erstellt nun einen Suchbaum. Der Wurzelknoten im Suchbaum speichert, dabei den erwünschten Zielzustand des Zieles. Im Falle des Beispiels ist der Zielzustand $s_z = GOAL(EliminatePlayer) = \{\lnot PlayerAlive\}$.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=10cm]{GOAP/GOAP_1}
+	\captionsetup{justification=justified, format=plain}
+  \caption{GOAP A* Suche: Grüne Knoten sind Knoten, welche erweitert wurden. Blaue Knoten sind Knoten aus der offenen Liste.}
+  \label{GOAP A* Suche: Erste Aktionen}
+\end{figure}
+
+Nun sucht der Planner alle möglichen Aktionen die den Zielzustand erreichen ($ACTIONS(s_z) = {Shoot, Melee}$). Es werden nicht erfüllte und vorausgesetzte Zustände der gefundenen Aktionen, sowie die Kosten $g(n)$ und $f(n)$ in den Knoten hinterlegt. Beide werden in die offene Liste hinzugefügt.
+
+Zur weiteren Suche entscheidet sich der A* Algorithmus für den Knoten mit den geringsten Kosten aus der offenen Liste, welcher durch die Bewertungsfunktion $f(n) = g(n) + h(n)$ berechnet wurde. Die Heuristik $h(n)$ stellt sich durch die Summe an noch nicht erfüllten Zuständen. Im Beispiel ist es der Knoten \textit{GunLoaded, AtCover} der durch die Aktion \textit{Shoot} generiert wurde. Der Zustand \textit{AtPlayer} bleibt weiterhin in der offenen Liste.
+\clearpage
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=15cm]{GOAP/GOAP_2}
+	\captionsetup{justification=justified, format=plain}
+  \caption{GOAP A* Suche}
+  \label{GOAP A* Suche: Erste Aktionen}
+\end{figure}
+
+Für den Knoten \textit{GunLoaded, AtCover} werden nun Aktionen gesucht, die die Zustände des Knoten erfüllen. In dem Beispiel sind es \textit{Reload} und \textit{GoTo}. Auch die Knoten die durch die Aktionen entstehen, werden in die offene Liste hinzugefügt. Erneut wählt A* den Knoten mit den geringsten Kosten $f(n)$ zur Expansion.
+\clearpage
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=15cm]{GOAP/GOAP_3}
+	\captionsetup{justification=justified, format=plain}
+  \caption{GOAP A* Suche}
+  \label{GOAP A* Suche: Erste Aktionen}
+\end{figure}
+
+Der Knoten der durch die Aktion \textit{Reload} entstand, hat dabei die geringsten $f(n)$ Kosten. Der darauf folgende Knoten der durch die Aktion \textit{GoToCover} entsteht hat zwar einen leeren Zustand und wäre somit abgeschlossen, befindet sich aber mit dem \textit{AtPlayer} Knoten, welcher geringere Kosten $f(n)$ hat in der offenen Liste.
+\clearpage
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=15cm]{GOAP/GOAP_4}
+	\captionsetup{justification=justified, format=plain}
+  \caption{GOAP A* Suche}
+  \label{GOAP A* Suche: Erste Aktionen}
+\end{figure}
+
+Aus der offenen Liste wird der nächste Knoten \textit{AtPlayer} gewählt, da dieser die niedrigsten Kosten von allen anderen offenen Knoten hat. Dieser wird durch die Aktion \textit{GoToPlayer} erfüllt und führt zu einem Knoten mit leerem Zustand.
+
+Letztlich wird der günstigste Knoten aus der offenen Liste genommen. Da dieser erfüllt ist, bzw. keine weiteren Zustände besitzt, gibt der Planner nun die Aktionen die zu ihm geführt habe in einer Sequenz zurück. Im Beispiel wäre es die Sequenz: [\textit{Melee, GoToPlayer}].
+\clearpage
 
 %\section{Unterschiede STRIPS und GOAP}
 %
