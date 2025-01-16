@@ -205,7 +205,6 @@ Der Algorithmus erstellt nun einen Suchbaum. Der Wurzelknoten im Suchbaum speich
 Nun sucht der Planner alle möglichen Aktionen die den Zielzustand erreichen ($ACTIONS(s_z) = {Shoot, Melee}$). Es werden nicht erfüllte und vorausgesetzte Zustände der gefundenen Aktionen, sowie die Kosten $g(n)$ und $f(n)$ in den Knoten hinterlegt. Beide werden in die offene Liste hinzugefügt.
 
 Zur weiteren Suche entscheidet sich der A* Algorithmus für den Knoten mit den geringsten Kosten aus der offenen Liste, welcher durch die Bewertungsfunktion $f(n) = g(n) + h(n)$ berechnet wurde. Die Heuristik $h(n)$ stellt sich durch die Summe an noch nicht erfüllten Zuständen. Im Beispiel ist es der Knoten \textit{GunLoaded, AtCover} der durch die Aktion \textit{Shoot} generiert wurde. Der Zustand \textit{AtPlayer} bleibt weiterhin in der offenen Liste.
-\clearpage
 
 \begin{figure}[h]
   \centering
@@ -226,7 +225,7 @@ Für den Knoten \textit{GunLoaded, AtCover} werden nun Aktionen gesucht, die die
   \label{GOAP A* Suche: Erste Aktionen}
 \end{figure}
 
-Der Knoten der durch die Aktion \textit{Reload} entstand, hat dabei die geringsten $f(n)$ Kosten. Der darauf folgende Knoten der durch die Aktion \textit{GoToCover} entsteht hat zwar einen leeren Zustand und wäre somit abgeschlossen, befindet sich aber mit dem \textit{AtPlayer} Knoten, welcher geringere Kosten $f(n)$ hat in der offenen Liste.
+Der Knoten der durch die Aktion \textit{Reload} entstand, hat dabei die geringsten $f(n)$ Kosten. Der darauf folgende Knoten der durch die Aktion \textit{GoToCover} entsteht hat zwar einen leeren Zustand und wäre somit abgeschlossen, befindet sich aber mit dem \textit{AtPlayer} Knoten, welcher geringere Kosten hat in der offenen Liste.
 \clearpage
 
 \begin{figure}[h]

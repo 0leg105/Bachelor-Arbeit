@@ -51,7 +51,12 @@ Die Lösung für ein Suchproblem ist dabei ist die Sequenz an Aktionen, also der
 
 \section{Suchalgorithmen}
 
-Das Suchproblem soll mit seinen Informationen durch einen Suchalgorithmus gelöst werden. Ein Suchalgorithmus erzeugt aus dem Suchproblem einen Suchbaum. Wie beim Graphen besteht ein Suchbaum aus Knoten $n$ und Kanten $a$, welche zu weiteren Knoten führen. Ein Knoten speichert dabei:
+Das Suchproblem soll mit seinen Informationen durch einen Suchalgorithmus gelöst werden. Ein Suchalgorithmus erzeugt aus dem Suchproblem einen Suchbaum. Wie beim Graphen besteht ein Suchbaum aus Knoten $n$ und Kanten $a$, welche zu weiteren Knoten führen. 
+
+
+\subsection{Knoten eines Suchbaums}
+
+Ein Knoten speichert dabei:
 \begin{itemize}
 	\item Einen Zustand, zu dem die Aktion des jeweiligen Knoten geführt hat
 	\item Eine Aktion, die auf dem Eltern-Knoten ausgeführt wurde
@@ -59,6 +64,9 @@ Das Suchproblem soll mit seinen Informationen durch einen Suchalgorithmus gelös
 	\item Die Pfad-Kosten, der die summierten Kosten vom Ausgangsknoten bis zum jeweiligen Knoten speichert
 \end{itemize}
 Der Wurzelknoten ist dabei der Ausgangszustand des Agenten. Der Suchbaum beschreibt dabei Pfade zu Knoten und Ziel-Knoten, wobei mehrere Pfade zum selben Zustand führen können, jedoch jeder Knoten im Suchbaum einen eindeutigen Pfad zurück zur Wurzel hat.
+
+
+\subsection{Expansion eines Suchalgorithmus}
 
 Bei der Expandierung schaut sich der Suchalgorithmus über die $TRANSITIONS(n)$ -Funktion alle möglichen Kanten $ACTIONS(n)$ für den derzeitigen Knoten $n$ an.Zu den Kanten werden die dazugehörigen Kind-Knoten generiert, welche in eine offene-Liste hinzugefügt werden. Der Suchalgorithmus bestimmt den nächsten zu expandierenden Knoten aus der offenen Liste basierend auf dem jeweiligen Suchverfahren und dessen Bewertungsfunktion $f(n)$.
 
