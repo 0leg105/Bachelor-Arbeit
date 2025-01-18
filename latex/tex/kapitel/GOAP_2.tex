@@ -70,7 +70,7 @@ Die Klasse GoapAction definiert die Basisklasse für Aktionen. Eine Aktion repr�
 
 \subsection{GoapAgent}
 
-Folgende Abbildung stellt die Klasse GoapAgenten dar. Der GoapAgent speichert den GoapPlanner und die FiniteStateMachine als Objektvariable. Das action\_sequence Array speichert Klassenattribute des Typs GoapAction. Bei den Methoden handelt es sich \_process, get\_action\_sequence, und request\_plan. Die Darstellung wird anhand eines Klassendiagramms in UML-Notation umgesetzt.
+Folgende Abbildung stellt die Klasse GoapAgenten dar. Der GoapAgent speichert den GoapPlanner als Objektvariable. Das action\_sequence Array speichert Klassenattribute des Typs GoapAction. Bei den Methoden handelt es sich um \_process, get\_action\_sequence, und request\_plan. Die Darstellung wird anhand eines Klassendiagramms in UML-Notation umgesetzt.
 
 \begin{figure}[h]
   \centering
@@ -80,7 +80,7 @@ Folgende Abbildung stellt die Klasse GoapAgenten dar. Der GoapAgent speichert de
   \label{GOAP Agent}
 \end{figure}
 
-Die Methode \_process(delta: float) ist eine von Godot bereitgestellte Funktion, die jeden Frame aufgerufen wird, um kontinuierliche Logik wie Bewegungen, Animationen oder Eingaben zu verarbeiten. Mit hilfe dieser Methode werden Methoden anderer Klassen aufgerufen. Der Parameter delta repräsentiert die Zeit seit dem letzten Frame und könnte an andere Methoden übergeben werden.
+Die Methode update Die Methode \_process(delta: float) ist eine von Godot bereitgestellte Funktion, die jeden Frame aufgerufen wird, um kontinuierliche Logik wie Bewegungen, Animationen oder Eingaben zu verarbeiten. Mit hilfe dieser Methode werden Methoden anderer Klassen aufgerufen. Der Parameter delta repräsentiert die Zeit seit dem letzten Frame und könnte an andere Methoden übergeben werden.
 
 \lstinputlisting[firstline=2, language=Godot, linerange={13,16-20}, caption={GoapAgent Klasse}, label=lst:caption]{code/goap_enemy.gd}
 
@@ -150,7 +150,7 @@ Wenn A$^*$ einen Knoten erweitert, der keine zu erfüllenden Zustände mehr besi
 
 \subsection{AStarNode}
 
-[...]
+...
 
 \begin{figure}[h]
   \centering
@@ -160,12 +160,13 @@ Wenn A$^*$ einen Knoten erweitert, der keine zu erfüllenden Zustände mehr besi
   \label{AStarNode}
 \end{figure}
 
-Der AStarNode geht nach einem Knoten eine Suchbaums [siehe Kapitel: Knoten eines Suchbaums]. Er speichert die bis dahin erfüllten Zustände im Attribut current\_state\_of\_goals, sowie alle Zielzustände die bis zu dem Knoten benötigt werden im Attribut goal\_state. Die Objektvariable parent_node speichert den Elternknoten, um später rekursiv auf die Kanten zurückschließen zu können. Die Kanten die zum Knoten geführt haben werden als GoapAction Objekt in der Objektvariable action gespeichert. 
+Der AStarNode geht nach einem Knoten eine Suchbaums [siehe Kapitel: Knoten eines Suchbaums]. Er speichert die bis dahin erfüllten Zustände der Elternknoten im Attribut current\_state\_of\_goals, sowie alle Zielzustände die bis zu dem Knoten benötigt wurden im Attribut goal\_state. Die Objektvariable parent\_node speichert den Elternknoten, um später rekursiv auf die Kanten zurückschließen zu können. Die Kanten die zum Knoten geführt haben werden als GoapAction Objekt in der Objektvariable action gespeichert. Durch den Godot Konstruktor \_init wird der Knoten mit den eben genannten Attributen instanziiert.
 
-Die Kosten $f(n)$ werden unter f\_cost und $g(n)$ -Kosten unter g\_cost gespeichert. Die Berechnung der Kosten passiert durch die GoapPlanner Methode expand\_node und werden über die setter- Methoden des AStarNode set\_g\_cost und set\_f\_cost initialisiert. Die Heuristik Kosten werden in der expand\_node Methode des GoapPlanner berechnet. Über die Methode get\_unsatasfied\_states werden alle Zustände zurückgegeben, welche noch nicht erreicht wurden. Die Größe des 
+Die Kosten $f(n)$ werden unter f\_cost und $g(n)$ -Kosten unter g\_cost gespeichert. Die Berechnung der Kosten passiert durch die GoapPlanner Methode expand\_node und werden über die setter- Methoden des AStarNode set\_g\_cost und set\_f\_cost initialisiert. Die Heuristik Kosten werden in der expand\_node Methode des GoapPlanner berechnet. Über die Methode get\_unsatasfied\_states werden alle Zustände zurückgegeben, welche noch nicht erreicht wurden. Die Größe des Arrays welches von get\_unsatasfied\_states gegeben wird repräsentiert die heuristischen Kosten der Aktion.
 
+Wird eine Kante gewählt, so muss ein neuer Zustand für den dazugehörigen Knoten durch die apply\_action\_to\_state Methode generiert werden. Die Methode wird vom GoapPlanner über die Methode get\_child\_nodes auf dem zu expandierten Knoten aufgerufen. Dabei wird die Aktion als Kante und der derzeitige NPC-Zustand als Parameter übergeben. Basierend auf den Parameter initialisiert die Methode, die Attribute goal\_states und current\_state\_of\_goals für den neuen Knoten. Außerdem initialisiert sie den zu expandierten Knoten als parent\_node sowie die Aktion als action.
 
-
+Die Prüfung ob die Zustände eines expandierten Knoten erfüllt wurden, wird durch is\_satasfied geprüft. Dabei schaut die Methode ob die Größe des Array welches über die Methode get\_unsatasfied\_states leer ist. Sollte das Array leer sein, so gibt es keine zu erfüllenden Zustände und der AStarNode ist der Zielknoten. Die getter-Methoden geben die Attribute des AStarNode zurück.
 
 \subsection{GoapGoal}
 
@@ -205,5 +206,5 @@ Eine get\_preconditions Methode gibt die vorausgesetzten Zustände zurück, welc
 
 Die update Methode leitet die eigentliche Ausführung der Aktion ein und wird von der FSM gestartet. Die Hoffnung dabei ist, dass die Aktion den erwünschten Wert des Effekts umsetzt. Aufgrund der nicht-deterministischen Natur der Spielwelt kann es jedoch vorkommen, dass der angestrebte Effekt nicht erreicht wird. Wird der Effekt nicht erreicht, so wird eine neue Sequenz angefordert oder das Ziel ändert sich bis dahin. Die Ausführung der Aktion wird dabei über Komponenten der Klasse Npc umgesetzt. Die Methode get\_action\_name gibt den Namen der Aktion zurück.
 
-\lstinputlisting[firstline=2, language=Godot, linerange={}, caption={Die Aktion RangedAttack erbt von GoapAction}, label=lst:caption]{code/goap_ranged_attack.gd}
+%\lstinputlisting[firstline=2, language=Godot, linerange={}, caption={Die Aktion RangedAttack erbt von GoapAction}, label=lst:caption]{code/goap_ranged_attack.gd}
 

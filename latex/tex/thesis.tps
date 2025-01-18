@@ -18,7 +18,7 @@ Document=thesis.tex
 
 [Frame0_View0,0]
 TopLine=81
-Cursor=3910
+Cursor=4273
 
 [Frame1]
 Flags=0
@@ -72,7 +72,7 @@ Document=kapitel\Code Kapitel.tex
 
 [Frame3_View0,0]
 TopLine=0
-Cursor=220
+Cursor=190
 
 [Frame4]
 Flags=0
@@ -107,7 +107,7 @@ Class=LaTeXView
 Document=kapitel\kapitel3.tex
 
 [Frame5_View0,0]
-TopLine=76
+TopLine=82
 Cursor=4607
 
 [Frame6]
@@ -161,8 +161,8 @@ Class=LaTeXView
 Document=info_kapitel\kapitel3.tex
 
 [Frame8_View0,0]
-TopLine=0
-Cursor=1295
+TopLine=135
+Cursor=5932
 
 [Frame9]
 Flags=0
@@ -179,8 +179,8 @@ Class=LaTeXView
 Document=kapitel\Mathe Formel.tex
 
 [Frame9_View0,0]
-TopLine=162
-Cursor=2789
+TopLine=0
+Cursor=6333
 
 [Frame10]
 Flags=0
@@ -198,7 +198,7 @@ Document=kapitel\GOAP.tex
 
 [Frame10_View0,0]
 TopLine=242
-Cursor=12046
+Cursor=12545
 
 [Frame11]
 Flags=0
@@ -215,8 +215,8 @@ Class=LaTeXView
 Document=kapitel\GOAP_2.tex
 
 [Frame11_View0,0]
-TopLine=62
-Cursor=6265
+TopLine=50
+Cursor=4121
 
 [SessionInfo]
 FrameCount=12
