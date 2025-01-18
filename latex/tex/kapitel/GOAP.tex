@@ -204,7 +204,7 @@ Der Algorithmus erstellt nun einen Suchbaum. Der Wurzelknoten im Suchbaum speich
 
 Nun sucht der Planner alle möglichen Aktionen die den Zielzustand erreichen ($ACTIONS(s_z) = {Shoot, Melee}$). Es werden nicht erfüllte und vorausgesetzte Zustände der gefundenen Aktionen, sowie die Kosten $g(n)$ und $f(n)$ in den Knoten hinterlegt. Beide werden in die offene Liste hinzugefügt.
 
-Zur weiteren Suche entscheidet sich der A* Algorithmus für den Knoten mit den geringsten Kosten aus der offenen Liste, welcher durch die Bewertungsfunktion $f(n) = g(n) + h(n)$ berechnet wurde. Die Heuristik $h(n)$ stellt sich durch die Summe an noch nicht erfüllten Zuständen. Im Beispiel ist es der Knoten \textit{GunLoaded, AtCover} der durch die Aktion \textit{Shoot} generiert wurde. Der Zustand \textit{AtPlayer} bleibt weiterhin in der offenen Liste.
+Zur weiteren Suche entscheidet sich der A* Algorithmus für den Knoten mit den geringsten Kosten aus der offenen Liste, welcher durch die Bewertungsfunktion $f(n) = g(n) + h(n)$ berechnet wurde. Die Heuristik $h(n)$ stellt sich durch die Summe an noch nicht erfüllten Zuständen. Im Beispiel expandiert A* den Knoten \textit{GunLoaded, AtCover} der durch die Aktion \textit{Shoot} generiert wurde. Der Zustand \textit{AtPlayer} bleibt weiterhin in der offenen Liste.
 
 \begin{figure}[h]
   \centering
@@ -214,7 +214,7 @@ Zur weiteren Suche entscheidet sich der A* Algorithmus für den Knoten mit den g
   \label{GOAP A* Suche: Erste Aktionen}
 \end{figure}
 
-Für den Knoten \textit{GunLoaded, AtCover} werden nun Aktionen gesucht, die die Zustände des Knoten erfüllen. In dem Beispiel sind es \textit{Reload} und \textit{GoTo}. Auch die Knoten die durch die Aktionen entstehen, werden in die offene Liste hinzugefügt. Erneut wählt A* den Knoten mit den geringsten Kosten $f(n)$ zur Expansion.
+Für den expandierten Knoten \textit{GunLoaded, AtCover} werden nun Aktionen gesucht, die die Zustände des Knoten erfüllen. In dem Beispiel sind es \textit{Reload} und \textit{GoTo}. Auch die Knoten die durch die Aktionen entstehen, werden in die offene Liste hinzugefügt. Erneut wählt A* den Knoten mit den geringsten Kosten $f(n)$ zur Expansion.
 \clearpage
 
 \begin{figure}[h]
