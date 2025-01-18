@@ -4,7 +4,7 @@
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
 \lstdefinelanguage{Godot}{
-	keywords={class_name, func, for, return, in range, is, var, not, continue},
+	keywords={class_name, func, for, return, in range, is, var, not, continue, or},
 	morecomment=[l]{#}
 }
 
@@ -59,7 +59,7 @@ Der GoapAgent bildet dabei die Hauptklasse und soll die Schnittstelle zur restli
 
 Der StateManager verwaltet die Zustände des NPC. Diese Zustände können über die Komponenten der Oberklasse Enemy verändert werden können.
 
-Die FSM setzt die Aktionssequenz aus, welche im GoapAgent gespeichert wird. Sie kann neue Sequenzen an den Goap gent anfordern.
+Die FSM setzt die Aktionssequenz aus, welche im GoapAgent gespeichert wird. Sie kann neue Sequenzen an den GoapAgent anfordern.
 
 Zur Generierung von Sequenzen und Festlegung des Zieles benutzt der GoapAgent die Klasse GoapPlanner. Der GoapPlanner besitzt dabei Objekte der Klasse GoapGoal. Aus diesen Objekten entscheidet sich der GoapPlanner für ein Zielzustand, zu welchem eine Aktionssequenz gesucht wird.
 Der GoapPlanner sucht seine Sequenz mithilfe des A* Suchalgorithmus. Die Klasse AStarNode wird zur Erstellung von Knoten für den A* Suchalgorithmus benötigt. Ein AStarNode setzt dabei die Eigenschaften eines Suchbaum-Knoten um [siehe Kapitel Suchproblem, Knoten].
@@ -70,8 +70,16 @@ Die Klasse GoapAction definiert die Basisklasse für Aktionen. Eine Aktion repr�
 
 \subsection{GoapAgent}
 
-Folgende Abbildung stellt die Klasse GoapAgenten dar. Der GoapAgent speichert den GoapPlanner als Objektvariable. Das action\_sequence Array speichert Klassenattribute des Typs GoapAction. Bei den Methoden handelt es sich um \_process, get\_action\_sequence, und request\_plan. Die Darstellung wird anhand eines Klassendiagramms in UML-Notation umgesetzt.
+% Zusammenfassung
+Folgende Abbildung stellt die Klasse GoapAgent dar. Die Darstellung wird anhand eines Klassendiagramms in UML-Notation umgesetzt. Der GoapAgent speichert folgende Klassenvariablen: goap\_planner, action\_sequence und den current\_step. Bei den Methoden handelt es sich um: update und follow\_sequence. 
 
+% Klasse Enemy
+Unter anderem erbt die Klasse Komponenten der Klasse Enemy. Die Komponenten dienen dem NPC zur Wahrnehmung und Manipulation der Videospielumgebung. Ein Beispiel einer solchen Komponente ist die vision\_component, welche über die update Methode aufgerufen, wird um den Spieler zu erfassen.
+
+% Klassen-Attribute
+Der goap\_planner ist eine Referenz auf die Klasse GoapPlanner, welche das Ziel und die action\_sequence des GoapAgent bestimmt. Das Array action\_sequence speichert Objekte vom Typ der Klasse GoapAction. Sie stellt die ermittelte Aktionssequenz durch den A* Algorithmus dar. Die Integer-Klassenvaraible current\_step handelt als Indexzeiger, welcher auf die aktuell auszuführende Aktion des action\_sequence verweist.
+
+% Goap Agent
 \begin{figure}[h]
   \centering
   \includegraphics[width=10cm]{GOAP_2/GoapAgent_UML}
@@ -80,17 +88,26 @@ Folgende Abbildung stellt die Klasse GoapAgenten dar. Der GoapAgent speichert de
   \label{GOAP Agent}
 \end{figure}
 
-Die Methode update Die Methode \_process(delta: float) ist eine von Godot bereitgestellte Funktion, die jeden Frame aufgerufen wird, um kontinuierliche Logik wie Bewegungen, Animationen oder Eingaben zu verarbeiten. Mit hilfe dieser Methode werden Methoden anderer Klassen aufgerufen. Der Parameter delta repräsentiert die Zeit seit dem letzten Frame und könnte an andere Methoden übergeben werden.
+% Methoden
+Die Methode update wird durch eine \_process Funktion jedes \textit{Frame} aufgerufen, um kontinuierliche Logik wie Bewegungen oder Raycasting des GoapAgent zu verarbeiten. Die \_process Funktion wird von Godot 4.3 bereitgestellt. Sie befindet sich in der Komponente, welche das Objekt GoapAgent instanziiert. Die update Methode ruft Methoden der Klassen und Komponenten innerhalb des NPC auf. Der Parameter delta repräsentiert die Zeit seit dem letzten Frame und könnte an andere Methoden übergeben werden.
 
-\lstinputlisting[firstline=2, language=Godot, linerange={13,16-20}, caption={GoapAgent Klasse}, label=lst:caption]{code/goap_enemy.gd}
+% update Methode
+\lstinputlisting[firstline=2, language=Godot, linerange={12,14-17,19}, caption={update Methode des GoapAgent}, label=lst:caption]{code/goap_enemy.gd}
 
-Die Getter-Methode get\_action\_sequence gibt das action\_sequence Array zurück, um es der aufrufenden Objektvariable FSM zur Verfügung zu stellen.
+In der update Methode wird eine Abfrage gestellt, ob der goap\_planner eine neue action\_sequence generiert hat. Wurde eine neue action\_sequence generiert, so wird die Objektvariable current\_step auf $0$ zurückgesetzt und die neue action\_sequence aus dem goap\_planner abgerufen. Die action\_sequence wird dann durch die Methode follow\_sequence ausgeführt.
 
-Die request\_plan Methode soll dem GoapAgent signalisieren, dass eine neue Sequenz an Aktionen benötigt wird, da diese zum jetzigen Zustand nicht gültig ist oder abgeschlossen wurde. Die Methode wird ebenfalls von der Objektvariable FSM aufgerufen. Somit würde der GoapAgent einen neue Seqeuenz an den GoapPlanner anfragen.
+% follow_sequence Methode
+Über die Methode follow\_sequence geschieht die Ausführung der Aktionen aus der action\_sequence. Sollte action\_sequence leer sein, bereits ausgeführt worden oder ungültig sein, so wird eine neue action\_sequence von dem goap\_planner gefordert. Ansonsten wird mithilfe des current\_step Index die jeweilige Aktion über ihre GoapAction.update Methode ausgeführt. Bei erfolgreicher Ausführung der Aktion wird der current\_step inkrementiert, um auf die nächste Aktion der action\_seqeunce zugreifen zu können.
+
+\lstinputlisting[firstline=2, language=Godot, linerange={21-28}, caption={follow\_sequence Methode des GoapAgent}, label=lst:caption]{code/goap_enemy.gd}
+
+
+
 
 \subsection{GoapPlanner}
 
-Folgende Abbildung zeigt die Struktur des GoapPlanner, anhand eines Klassendiagramms in UML-Notation. Die Klasse besteht aus den Arrays actions, goals und current\_plan, den Dictionaries effect\_action\_table und current\_state, sowie den Boolean create\_plan.
+% Zusammenfassung
+Folgende Abbildung zeigt die Struktur des GoapPlanner, anhand eines Klassendiagramms in UML-Notation. Die Klasse besteht aus den Array Klassenvariablen actions, goals und current\_plan, den Dictionaries effect\_action\_table und current\_state, sowie dem Boolean create\_plan. Zu den Methoden gehören update, create_effect_action_dict, create_new_sequence, create_current_state_of_goals, create_path
 
 \begin{figure}[h]
   \centering
@@ -100,7 +117,8 @@ Folgende Abbildung zeigt die Struktur des GoapPlanner, anhand eines Klassendiagr
   \label{GoapPlanner}
 \end{figure}
 
-Die Methode update ist dabei die Methode, welche von der \_process Methode des GoapAgent aufgerufen wird. Von update werden weitere  Methoden und Abfragen durchgeführt. Einer der Methoden ist get\_best\_plan(), welche das Ziel aus dem goal Array auswählt. Wird eine neue Sequenz angefordert oder ändert sich das Ziel während der Laufzeit, so soll eine neue Sequenz gesucht werden. Die Suche geschieht über die Methode \textit{create\_new\_plan}.
+Die GoapPlanner Methode update wird durch die update Methode des GoapAgent aufgerufen. Von update werden weitere Methoden und Abfragen durchgeführt. Einer der Methoden ist get\_best\_plan, welche das Ziel aus dem goal Array auswählt. Ändert sich das Ziel oder wird eine neue Sequence über create\_sequence Variable angefragt
+Wird eine neue Sequenz angefordert oder ändert sich das Ziel während der Laufzeit, so soll eine neue Sequenz gesucht werden. Die Suche geschieht über die Methode \textit{create\_new\_sequence}. 
 
 \lstinputlisting[firstline=2, language=Godot, linerange={16-22}, caption={\textit{update} Methode des GoapAgent}, label=lst:caption]{code/goap_a_star_planner.gd}
 
@@ -108,7 +126,7 @@ Die Methode update ist dabei die Methode, welche von der \_process Methode des G
 
 \lstinputlisting[firstline=2, language=Godot, linerange={42-59}, caption={A* Algorithmus des GoapPlanner}, label=lst:caption]{code/goap_a_star_planner.gd}
 
-Man beachte, dass Godot 4.3 keine PriorityQueue besitzt und man diese selbst umsetzen müsste. Eine PriorityQueue speichert Knoten sortiert nach ihren $f(n)$ Kosten, sodass Knoten mit den niedrigsten Kosten bevorzugt abgerufen werden. Die Umsetzung befindet sich im Anhang.
+Man beachte, dass Godot 4.3 keine PriorityQueue besitzt und man diese selbst umsetzen müsste. Eine PriorityQueue speichert Knoten in sortierter Reihenfolge nach ihren $f(n)$ Kosten, sodass Knoten mit den niedrigsten Kosten bevorzugt abgerufen werden. Die Umsetzung befindet sich im Anhang...
 
 Die expand\_node Methode fügt Kindknoten des expandierten Knoten in die open\_list, welche vorher von A$^*$ gewählt wurde. Es folgt die Instanziierung der Kosten $g(n)$, $h(n)$ und $f(n)$ der Kindknoten und die Hinzufügung in die \textit{open\_list}.
 
@@ -166,7 +184,10 @@ Die Kosten $f(n)$ werden unter f\_cost und $g(n)$ -Kosten unter g\_cost gespeich
 
 Wird eine Kante gewählt, so muss ein neuer Zustand für den dazugehörigen Knoten durch die apply\_action\_to\_state Methode generiert werden. Die Methode wird vom GoapPlanner über die Methode get\_child\_nodes auf dem zu expandierten Knoten aufgerufen. Dabei wird die Aktion als Kante und der derzeitige NPC-Zustand als Parameter übergeben. Basierend auf den Parameter initialisiert die Methode, die Attribute goal\_states und current\_state\_of\_goals für den neuen Knoten. Außerdem initialisiert sie den zu expandierten Knoten als parent\_node sowie die Aktion als action.
 
-Die Prüfung ob die Zustände eines expandierten Knoten erfüllt wurden, wird durch is\_satasfied geprüft. Dabei schaut die Methode ob die Größe des Array welches über die Methode get\_unsatasfied\_states leer ist. Sollte das Array leer sein, so gibt es keine zu erfüllenden Zustände und der AStarNode ist der Zielknoten. Die getter-Methoden geben die Attribute des AStarNode zurück.
+Die Prüfung ob die Zustände eines expandierten Knoten erfüllt wurden, wird durch is\_satasfied geprüft. Dabei schaut die Methode ob die Größe des Array welches über die Methode get\_unsatasfied\_states leer ist. Sollte das Array leer sein, so gibt es keine zu erfüllenden Zustände und der AStarNode ist der Zielknoten. Die getter-Methoden geben die Variablen des AStarNode zurück.
+
+
+
 
 \subsection{GoapGoal}
 
@@ -184,7 +205,7 @@ Die Informationen zur Priorität und Gültigkeit werden aus der Objektvariable s
 
 Über die Methode get\_desired\_state werden die Zielzustände aufgerufen, welche der GoapPlanner zur Suche der Sequenz benötigt. 
 
-Die Methode get\_goal\_name gibt den Namen des GoapGoals zurück, welche von Debug Methoden genutzt werden kann.
+Die Methode get\_goal\_name gibt den Klassennamen des GoapGoal zurück, welche von Debug Methoden genutzt werden kann.
 
 
 
@@ -204,7 +225,7 @@ Mit hilfe der Objektvariablen character\_body und state\_manager werden die Kost
 
 Eine get\_preconditions Methode gibt die vorausgesetzten Zustände zurück, welche von anderen Aktionen erfüllt werden können. Ob eine Aktion einen Zustand erfüllen kann, hängt von der get\_effects Methode ab, welche ein \textit{Dictionary} mit dem Zustand und dessen Wert zurückgibt. Stimmt der Wert des Zustands mit dem Zielzustand überein, dann erfüllt die Aktion den Zustand.
 
-Die update Methode leitet die eigentliche Ausführung der Aktion ein und wird von der FSM gestartet. Die Hoffnung dabei ist, dass die Aktion den erwünschten Wert des Effekts umsetzt. Aufgrund der nicht-deterministischen Natur der Spielwelt kann es jedoch vorkommen, dass der angestrebte Effekt nicht erreicht wird. Wird der Effekt nicht erreicht, so wird eine neue Sequenz angefordert oder das Ziel ändert sich bis dahin. Die Ausführung der Aktion wird dabei über Komponenten der Klasse Npc umgesetzt. Die Methode get\_action\_name gibt den Namen der Aktion zurück.
+Die update Methode leitet die eigentliche Ausführung der Aktion ein und wird von der FSM gestartet. Die Hoffnung dabei ist, dass die Aktion den erwünschten Wert des Effekts umsetzt. Aufgrund der nicht-deterministischen Natur der Spielwelt kann es jedoch vorkommen, dass der angestrebte Effekt nicht erreicht wird. Wird der Effekt nicht erreicht, so wird eine neue Sequenz angefordert oder das Ziel ändert sich bis dahin. Die Ausführung der Aktion wird dabei über Komponenten der Klasse Npc umgesetzt. Die Methode get\_action\_name gibt den Klassennamen der GoapAction zurück.
 
 %\lstinputlisting[firstline=2, language=Godot, linerange={}, caption={Die Aktion RangedAttack erbt von GoapAction}, label=lst:caption]{code/goap_ranged_attack.gd}
 
