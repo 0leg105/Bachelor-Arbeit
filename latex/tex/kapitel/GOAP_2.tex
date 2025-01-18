@@ -76,7 +76,9 @@ Folgende Abbildung stellt die Klasse GoapAgent dar. Die Darstellung wird anhand 
 % Klasse Enemy
 Unter anderem erbt die Klasse Komponenten der Klasse Enemy. Die Komponenten dienen dem NPC zur Wahrnehmung und Manipulation der Videospielumgebung. Ein Beispiel einer solchen Komponente ist die vision\_component, welche über die update Methode aufgerufen, wird um den Spieler zu erfassen.
 
-% Klassen-Attribute
+
+\subsubsection{Klassenattribute}
+
 Der goap\_planner ist eine Referenz auf die Klasse GoapPlanner, welche das Ziel und die action\_sequence des GoapAgent bestimmt. Das Array action\_sequence speichert Objekte vom Typ der Klasse GoapAction. Sie stellt die ermittelte Aktionssequenz durch den A* Algorithmus dar. Die Integer-Klassenvaraible current\_step handelt als Indexzeiger, welcher auf die aktuell auszuführende Aktion des action\_sequence verweist.
 
 % Goap Agent
@@ -88,7 +90,9 @@ Der goap\_planner ist eine Referenz auf die Klasse GoapPlanner, welche das Ziel 
   \label{GOAP Agent}
 \end{figure}
 
-% Methoden
+
+\subsubsection{Methoden}
+
 Die Methode update wird durch eine \_process Funktion jedes \textit{Frame} aufgerufen, um kontinuierliche Logik wie Bewegungen oder Raycasting des GoapAgent zu verarbeiten. Die \_process Funktion wird von Godot 4.3 bereitgestellt. Sie befindet sich in der Komponente, welche das Objekt GoapAgent instanziiert. Die update Methode ruft Methoden der Klassen und Komponenten innerhalb des NPC auf. Der Parameter delta repräsentiert die Zeit seit dem letzten Frame und könnte an andere Methoden übergeben werden.
 
 % update Methode
@@ -103,11 +107,10 @@ In der update Methode wird eine Abfrage gestellt, ob der goap\_planner eine neue
 
 
 
-
 \subsection{GoapPlanner}
 
 % Zusammenfassung
-Folgende Abbildung zeigt die Struktur des GoapPlanner, anhand eines Klassendiagramms in UML-Notation. Die Klasse besteht aus den Array Klassenvariablen actions, goals und current\_plan, den Dictionaries effect\_action\_table und current\_state, sowie dem Boolean create\_plan. Zu den Methoden gehören update, create_effect_action_dict, create_new_sequence, create_current_state_of_goals, create_path
+Folgende Abbildung zeigt die Struktur des GoapPlanner, anhand eines Klassendiagramms in UML-Notation. Die Klassenvariablen und Methoden können in der folgenden Abbildung entnommen werden.
 
 \begin{figure}[h]
   \centering
@@ -117,22 +120,17 @@ Folgende Abbildung zeigt die Struktur des GoapPlanner, anhand eines Klassendiagr
   \label{GoapPlanner}
 \end{figure}
 
-Die GoapPlanner Methode update wird durch die update Methode des GoapAgent aufgerufen. Von update werden weitere Methoden und Abfragen durchgeführt. Einer der Methoden ist get\_best\_plan, welche das Ziel aus dem goal Array auswählt. Ändert sich das Ziel oder wird eine neue Sequence über create\_sequence Variable angefragt
-Wird eine neue Sequenz angefordert oder ändert sich das Ziel während der Laufzeit, so soll eine neue Sequenz gesucht werden. Die Suche geschieht über die Methode \textit{create\_new\_sequence}. 
 
-\lstinputlisting[firstline=2, language=Godot, linerange={16-22}, caption={\textit{update} Methode des GoapAgent}, label=lst:caption]{code/goap_a_star_planner.gd}
+\subsubsection{Klassenattribute}
 
-Über \textit{create\_new\_plan} werden Zustände des Zieles nach dem derzeitigen Zustand des Agenten überschrieben. Dieser Zustand wird als Zustand des Wurzelknoten dienen, mit dem die a\_star\_algorithm Methode nach der Sequenz sucht. Die Funktionsweise der a\_star\_algorithm Methode wird in der folgenden Abbildung kommentiert.
+Der GoapPlanner arbeitet mit Zielen und Aktionen, welche durch die Arrays actions und goals gegeben werden. Über current\_goal wird das Ziel gespeichert, zu dem eine action\_sequence gesucht wird. Die action\_sequence ist die generierte Aktionssequenz durch den GoapPlanner und wird in einem Array mit GoapAction als Elementtyp gespeichert. 
 
-\lstinputlisting[firstline=2, language=Godot, linerange={42-59}, caption={A* Algorithmus des GoapPlanner}, label=lst:caption]{code/goap_a_star_planner.gd}
+Das current\_state Dictionary speichert den derzeitigen Zustand des NPC. Die Initialisierung des current\_state findet über den state\_manager Parameter statt, welcher über die update Methode übergeben wird.
 
-Man beachte, dass Godot 4.3 keine PriorityQueue besitzt und man diese selbst umsetzen müsste. Eine PriorityQueue speichert Knoten in sortierter Reihenfolge nach ihren $f(n)$ Kosten, sodass Knoten mit den niedrigsten Kosten bevorzugt abgerufen werden. Die Umsetzung befindet sich im Anhang...
+Das create\_sequence Attribut informiert den GoapPlanner darüber, ob eine neue action\_sequence generiert werden soll.
 
-Die expand\_node Methode fügt Kindknoten des expandierten Knoten in die open\_list, welche vorher von A$^*$ gewählt wurde. Es folgt die Instanziierung der Kosten $g(n)$, $h(n)$ und $f(n)$ der Kindknoten und die Hinzufügung in die \textit{open\_list}.
-
-\lstinputlisting[firstline=2, language=Godot, linerange={61-79}, caption={Expandierungs Methode des GoapPlanner}, label=lst:caption]{code/goap_a_star_planner.gd}
-
-Die get\_child\_nodes Methode sucht nach Kanten (Aktionen) welche die benötigten Zustände des Knoten erfüllen können. Dabei werden die benötigten Zustände mit den Zuständen der effect\_action\_dict verglichen.
+% effect_action_dict
+Das effect\_action\_dict Dictionary speichert alle Zustände als \textit{key} und die Aktionen, welche den Zustand beeinflussen können als \textit{values}. So erhält man eine schnellere Zugriffszeit, als wenn man jeden Effekt einer Aktion im Array mit dem benötigten Zustand vergleicht.
 
 \begin{lstlisting}[language=dict, caption={effect\_action\_dict aus der Implementierung}]
 effect_action_dict = {
@@ -156,19 +154,44 @@ effect_action_dict = {
 }
 \end{lstlisting}
 
-Das Dictionary speichert alle Zustände als \textit{key} und die Aktionen, welche den Zustand beeinflussen können als \textit{values}. So erhält man eine schnellere Zugriffszeit, als wenn man jeden Effekt einer Aktion im Array mit dem benötigten Zustand vergleicht. 
+
+\subsubsection{Methoden}
+
+% update
+Die GoapPlanner Methode update wird über die update Methode des GoapAgent aufgerufen. Hierbei werden Methoden und Abfragen durchgeführt, welche die current\_goal und die dazugehörige action\_sequence bestimmen. 
+
+Für die Bestimmung des current\_goal ist die Methode get\_best\_goal verantwortlich. Ändert sich das Ziel während der Laufzeit oder wird über create\_sequence eine action\_sequence angefragt, so soll eine neue action\_sequence generiert werden. Die Suche geschieht über die Methode create\_new\_sequence. 
+
+\lstinputlisting[firstline=2, language=Godot, linerange={16-22}, caption={update Methode des GoapPlanner}, label=lst:caption]{code/goap_a_star_planner.gd}
+
+% create_new_sequence Methode
+Die Methode create\_new\_sequence leitet die Generierung einer action\_sequence ein. Dafür muss ein Wurzelknoten des Typen AStarNode erstellt werden, welcher dem a\_star\_algorithm übergeben wird. Für den Wurzelknoten wird ein Dictionary über die Methode create\_current\_state\_of\_goals instanziiert, in dem die Werte der Zielzustände des current\_goal basierend auf den Werten des current\_state des Agenten überschrieben werden. Das Dictionary wird als Zustand des Wurzelknoten dienen, mit dem die a\_star\_algorithm Methode nach der Aktionssequenz sucht. Die Funktionsweise der a\_star\_algorithm Methode wird im folgenden Quellcode kommentiert. Sie sucht nach den Regeln, welche im Kapitel A$^*$ Algorithmus beschrieben werden.
+
+\lstinputlisting[firstline=2, language=Godot, linerange={42-59}, caption={a\_star\_algorithm Methode des GoapPlanner}, label=lst:caption]{code/goap_a_star_planner.gd}
+
+% PriorityQueue
+Die open\_list wird über eine PriorityQueue realisiert. Man beachte, dass Godot 4.3 keine PriorityQueue besitzt und man diese selbst implementieren müsste. Eine PriorityQueue speichert Knoten, sortierter nach ihren $f(n)$ Kosten, sodass Knoten mit den niedrigsten Kosten bevorzugt abgerufen werden. Die Umsetzung befindet sich im Anhang...
+
+% expand_node Methode
+Die expand\_node Methode fügt Kindknoten child\_node des expandierten Knoten expanded\_node in die open\_list, welche vorher von A$^*$ gewählt wurde. Es folgt die Instanziierung der Kosten $g(n)$, $h(n)$ und $f(n)$ des child\_node. Abschließend wird der child\_node in die \textit{open\_list} hinzugefügt.
+
+\lstinputlisting[firstline=2, language=Godot, linerange={61-79}, caption={expand\_node Methode des GoapPlanner}, label=lst:caption]{code/goap_a_star_planner.gd}
+
+% get_child_nodes Methode
+Die get\_child\_nodes Methode sucht nach Kanten (Aktionen) welche die benötigten Zustände des Knoten erfüllen können. Dabei werden die benötigten Zustände mit den Zuständen der effect\_action\_dict verglichen.
 
 Wird eine Aktion gefunden, welche den Zustand erfüllt, so wird untersucht ob der Effekt, der Aktion den Zustand umsetzen kann. Erfüllt der Effekt den gewünschten Zustand, so wird ein Kindknoten erstellt. Dieser Kindknoten speichert die Kante (Aktion) die zu dem Knoten geführt hat, sowie den Effekt auf den current\_state. Die restlichen Inhalte des Knoten werden in der zuvor beschriebenen expand\_node Methode instanziiert.
 
-\lstinputlisting[firstline=2, language=Godot, linerange={90-107}, caption={Methode zur Suche nach möglichen Kanten}, label=lst:caption]{code/goap_a_star_planner.gd}
+\lstinputlisting[firstline=2, language=Godot, linerange={}, caption={get\_child\_nodes Methode des GoapPlanner}, label=lst:caption]{code/goap_a_star_planner.gd}
 
-Wenn A$^*$ einen Knoten erweitert, der keine zu erfüllenden Zustände mehr besitzt, wurde der optimale Pfad gefunden. Um die korrekte Aktionssequenz zu erhalten, müssen die Aktionen der Knoten rekursiv vom Zielknoten bis zum Startknoten zurückverfolgt werden. Dies wird mithilfe der \textit{create\_path} Methode durchgeführt.
+% create_path Methode
+Wenn a\_star\_algorithm einen expand\_node expandiert und dieser keine zu erfüllenden Zustände mehr besitzt, wurde der optimale Pfad gefunden. Um nun die korrekte action\_sequence zu erhalten, müssen die Aktionen vom expand\_node rekursiv zum Wurzelknoten zurückverfolgt werden. Dies wird mithilfe einer \textit{create\_path} Methode durchgeführt.
 
 
 
 \subsection{AStarNode}
 
-...
+Der AStarNode hat die Funktionsweise eines Knoten in einem Suchbaum. Sie werden über die get\_child\_node Methode instanziiert. Folgende Abbildung zeigt die Struktur der Klasse AStarNode in der UML-Notation.
 
 \begin{figure}[h]
   \centering
@@ -178,20 +201,25 @@ Wenn A$^*$ einen Knoten erweitert, der keine zu erfüllenden Zustände mehr besi
   \label{AStarNode}
 \end{figure}
 
-Der AStarNode geht nach einem Knoten eine Suchbaums [siehe Kapitel: Knoten eines Suchbaums]. Er speichert die bis dahin erfüllten Zustände der Elternknoten im Attribut current\_state\_of\_goals, sowie alle Zielzustände die bis zu dem Knoten benötigt wurden im Attribut goal\_state. Die Objektvariable parent\_node speichert den Elternknoten, um später rekursiv auf die Kanten zurückschließen zu können. Die Kanten die zum Knoten geführt haben werden als GoapAction Objekt in der Objektvariable action gespeichert. Durch den Godot Konstruktor \_init wird der Knoten mit den eben genannten Attributen instanziiert.
 
-Die Kosten $f(n)$ werden unter f\_cost und $g(n)$ -Kosten unter g\_cost gespeichert. Die Berechnung der Kosten passiert durch die GoapPlanner Methode expand\_node und werden über die setter- Methoden des AStarNode set\_g\_cost und set\_f\_cost initialisiert. Die Heuristik Kosten werden in der expand\_node Methode des GoapPlanner berechnet. Über die Methode get\_unsatasfied\_states werden alle Zustände zurückgegeben, welche noch nicht erreicht wurden. Die Größe des Arrays welches von get\_unsatasfied\_states gegeben wird repräsentiert die heuristischen Kosten der Aktion.
+\subsubsection{Klassenattribute}
 
-Wird eine Kante gewählt, so muss ein neuer Zustand für den dazugehörigen Knoten durch die apply\_action\_to\_state Methode generiert werden. Die Methode wird vom GoapPlanner über die Methode get\_child\_nodes auf dem zu expandierten Knoten aufgerufen. Dabei wird die Aktion als Kante und der derzeitige NPC-Zustand als Parameter übergeben. Basierend auf den Parameter initialisiert die Methode, die Attribute goal\_states und current\_state\_of\_goals für den neuen Knoten. Außerdem initialisiert sie den zu expandierten Knoten als parent\_node sowie die Aktion als action.
+Ein AStarNode speichert die Informationen des Suchproblems. Darunter die bis dahin erfüllten Zustände des Elternknoten parent\_node im Attribut current\_state\_of\_goals, sowie alle Zielzustände die bis zu dem Knoten benötigt wurden im Attribut goal\_state. Über das Klassenattribut parent\_node kann die create\_path Methode des GoapPlanner rekursiv auf die Aktionen action des Typs GoapAction zurückschließen. Die Kosten $f(n)$ werden unter f\_cost und $g(n)$ -Kosten unter g\_cost gespeichert.
 
-Die Prüfung ob die Zustände eines expandierten Knoten erfüllt wurden, wird durch is\_satasfied geprüft. Dabei schaut die Methode ob die Größe des Array welches über die Methode get\_unsatasfied\_states leer ist. Sollte das Array leer sein, so gibt es keine zu erfüllenden Zustände und der AStarNode ist der Zielknoten. Die getter-Methoden geben die Variablen des AStarNode zurück.
 
+\subsubsection{Methoden}
+
+Durch den Godot Konstruktor \_init wird ein AStarNode mit seinen Attributen instanziiert. Die Berechnung der Kosten passiert durch die GoapPlanner Methode expand\_node. Dort werden über die setter- Methoden des AStarNode set\_g\_cost und set\_f\_cost initialisiert. Über die Methode get\_unsatasfied\_states werden alle Zustände zurückgegeben, welche noch nicht erreicht wurden. Die Größe des Arrays welches von get\_unsatasfied\_states gegeben wird repräsentiert die heuristischen Kosten $f(n)$ der Aktion. Die Heuristik Kosten werden ebenfalls in der expand\_node Methode des GoapPlanner berechnet und initialisiert.
+
+Wird eine action gewählt, so wird ein AStarNode mit den dazugehörigen Zuständen current\_state\_of\_goals und goal\_states generiert werden. Die Generierung des neuen AStarNode geschieht über die apply\_action\_to\_state Methode. Die Methode wird vom GoapPlanner durch die Methode get\_child\_nodes auf dem expanded\_node aufgerufen. Dabei wird die action und der current\_state als Parameter übergeben. Basierend auf den Parameter initialisiert die Methode, die Attribute goal\_states und current\_state\_of\_goals für den neuen Knoten. Außerdem initialisiert sie den zu expandierten Knoten als parent\_node sowie die Aktion als action.
+
+Die Prüfung ob die Zustände eines expanded\_node erfüllt wurden, wird durch is\_satasfied geprüft. Dazu schaut die Methode ob das Array welches über die Methode get\_unsatasfied\_states zurückgegeben wird leer ist. Sollte das Array leer sein, so gibt es keine zu erfüllenden Zustände und der AStarNode ist der Zielknoten.
 
 
 
 \subsection{GoapGoal}
 
-Die Klasse \textit{GoapGoal} wird in der folgenden Abbildung mittels UML-Notation dargestellt. 
+Ein GoapGoal repräsentiert ein Ziel. Der GoapPlanner bewertet die verfügbaren Ziele, vergleicht sie miteinander und wählt eines aus, basierend auf deren Gültigkeit und Priorität. Die Klasse GoapGoal wird in der folgenden Abbildung mittels UML-Notation dargestellt.
 
 \begin{figure}[h]
   \centering
@@ -201,17 +229,17 @@ Die Klasse \textit{GoapGoal} wird in der folgenden Abbildung mittels UML-Notatio
   \label{GoapGoal}
 \end{figure}
 
-Die Informationen zur Priorität und Gültigkeit werden aus der Objektvariable state\_manager gelesen. Die get\_best\_goal des GoapPlanner benötigt die Gültigkeit und Priorität, um in folge dessen das Ziel auszuwählen. Die Abfragen geschehen durch die Methoden get\_priority und is\_valid. Ein Ziel wird erst dann berücksichtigt, wenn es durch die Methode is\_valid als gültig bestätigt wurde. Anschließend kann dessen Priorität mithilfe von get\_priority ermittelt werden. 
+Die Priorität und Gültigkeit wird aus dem Klassenattribut state\_manager abgeleitet. Die get\_best\_goal des GoapPlanner benötigt die Gültigkeit und Priorität, um in folge dessen das Ziel auszuwählen. Die Abfragen geschehen durch die Methoden get\_priority und is\_valid. Ein Ziel wird erst dann berücksichtigt, wenn es durch die Methode is\_valid als gültig bestätigt wurde. Anschließend kann dessen Priorität mithilfe von get\_priority ermittelt werden. 
 
-Über die Methode get\_desired\_state werden die Zielzustände aufgerufen, welche der GoapPlanner zur Suche der Sequenz benötigt. 
+Über die Methode get\_desired\_state werden die Zielzustände aufgerufen, welche der GoapPlanner zur Suche der action\_sequenz benötigt. 
 
 Die Methode get\_goal\_name gibt den Klassennamen des GoapGoal zurück, welche von Debug Methoden genutzt werden kann.
 
 
-
+%FORTSETZUNG
 \subsection{GoapAction}
 
-Abbildung [Nummer] stellt die GoapAction Klasse nach UML-Notation dar.
+Die Kanten des Suchbaums werden als action des Typs GoapAction umgesetzt. Folgende Abbildung stellt die GoapAction Klasse nach UML-Notation dar.
 
 \begin{figure}[h]
   \centering
@@ -221,7 +249,7 @@ Abbildung [Nummer] stellt die GoapAction Klasse nach UML-Notation dar.
   \label{GoapAction}
 \end{figure}
 
-Mit hilfe der Objektvariablen character\_body und state\_manager werden die Kosten $g(n)$ und die Gültigkeit der Aktion gelesen. Die Kosten $g(n)$ werden dabei über die get\_cost Methode berechnet. Für die Rückgabe der Gültigkeit ist die is\_valid Methode zuständig. Die is\_valid Methode wird dabei für die Suche nach der Aktion genutzt, sowie während der Ausführung durch die FSM. Der GoapPlanner wählt nur Aktionen, welche im derzeitigen Zustand des NPC auch durchführbar sind. Auch die FSM prüft die Gültigkeit der Aktionen, da diese zu späterer Zeit ausgeführt werden können und sich der Zustand wieder ändern kann und somit auch die Gültigkeit.
+Mit hilfe der Klassenattribtute character\_body und state\_manager werden die Kosten $g(n)$ und die Gültigkeit der Aktion gelesen. Die Kosten $g(n)$ werden dabei über die get\_cost Methode berechnet. Für die Rückgabe der Gültigkeit ist die is\_valid Methode zuständig. Die is\_valid Methode wird dabei für die Suche nach der Aktion genutzt, sowie während der Ausführung durch die FSM. Der GoapPlanner wählt nur Aktionen, welche im derzeitigen Zustand des NPC auch durchführbar sind. Auch die FSM prüft die Gültigkeit der Aktionen, da diese zu späterer Zeit ausgeführt werden können und sich der Zustand wieder ändern kann und somit auch die Gültigkeit.
 
 Eine get\_preconditions Methode gibt die vorausgesetzten Zustände zurück, welche von anderen Aktionen erfüllt werden können. Ob eine Aktion einen Zustand erfüllen kann, hängt von der get\_effects Methode ab, welche ein \textit{Dictionary} mit dem Zustand und dessen Wert zurückgibt. Stimmt der Wert des Zustands mit dem Zielzustand überein, dann erfüllt die Aktion den Zustand.
 

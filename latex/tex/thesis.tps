@@ -161,7 +161,7 @@ Class=LaTeXView
 Document=info_kapitel\kapitel3.tex
 
 [Frame8_View0,0]
-TopLine=135
+TopLine=141
 Cursor=5932
 
 [Frame9]
@@ -215,8 +215,8 @@ Class=LaTeXView
 Document=kapitel\GOAP_2.tex
 
 [Frame11_View0,0]
-TopLine=50
-Cursor=4121
+TopLine=289
+Cursor=16351
 
 [SessionInfo]
 FrameCount=12
