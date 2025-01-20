@@ -6,14 +6,14 @@
 
 \chapter{Suchproblem und Suchalgorithmen}
 
-Ein Agent muss für ein bestimmtes Ziel die richtige Wahl an Aktionen treffen und vorausplanen. Der Prozess für die Findung der Sequenz an Aktionen wird als Suche bezeichnet und durch Suchalgorithmen gefunden. Für das Finden benötigt der Agent einen Raum mit Regeln und Informationen, der im Suchproblem definiert wird. Die Informationen des folgenden Kapitel basieren auf den wissenschaftlichen Arbeiten \autocite{RN2020}, \autocite{4082128} und \autocite{Felner2011}.
+Ein Agent muss für ein bestimmtes Ziel die richtige Auswahl an Aktionen treffen und vorausschauend planen. Der Prozess der Bestimmung der Abfolge von Aktionen wird als Suche bezeichnet und mithilfe von Suchalgorithmen, wie A$^*$, durchgeführt. Für diesen Prozess benötigt der Agent einen Raum mit Regeln und Informationen, der im Suchproblem definiert wird. Die Informationen des folgenden Kapitel basieren auf den wissenschaftlichen Arbeiten \autocite{RN2020}, \autocite{4082128} und \autocite{Felner2011}.
 
 
 \section{Suchproblem}
 
-Ein Suchproblem wird definiert über einen Satz an möglichen Zuständen (\textit{states}), einen Ausgangszustand (\textit{initial state}), Zielzustände (\textit{goal states}), Aktionen (\textit{actions}), Übergangsmodel (\textit{transition model}) und Aktion-Kosten (\textit{action costs}).
+Ein Suchproblem wird durch einen Satz möglicher Zustände, einen Ausgangszustand, Zielzustände, Aktionen, ein Übergangsmodell und Aktionskosten definiert.
 
-Die Zustände beschreiben dabei die Umwelt und einen Ausgangszustand $s$, aus welchem der Agent startet. Ein Agent bekommt ein oder mehrere Ziele die in Zielzuständen beschrieben werden.
+Die Zustände beschreiben die Umwelt des Agenten. Der Ausgangszustand $s$ gibt den Zustand an, von dem der Agent startet. Ein Agent verfolgt ein oder mehrere Ziele, die durch Zielzustände definiert werden.
 
 \[
 \highlightbox{0.9\textwidth}{$
@@ -34,7 +34,7 @@ Die Aktionen die ein Agent besitzt können in bestimmten Zuständen $ACTIONS(s)$
 $}
 \]
 
-Ein Übergangsmodell $TRANSITION(s,a) = s^*$ beschreibt dabei den resultierenden Zustand $s^*$ der durch Aktionen $a$ im derzeitigen Zustand $s$ resultiert.
+Ein Übergangsmodell $TRANSITION(s,a) = s^*$ beschreibt den resultierenden Zustand $s^*$ der durch Aktionen $a$ im derzeitigen Zustand $s$ resultiert.
 
 \[
 \highlightbox{0.9\textwidth}{$
@@ -44,14 +44,14 @@ Ein Übergangsmodell $TRANSITION(s,a) = s^*$ beschreibt dabei den resultierenden
 $}
 \]
 
-Durch eine Aktion-Kosten Funktion $ACTIONCOST(s,a,s^*)$ erhalten wir die Kosten einer Aktion $a$, welche in einem Zustand $s$ ausgeführt werden und in einen neuen Zustand $s^*$ resultieren.
+Durch eine Aktion-Kosten Funktion $ACTIONCOST(s,a,s^*)$ erhalten wir die Kosten einer Aktion $a$, welche in einem Zustand $s$ ausgeführt wird und in einen neuen Zustand $s^*$ resultieren.
 
-Die Lösung für ein Suchproblem ist dabei ist die Sequenz an Aktionen, also der Plan der vom Ausgangszustand zum Zielzustand führen soll. Der gewählte Pfad sollte die geringsten Kosten von allen möglichen Lösungen haben und somit eine optimale Lösung darstellen. Der Satz an möglichen Zuständen kann dabei als Graph dargestellt werden, wobei die Kanten als Aktionen und die Knoten als Zustände dargestellt werden.
+Die Lösung für ein Suchproblem ist die Sequenz an Aktionen, also der Plan, der vom Ausgangszustand zum Zielzustand führen soll. Der gewählte Pfad sollte die geringsten Kosten unter allen möglichen Lösungen aufweisen und somit eine optimale Lösung darstellen. Der Satz an möglichen Zuständen kann dabei als Graph modelliert werden, wobei die Kanten die Aktionen und die Knoten die Zustände repräsentieren.
 
 
 \section{Suchalgorithmen}
 
-Das Suchproblem soll mit seinen Informationen durch einen Suchalgorithmus gelöst werden. Ein Suchalgorithmus erzeugt aus dem Suchproblem einen Suchbaum. Wie beim Graphen besteht ein Suchbaum aus Knoten $n$ und Kanten $a$, welche zu weiteren Knoten führen. 
+Das Suchproblem soll mit seinen Informationen durch einen Suchalgorithmus gelöst werden. Ein Suchalgorithmus erzeugt aus dem Suchproblem einen Suchbaum. Wie beim Graphen besteht ein Suchbaum aus Knoten $n$ und Kanten $a$, welche zu weiteren Knoten führen.
 
 
 \subsection{Knoten eines Suchbaums}
@@ -68,7 +68,7 @@ Der Wurzelknoten ist dabei der Ausgangszustand des Agenten. Der Suchbaum beschre
 
 \subsection{Expansion eines Suchalgorithmus}
 
-Bei der Expandierung schaut sich der Suchalgorithmus über die $TRANSITIONS(n)$ -Funktion alle möglichen Kanten $ACTIONS(n)$ für den derzeitigen Knoten $n$ an.Zu den Kanten werden die dazugehörigen Kind-Knoten generiert, welche in eine offene-Liste hinzugefügt werden. Der Suchalgorithmus bestimmt den nächsten zu expandierenden Knoten aus der offenen Liste basierend auf dem jeweiligen Suchverfahren und dessen Bewertungsfunktion $f(n)$.
+Bei der Expandierung betrachet der Suchalgorithmus über die Funktion $TRANSITIONS(n)$ alle möglichen Kanten $ACTIONS(n)$ des aktuellen Knotens $n$ an. Zu den Kanten werden die entsprechenden Kind-Knoten generiert und einer offene-Liste (\textit{open list}) hinzugefügt. Der Suchalgorithmus wählt den nächsten Knoten zur Expansion aus der offenen Liste aus, basierend auf dem jeweiligen Suchverfahren und dessen Bewertungsfunktion $f(n)$.
 
 Im Bereich der Suchalgorithmen wird zwischen informierten und uniformierten Algorithmen unterschieden. Informierte Algorithmen können dabei die Distanz zum Ziel über eine Heuristik schätzen, während uniformierte eine solche Schätzung nicht durchführen können. Unter die uninformierten Suchalgorithmen fallen beispielsweise die Breitensuche, Dijkstra und Tiefensuche. Zu den informierten Suchalgorithmen gehören unter anderem \textit{Greedy best-first-search} und der A* Algorithmus. Informierte Suchalgorithmen können einen Pfad durch die Informationen der Heuristik effizienter finden, als uninformierte Suchalgorithmen.
 
@@ -83,11 +83,11 @@ Im Bereich der Suchalgorithmen wird zwischen informierten und uniformierten Algo
 
 \subsection{A* Algorithmus}
 
-Gehört zu den informierten und heuristischen Suchverfahren. Er ist ein so genannter vollständiger Algorithmus und findet einen Pfad zur Lösung, wenn einer vorhanden ist. Der Einsatz des Algorithmus wird oft für Routenplaner benutzt. So benutzt Godot 4.3 den A* Algorithmus für die Navigation. Der GOAP benutzt A* für das Suchen einer optimalen Sequenz an Aktionen.
+Gehört zu den informierten und heuristischen Suchverfahren. Er ist ein so genannter vollständiger Algorithmus und findet einen Pfad zur Lösung, wenn einer vorhanden ist. Der Einsatz des Algorithmus wird oft für Routenplaner benutzt. So benutzt Godot 4.3 den A* Algorithmus für die Navigation von NPC. Der GOAP benutzt A*, um eine optimale Sequenz von Aktionen zu finden, welche das Ziel erfüllen.
 
 \subsubsection{Bewertungsfunktion}
 
-Suchalgorithmen, wie A* benutzen eine Bewertungsfunktion $f(n)$, welche dazu dient die Priorität eines Knoten $n$ während der Suche zu bewerten. Es werden dabei alle Pfad-Kosten $g(n)$ vom Ausgangsknoten bis zu Knoten $n$ mit der Heuristik $h(n)$ des Knoten $n$ bis zum Zielknoten summiert.
+Suchalgorithmen, wie A* benutzen eine Bewertungsfunktion $f(n)$, welche dazu dient die Priorität eines Knoten $n$ während der Suche zu bewerten. Es werden dabei alle Pfad-Kosten $g(n)$ vom Ausgangsknoten bis zum Knoten $n$ mit der Heuristik $h(n)$ des Knoten $n$ summiert.
 
 \[
 \highlightbox{0.9\textwidth}{$
@@ -97,7 +97,7 @@ Suchalgorithmen, wie A* benutzen eine Bewertungsfunktion $f(n)$, welche dazu die
 $}
 \]
 
-Mit jeder Erweiterung des Pfades $n$ zu $n^{\ast}$ steigen die Kosten $g(n)$, was an den positiven tatsächlichen Aktion-Kosten $ACTIONCOST(n,a,n^*)$ der Knoten liegt.
+Mit jeder Erweiterung des Pfades von $n$ zu $n^{\ast}$ steigen die Kosten $g(n)$. Dies liegt an den positiven tatsächlichen Aktion-Kosten $ACTIONCOST(n,a,n^*)$ der Kanten zwischen den Knoten .
 
 \[
 \highlightbox{0.9\textwidth}{$
@@ -109,7 +109,7 @@ $}
 
 \subsubsection{Heuristik}
 
-Ein Suchalgorithmus sollte einen Pfad mit möglichst geringen Kosten (\textit optimalen-Pfad) zum Ziel finden. Ob A* einen optimalen Pfad findet richtet sich nach den Eigenschaften der Heuristik $h(n)$. Eine Heuristik hat die Eigenschaften der Zulässigkeit und Konsistenz.
+Ein Suchalgorithmus sollte einen Pfad mit möglichst geringen Kosten, den optimalen-Pfad, zum Ziel finden. Ob A* einen optimalen Pfad findet, hängt von den Eigenschaften der Heuristik $h(n)$ ab. Eine Heuristik weist die Eigenschaften der Zulässigkeit und Konsistenz auf.
 Bei einer zulässigen Heuristik werden die Kosten stets unterschätzt oder genau geschätzt. Sie bleibt im Intervall $[0, h^{\ast}(n)]$ wobei $h^{\ast}(n)$ die tatsächlichen Kosten sind.
 
 \[
@@ -130,9 +130,9 @@ Eine konsistente Heuristik, muss gleichzeitig zulässig sein und die Dreiecksung
 $}
 \]
 
-Die konsistente Heuristik hat eine stärkere Eigenschaft als eine zulässige Heuristik. Der expandierte Knoten bei einer konsistenten Heuristik wird optimal sein, wodurch wir diesen Knoten nicht erneut in die offene-Liste hinzufügen müssen.
+Die konsistente Heuristik weist eine stärkere Eigenschaft auf als eine zulässige Heuristik. Der expandierte Knoten bei einer konsistenten Heuristik wird optimal sein, wodurch dieser Knoten nicht erneut in die offene-Liste hinzufügt werden muss.
 
-Mit einer inkonsistenten Heuristik können Pfade auftreten, welche denselben Zustand erreichen. Somit können mehrere Pfade mit unterschiedlichen Kosten aber selben Zustand in der offenen Liste auftreten, was zur höheren Zeit und Speicherkosten führt.
+Mit einer inkonsistenten Heuristik können Pfade auftreten, welche denselben Zustand erreichen. Somit können mehrere Pfade mit unterschiedlichen Kosten, aber demselben Zustand in der offenen Liste auftreten, was zur höheren Zeit. und Speicherkosten führt.
 
 \subsubsection{Beweis für Optimalität}
 
