@@ -37,13 +37,13 @@
 
 \chapter{GOAP Umsetzung in Godot}
 
-Die praktische Umsetzung des GOAP Systems wird nun in diesem Kapitel beschrieben. Die Umsetzung passiert auf Basis der Publikation von Jeff Orkin. Die Implementierung geschieht unter der Godot Engine 4.3. Das Kapitel wird zuerst die grundlegende Architektur von GOAP anhand eines Agenten beschreiben.[Kapitel weiter erläutern]
+Die praktische Umsetzung des GOAP Systems wird nun in diesem Kapitel beschrieben. Die Umsetzung passiert auf Basis der Publikation von Jeff Orkin \autocite{}. Die Implementierung geschieht unter der Godot Engine 4.3. Das Kapitel wird zuerst die grundlegende Architektur von GOAP anhand eines Agenten beschreiben.[Kapitel weiter erläutern]
 
 
 
 \section{GOAP Architektur}
 
-Die folgende Abbildung soll die grundlegende Architektur von GOAP darstellen. Die Darstellung wird anhand eines Klassendiagramms in UML-Notation umgesetzt.
+Die folgende Abbildung soll die grundlegende Architektur von GOAP darstellen. Die Architektur wurde in Godot 4.3 umgesetzt und dient als Basis für die Bewertung in den weiteren Kapiteln. Die Darstellung wird anhand eines Klassendiagramms in UML-Notation umgesetzt.
 
 \begin{figure}[h]
   \centering
@@ -53,19 +53,17 @@ Die folgende Abbildung soll die grundlegende Architektur von GOAP darstellen. Di
   \label{GOAP Architektur eines Agenten}
 \end{figure}
 
-Aus dem GOAP-Kapitel geht hervor, dass ein GOAP-System aus einem Planner, Zielen, Aktionen und einer FSM (Finite State Machine) besteht. Diese Komponenten erfüllen ihre jeweiligen Aufgaben, wie im Grundlagenkapitel über GOAP beschrieben.
+Aus dem GOAP-Kapitel geht hervor, dass ein GOAP-System aus einem Planner, Zielen, Aktionen und einer FSM (Finite State Machine) besteht. Diese Komponenten erfüllen ihre jeweiligen Aufgaben, wie im Grundlagenkapitel zu GOAP beschrieben.
 
-Der GoapAgent bildet dabei die Hauptklasse und soll die Schnittstelle zur restlichen Spielwelt sein. Die Spielwelt kann ihm Informationen wie die Position des Spielers oder bestimmte Koordinaten innerhalb der Spielwelt übermitteln. Dabei erbt der GoapAgent von der Klasse Enemy. Die Klasse Enemy stellt Komponenten bereit, die es dem GoapAgent ermöglichen, mit der Spielwelt zu interagieren.
+Der GoapAgent bildet dabei die Hauptklasse und fungiert als Schnittstelle zur restlichen Spielwelt. Die Spielwelt kann dem GoapAgent Informationen wie die Position des Spielers oder bestimmte Koordinaten innerhalb der Spielwelt übermitteln. Dabei erbt der GoapAgent von der Klasse Npc. Die Klasse Npc stellt Komponenten bereit, die es dem GoapAgent ermöglichen, mit der Spielwelt zu interagieren.
 
-Der StateManager verwaltet die Zustände des NPC. Diese Zustände können über die Komponenten der Oberklasse Enemy verändert werden können.
+Der StateManager verwaltet die Zustände des NPC. Diese Zustände können über die Komponenten der Oberklasse Npc oder durch nichtdeterministische Umstände der Spielwelt verändert werden. Die Zustandsabfragen für die Auswahl des Zieles und Aktionen erfolgen über diese Klasse.
 
-Die FSM setzt die Aktionssequenz aus, welche im GoapAgent gespeichert wird. Sie kann neue Sequenzen an den GoapAgent anfordern.
+Zur Generierung von Sequenzen und Festlegung des Zieles benutzt der GoapAgent die Klasse GoapPlanner. Der GoapPlanner besitzt dabei Objekte der Klasse GoapGoal. Aus diesen Objekten wählt der GoapPlanner einen Zielzustand aus, für den eine Aktionssequenz gesucht wird. Der GoapPlanner sucht seine Sequenz mithilfe des A* Suchalgorithmus. Die Klasse AStarNode wird zur Generierung von Knoten für den A* Suchalgorithmus benötigt. Ein AStarNode setzt dabei die Eigenschaften eines Suchbaum-Knoten um.
 
-Zur Generierung von Sequenzen und Festlegung des Zieles benutzt der GoapAgent die Klasse GoapPlanner. Der GoapPlanner besitzt dabei Objekte der Klasse GoapGoal. Aus diesen Objekten entscheidet sich der GoapPlanner für ein Zielzustand, zu welchem eine Aktionssequenz gesucht wird.
-Der GoapPlanner sucht seine Sequenz mithilfe des A* Suchalgorithmus. Die Klasse AStarNode wird zur Erstellung von Knoten für den A* Suchalgorithmus benötigt. Ein AStarNode setzt dabei die Eigenschaften eines Suchbaum-Knoten um [siehe Kapitel Suchproblem, Knoten].
+Die Klasse GoapAction stellt die Basisklasse für Aktionen dar. Eine Aktion repräsentiert dabei eine Kante im Suchbaum und wird entsprechend als solche im AStarNode-Objekt gespeichert.
 
-Die Klasse GoapAction definiert die Basisklasse für Aktionen. Eine Aktion repräsentiert dabei eine Kante im Suchbaum und wird entsprechend als solche im AStarNode-Objekt gespeichert.
-
+Es wird keine Finite State Machine (FSM) in der Architektur umgesetzt, da die Implementierung keine Animationen umfasst. Stattdessen geschieht die Ausführung der Aktionen direkt aus der Klasse GoapAgent. Sollten Animationen vorhanden sein, können diese auch über die Klasse GoapAction ausgeführt werden. Es besteht keine zwingende Notwendigkeit, eine FSM innerhalb von GOAP umzusetzen. Ein Konzept für die Implementierung einer FSM wäre es, diese an den GoapAgent oder GoapPlanner zu koppeln und die Aktionssequenz von dort aus auszuführen. Die Aktionen würden dann auch die Zustandswechsel für die FSM durchführen.
 
 
 \subsection{GoapAgent}
@@ -73,8 +71,8 @@ Die Klasse GoapAction definiert die Basisklasse für Aktionen. Eine Aktion repr�
 % Zusammenfassung
 Folgende Abbildung stellt die Klasse GoapAgent dar. Die Darstellung wird anhand eines Klassendiagramms in UML-Notation umgesetzt. Der GoapAgent speichert folgende Klassenvariablen: goap\_planner, action\_sequence und den current\_step. Bei den Methoden handelt es sich um: update und follow\_sequence. 
 
-% Klasse Enemy
-Unter anderem erbt die Klasse Komponenten der Klasse Enemy. Die Komponenten dienen dem NPC zur Wahrnehmung und Manipulation der Videospielumgebung. Ein Beispiel einer solchen Komponente ist die vision\_component, welche über die update Methode aufgerufen, wird um den Spieler zu erfassen.
+% Klasse Npc
+Unter anderem erbt die Klasse Komponenten der Klasse Npc. Die Komponenten dienen dem NPC zur Wahrnehmung und Manipulation der Videospielumgebung. Ein Beispiel einer solchen Komponente ist die vision\_component, welche über die update Methode aufgerufen, wird um den Spieler zu erfassen.
 
 
 \subsubsection{Klassenattribute}
@@ -188,7 +186,6 @@ Wird eine Aktion gefunden, welche den Zustand erfüllt, so wird untersucht ob de
 Wenn a\_star\_algorithm einen expand\_node expandiert und dieser keine zu erfüllenden Zustände mehr besitzt, wurde der optimale Pfad gefunden. Um nun die korrekte action\_sequence zu erhalten, müssen die Aktionen vom expand\_node rekursiv zum Wurzelknoten zurückverfolgt werden. Dies wird mithilfe einer \textit{create\_path} Methode durchgeführt.
 
 
-
 \subsection{AStarNode}
 
 Der AStarNode hat die Funktionsweise eines Knoten in einem Suchbaum. Sie werden über die get\_child\_node Methode instanziiert. Folgende Abbildung zeigt die Struktur der Klasse AStarNode in der UML-Notation.
@@ -216,10 +213,9 @@ Wird eine action gewählt, so wird ein AStarNode mit den dazugehörigen Zuständ
 Die Prüfung ob die Zustände eines expanded\_node erfüllt wurden, wird durch is\_satasfied geprüft. Dazu schaut die Methode ob das Array welches über die Methode get\_unsatasfied\_states zurückgegeben wird leer ist. Sollte das Array leer sein, so gibt es keine zu erfüllenden Zustände und der AStarNode ist der Zielknoten.
 
 
-
 \subsection{GoapGoal}
 
-Ein GoapGoal repräsentiert ein Ziel. Der GoapPlanner bewertet die verfügbaren Ziele, vergleicht sie miteinander und wählt eines aus, basierend auf deren Gültigkeit und Priorität. Die Klasse GoapGoal wird in der folgenden Abbildung mittels UML-Notation dargestellt.
+Ein GoapGoal repräsentiert ein Ziel. Der GoapPlanner bewertet die verfügbaren Ziele, vergleicht sie miteinander und wählt eines aus, basierend auf deren Gültigkeit und Priorität. Der Zielzustand des jeweiligen GoapGoal wird als Ausgangszustand für Suche genutzt. Die Klasse GoapGoal wird in der folgenden Abbildung mittels UML-Notation dargestellt.
 
 \begin{figure}[h]
   \centering
@@ -239,7 +235,7 @@ Die Methode get\_goal\_name gibt den Klassennamen des GoapGoal zurück, welche v
 %FORTSETZUNG
 \subsection{GoapAction}
 
-Die Kanten des Suchbaums werden als action des Typs GoapAction umgesetzt. Folgende Abbildung stellt die GoapAction Klasse nach UML-Notation dar.
+Ein Aktion des Typs GoapAction, repräsentieren die Kanten eines Suchbaums. Sie besitzen Daten zur Generierung eines neuen Knoten. Folgende Abbildung stellt die GoapAction Klasse nach UML-Notation dar.
 
 \begin{figure}[h]
   \centering
@@ -249,11 +245,13 @@ Die Kanten des Suchbaums werden als action des Typs GoapAction umgesetzt. Folgen
   \label{GoapAction}
 \end{figure}
 
-Mit hilfe der Klassenattribtute character\_body und state\_manager werden die Kosten $g(n)$ und die Gültigkeit der Aktion gelesen. Die Kosten $g(n)$ werden dabei über die get\_cost Methode berechnet. Für die Rückgabe der Gültigkeit ist die is\_valid Methode zuständig. Die is\_valid Methode wird dabei für die Suche nach der Aktion genutzt, sowie während der Ausführung durch die FSM. Der GoapPlanner wählt nur Aktionen, welche im derzeitigen Zustand des NPC auch durchführbar sind. Auch die FSM prüft die Gültigkeit der Aktionen, da diese zu späterer Zeit ausgeführt werden können und sich der Zustand wieder ändern kann und somit auch die Gültigkeit.
+Mit Hilfe der Klassenattribute character\_body und state\_manager werden die Kosten $g(n)$ und die Gültigkeit der Aktion gelesen. Die Kosten $g(n)$ werden dabei über die get\_cost Methode berechnet.
 
-Eine get\_preconditions Methode gibt die vorausgesetzten Zustände zurück, welche von anderen Aktionen erfüllt werden können. Ob eine Aktion einen Zustand erfüllen kann, hängt von der get\_effects Methode ab, welche ein \textit{Dictionary} mit dem Zustand und dessen Wert zurückgibt. Stimmt der Wert des Zustands mit dem Zielzustand überein, dann erfüllt die Aktion den Zustand.
+Die Gültigkeit einer Aktion soll die Durchführbarkeit wiedergeben. Der GoapPlanner wählt nur Aktionen aus, welche im derzeitigen Zustand des NPC durchführbar sind. Die Gültigkeit der Aktionen wird auch vor der Ausführung der update Methode jeweiligen Aktion durch den GoapAgent geprüft, da die Aktion zu einer Zeit ausgeführt werden kann in der sich der Zustand des NPC wieder ändern kann und somit auch die Gültigkeit. Für die Rückgabe der Gültigkeit ist die is\_valid Methode zuständig.
 
-Die update Methode leitet die eigentliche Ausführung der Aktion ein und wird von der FSM gestartet. Die Hoffnung dabei ist, dass die Aktion den erwünschten Wert des Effekts umsetzt. Aufgrund der nicht-deterministischen Natur der Spielwelt kann es jedoch vorkommen, dass der angestrebte Effekt nicht erreicht wird. Wird der Effekt nicht erreicht, so wird eine neue Sequenz angefordert oder das Ziel ändert sich bis dahin. Die Ausführung der Aktion wird dabei über Komponenten der Klasse Npc umgesetzt. Die Methode get\_action\_name gibt den Klassennamen der GoapAction zurück.
+Eine get\_preconditions Methode gibt die vorausgesetzten Zustände zurück, welche von anderen Aktionen erfüllt werden müssten. Ob eine Aktion einen Zustand erfüllen kann, hängt von der get\_effects Methode ab, welche ein \textit{Dictionary} mit dem Zustand und dessen Wert zurückgibt. Stimmt der Wert des Zustands mit dem Zielzustand überein, dann erfüllt die Aktion den Zustand.
+
+Die update Methode leitet die eigentliche Ausführung der Aktion ein und wird über den GoapAgent gestartet. Die Hoffnung dabei ist, dass die Aktion den erwünschten Wert des Effekts umsetzt. Aufgrund der nicht-deterministischen Natur der Spielwelt kann es jedoch vorkommen, dass der angestrebte Effekt nicht erreicht wird. Wird der Effekt nicht erreicht, so wird eine neue Sequenz angefordert oder das Ziel ändert sich bis dahin. Die Ausführung der Aktion wird dabei über Komponenten der Klasse Npc umgesetzt. Die Methode get\_action\_name gibt den Klassennamen der GoapAction zurück.
 
 %\lstinputlisting[firstline=2, language=Godot, linerange={}, caption={Die Aktion RangedAttack erbt von GoapAction}, label=lst:caption]{code/goap_ranged_attack.gd}
 

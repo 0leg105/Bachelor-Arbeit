@@ -1,6 +1,6 @@
 \chapter{Goal Oriented Action Planning}
 
-Das Goal Oriented Action Planning Planung Entscheidungssystem ist zur Planung zu einem bestimmten Ziel gedacht. Planung ist der Prozess der Suche einer Sequenz an Aktionen zur Erreichung eines Zieles. Die Suche kann dabei als Suchproblem dargestellt werden. Für das Verständnis wird daher Kenntnis der Themen Suchalgorithmen und Suchprobleme benötigt.
+Das Goal Oriented Action Planning gehört zu den Entscheidungssystemen in der Game AI und besteht aus dem A* Suchalogrithmus. Er ist für die Planung zu einem bestimmten Ziel gedacht. Planung ist der Prozess der Suche einer Sequenz an Aktionen zur Erreichung eines Zieles. Die Suche kann dabei als Suchproblem dargestellt werden. Für das Verständnis wird daher Kenntnis der Themen Suchalgorithmen und Suchprobleme benötigt.
 
 
 
@@ -136,9 +136,11 @@ Es ist zwar möglich aus dem Ausgangszustand zu suchen, könnte aber einem \text
 
 %---------------------------------------------------------------------------------------------------------------------------------------
 
+
+
 \section{Beispiel}
 
-Wir setzten das Beispiel mit dem Wissen über den GOAP Planner fort.
+Wir setzten das Beispiel mit dem Wissen über den GOAP Planner fort. Dabei definiert $s_a$ den Ausgangszustand des NPC.
 \[
 	\highlightbox{0.9\textwidth}{$
 		\begin{align*}
@@ -157,13 +159,13 @@ Wir setzten das Beispiel mit dem Wissen über den GOAP Planner fort.
   \renewcommand{\arraystretch}{1.2}
   \centering
   \small
-    \begin{tabularx}{0.95\textwidth}{X X X X}
+    \begin{tabularx}{0.95\textwidth}{X X X R}
       \toprule
       \textbf{Goal} & \textbf{Ziel-Zustand} & \textbf{Gültigkeit} & \textbf{Priorität}\\
       \toprule
-      EliminatePlayer & \lnot$ PlayerAlive & true & 3 \\
-			SearchEnemy & AtLastPlayerPostion & true & 1 \\
-			Patrol & \lnot$ AtPatrol & false & 2 &
+      EliminatePlayer & \lnot$ PlayerAlive & PlayerVisible & 3 \\
+			SearchEnemy & AtLastPlayerPostion & \lnot AtLastPlayerPostion & 2 \\
+			Patrol & \lnot$ AtPatrol & AtLastPlayerPostion & 1 &
       \bottomrule
     \end{tabularx}
 \end{table}
@@ -185,8 +187,7 @@ Der GOAP Planer wählt das Ziel mit der höchsten Priorität und Gültigkeit. Ne
       Shoot & \lnot$ PlayerAlive & GunLoaded, PlayerVisible & 1\\
 			Melee & \lnot$ PlayerAlive & AtPlayer, PlayerVisible & 3\\
       Reload & GunLoaded & \lnot$ GunLoaded & 1\\
-      GoTo & AtCover, AtPlayer & - & 10 \\
-			Heal & Healed &  AtCover & 1 &
+      GoTo & AtCover, AtPlayer, AtLastPlayerPostion & - & 0-10 &
       \bottomrule
     \end{tabularx}
 \end{table}
@@ -238,7 +239,7 @@ Der Knoten der durch die Aktion \textit{Reload} entstand, hat dabei die geringst
 
 Aus der offenen Liste wird der nächste Knoten \textit{AtPlayer} gewählt, da dieser die niedrigsten Kosten von allen anderen offenen Knoten hat. Dieser wird durch die Aktion \textit{GoToPlayer} erfüllt und führt zu einem Knoten mit leerem Zustand.
 
-Letztlich wird der günstigste Knoten aus der offenen Liste genommen. Da dieser erfüllt ist, bzw. keine weiteren Zustände besitzt, gibt der Planner nun die Aktionen die zu ihm geführt habe in einer Sequenz zurück. Im Beispiel wäre es die Sequenz: [\textit{Melee, GoToPlayer}].
+Letztlich wird der günstigste Knoten aus der offenen Liste genommen. Da dieser erfüllt ist, bzw. keine weiteren Zustände besitzt, gibt der Planner nun die Aktionen die zu ihm geführt habe in einer Sequenz zurück. Im Beispiel wäre es die Sequenz: [\textit{Melee, GoToPlayer}]. Diese Sequenz muss nun gespiegelt werden, da der A* Algorithmus vom Zielzustand angefangen hat. Somit wäre die richtige Sequenz [\textit{GoToPlayer, Melee}]
 \clearpage
 
 %\section{Unterschiede STRIPS und GOAP}

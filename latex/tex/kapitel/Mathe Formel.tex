@@ -9,6 +9,7 @@
 Ein Agent muss für ein bestimmtes Ziel die richtige Auswahl an Aktionen treffen und vorausschauend planen. Der Prozess der Bestimmung der Abfolge von Aktionen wird als Suche bezeichnet und mithilfe von Suchalgorithmen, wie A$^*$, durchgeführt. Für diesen Prozess benötigt der Agent einen Raum mit Regeln und Informationen, der im Suchproblem definiert wird. Die Informationen des folgenden Kapitel basieren auf den wissenschaftlichen Arbeiten \autocite{RN2020}, \autocite{4082128} und \autocite{Felner2011}.
 
 
+
 \section{Suchproblem}
 
 Ein Suchproblem wird durch einen Satz möglicher Zustände, einen Ausgangszustand, Zielzustände, Aktionen, ein Übergangsmodell und Aktionskosten definiert.
@@ -49,6 +50,7 @@ Durch eine Aktion-Kosten Funktion $ACTIONCOST(s,a,s^*)$ erhalten wir die Kosten 
 Die Lösung für ein Suchproblem ist die Sequenz an Aktionen, also der Plan, der vom Ausgangszustand zum Zielzustand führen soll. Der gewählte Pfad sollte die geringsten Kosten unter allen möglichen Lösungen aufweisen und somit eine optimale Lösung darstellen. Der Satz an möglichen Zuständen kann dabei als Graph modelliert werden, wobei die Kanten die Aktionen und die Knoten die Zustände repräsentieren.
 
 
+
 \section{Suchalgorithmen}
 
 Das Suchproblem soll mit seinen Informationen durch einen Suchalgorithmus gelöst werden. Ein Suchalgorithmus erzeugt aus dem Suchproblem einen Suchbaum. Wie beim Graphen besteht ein Suchbaum aus Knoten $n$ und Kanten $a$, welche zu weiteren Knoten führen.
@@ -82,6 +84,8 @@ Im Bereich der Suchalgorithmen wird zwischen informierten und uniformierten Algo
 \clearpage
 
 \subsection{A* Algorithmus}
+
+- Eine Form von Best-first-search
 
 Gehört zu den informierten und heuristischen Suchverfahren. Er ist ein so genannter vollständiger Algorithmus und findet einen Pfad zur Lösung, wenn einer vorhanden ist. Der Einsatz des Algorithmus wird oft für Routenplaner benutzt. So benutzt Godot 4.3 den A* Algorithmus für die Navigation von NPC. Der GOAP benutzt A*, um eine optimale Sequenz von Aktionen zu finden, welche das Ziel erfüllen.
 
@@ -169,7 +173,7 @@ Beweis:
 	\[
 	\highlightbox{0.9\textwidth}{$
     \begin{align*}
-			f(n) = g(n) + h(n) &< g(n) + h^*(n) = g(G_o) \\
+			f(n) = g(n) + h(n) &< g(n) + h^*(n) = g(G_o) = f(G_o) \\
 			f(n) &< g(G_o)
 		\end{align*}
 	$}

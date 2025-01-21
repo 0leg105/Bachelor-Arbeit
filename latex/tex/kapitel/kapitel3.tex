@@ -2,6 +2,8 @@
 
 %Man unterscheidet zwischen open-loop und closed-loop Systemen. Bei nondeterministischen environments, also unversehbaren Umgebungen sollten closed-loop Systeme benutzt werden
 
+
+
 \section{Entscheidungssysteme in der Game-AI}
 
 Die Entscheidungsfindung, also die Entscheidung welche Aktionen für einen NPC gewählt werden, werden über sogenannte Entscheidungssysteme realisiert. Basierend auf den Zustand des NPC führen sie verschiedene Aktionen durch.
@@ -42,17 +44,7 @@ Die letzte Kategorie ist die Composite Task, welche die Sammlung der Child-Tasks
 
 \subsection{Suchalgorithmen}
 
-Aufgaben der AI können auch als Suchprobleme formuliert werden, die durch das Finden des besten Pfades gelöst werden. Die Suchalgorithmen konstruieren einen Baum, bei dem der Wurzelknoten den Ausgangszustand darstellt, die Kanten die Operationen des Agenten repräsentieren, die zu einem neuen Knoten führen, welcher einen neuen Zustand repräsentiert. Aus einem Zustand sind mehrere Operationen möglich. Einer der bekannteren Suchalgorithmen ist der Monte Carlo Tree Search (MCTS), welcher Bestandteil von AlphaGo ist. Ein weiterer bekannter Suchalgorithmus ist A-Stern, welcher sowohl die Navigation der NPC als auch die Entscheidungsfindung in GOAP realisiert.
-
-\subsection{Machine Learning}
-
-Die Machine-Learning-Algorithmen kann man in supervised learning (SL), unsupervised learning (UL) und reinforcment learning(RL) unterteilen.
-
-So bekommt SL gelabelte Daten und UL Rohdaten mit denen sie trainieren. Während RL auf Basis der Umgebung lernt und durch richtige Aktionen belohnt wird. So wird Deep Learning, ein Teil von SL, für Spracherkennung und natural language processing benutzt. Im Strategiespiel StarCraft wird RL für die Entscheidungsfindung der NPC benutzt.
-
-\subsection{Evolutionäre-Algorithmen}
-
-Die Evolutionäre-Algorithmen sind inspiriert durch Darwins Theorie der Evolution. Sie optimieren dabei eine Population, wo jedes Individuum eine Lösung repräsentiert und mit einer Fitness-Wert gekennzeichnet ist. Durch Iterationen finden Selektionen und Mutationen in der Population statt, welche den Fitness-Wert der optimalen Lösung erhöhen. Im Bereich der Videospielentwicklung optimierte der Algorithmus beispielsweise die Baureihenfolge der NPC im Strategiespiel StarCraft.
+Aufgaben der AI können auch als Suchprobleme formuliert werden, die durch das Finden des besten Pfades gelöst werden. Die Suchalgorithmen konstruieren einen Baum, bei dem der Wurzelknoten den Ausgangszustand darstellt, die Kanten die Operationen des Agenten repräsentieren, die zu einem neuen Knoten führen, welcher einen neuen Zustand repräsentiert. Aus einem Zustand sind mehrere Operationen möglich. Einer der bekannteren Suchalgorithmen ist der Monte Carlo Tree Search (MCTS), welcher Bestandteil von AlphaGo ist. Ein weiterer bekannter Suchalgorithmus ist A*, welcher sowohl die Navigation der NPC als auch die Entscheidungsfindung in GOAP realisiert.
 
 \section{Entscheidungssysteme in der Robotik}
 
