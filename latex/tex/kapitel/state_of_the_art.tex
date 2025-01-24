@@ -28,6 +28,20 @@ Folglich kann davon ausgegangen werden, dass es Stakeholder gibt, die sich für V
 
 
 
+\section{Game-Engines}
+
+\subsection{Godot}
+Godot ist eine relativ neue Engine aus 2014. Ein Vergleich von Game Engines ist nicht einfach zu machen, da sie andere Schwerpunkte besitzten. Godot Engine ist open-source un über die MIT license auf Github verfügbar seit 10 Februar 2014 verfügbar. Godot unterstützt \textit{cross-platform exports} und ermöglicht die Entwicklung von 3D und 2D Videospielen. 
+
+\subsubsection{Programmiersprachen}
+Die Entwicklungssprache ist dabei GDScript, welche explizit für Godot entwickelt wurde. Sie ist der Python Sprach syntaktisch ähnlich. Auch C# wird von Godot unterstützt. Durch das GDNative System können in Zukunft auch weitere Programmiersprachen unterstützt werden. So werden die Programmiersprachen D, Kotlin, Nim, Python und Rust durch die Community unterstützt. Offiziell wird auch C und C++ unterstützt.
+
+\subsubsection{Investitionen}
+Godot ist für größere Unternehmen interessant. So hat Microsoft 2017 eine \$24000 Spende an Godot getätigt, da C# mit Godot kompatibel wurde. Der Spieleentwickler Epic Games hat 2020 eine $250000  
+
+\subsection{Unity}
+Eine weitere populäre Engine ist Unity, welche 2005 veröffentlicht wurde. 
+
 \section{Entscheidungssysteme in der Game AI}
 
 In der Funktionalität von Entscheidungssystemen wie Behavior Trees (BT), Finite State Machines (FSM) und Goal-Oriented Action Planning (GOAP) wurde bereits eingehend auf deren Grundlagen eingegangen. Das folgende Kapitel widmet sich nun der praktischen Anwendung dieser drei Systeme sowie fortschrittlicher Methoden des maschinellen Lernens in der modernen Videospielentwicklung und Forschung.
@@ -78,27 +92,31 @@ Im Vergleich zu Behavior Trees ist der Forschungsstand zu GOAP im Bereich der Ga
 Im Bereich der Videospielentwicklung scheint das GOAP System in den Hintergrund gerückt zu sein. Das letzte bekannte Videospiel, welches GOAP umgesetzt hat war \textit{Deus Ex: human revolution (2011)}. Derzeit gibt es einen Mangel an Bibliotheken, die auch unabhängigen Videospielentwicklern zur Verfügung stehen und GOAP Systeme beinhalten. Studien wie \autocite{sielicki2018adaptation} fordern mehr Bibliotheken in Richtung \textit{Goal oriented action planning} Systeme. So hat die Studie selbst das GOAP System in der Game-Engine \textit{Unreal Engine} umgesetzt.
 
 
-\begin{table}[h]
-  \caption{Videospiele und ihre Entscheidungssysteme}
+\begin{sidewaystable}[h]
   \label{Videospiele und ihre Entscheidungssysteme}
   \renewcommand{\arraystretch}{1.2}
   \centering
   \small
-    \begin{tabularx}{0.95\textwidth}{L R R R R R}
-      \toprule
-      \textbf{Videospiel} & \textbf{Entscheidungs-system} & \textbf{Genre} & \textbf{Studio} & \textbf{Erscheinungsjahr} & \textbf{Quelle} \\
-      \toprule
-      Driver: San Francisco&BT&Rennspiel&Ubisoft&2011&\autocite{Ocio2021}&
-			Spore&BT&Strategie&Maxis&2008&\autocite{spore}&
-			Halo 2&BT&FPS&Bungie&2004&&
-			Tomb Raider&GOAP&Eidos Montreal&2013&\autocite{goap_gdc}&
-			Half-Life&FSM&FPS&Valve&1998&\autocite{halflife}&
-			S.T.A.L.K.E.R.: shadow of Chernobyl&GOAP&FPS&GSC Game World&2007&&
-			No one lives forever 2&FSM&FPS&Monolith&2002&\autocite{fear}&
-			F.E.A.R&GOAP&FPS&Monolith&2005&\autocite{fear}&
+    \begin{tabularx}{0.95\textwidth}{l l x x x x}
+			\toprule
+      \textbf{Videospiel} & \textbf{Entscheidungssystem} & \textbf{Genre} & \textbf{Entwicklerstudio} & \textbf{Erscheinungsjahr} & \textbf{Quelle} \\
+			\toprule
+			Driver: San Francisco & BT & Rennspiel & Ubisoft & 2011 & \autocite{Ocio2021} \\
+      Spore & BT & Strategie & Maxis & 2008 & \autocite{spore} \\
+      Halo 2 & BT & FPS & Bungie & 2004 & \autocite{aiag} \\
+      Tomb Raider & GOAP & Action & Eidos Montreal & 2013 & \autocite{goap_gdc} \\
+      Half-Life & FSM & FPS & Valve & 1998 & \autocite{halflife} \\
+      S.T.A.L.K.E.R.: Shadow of Chernobyl & GOAP & FPS & GSC Game World & 2007 & \autocite{sielicki2018adaptation} \\
+      No One Lives Forever 2 & FSM & FPS & Monolith Productions & 2002 & \autocite{fear} \\
+      F.E.A.R & GOAP & FPS & Monolith Productions & 2005 & \autocite{fear} \\
+      Deus Ex: Human Revolution & GOAP & FPS & Eidos Montreal & 2011 & \autocite{sielicki2018adaptation} \\
+      Middle-earth: Shadow of Mordor & GOAP & Rollenspiel & Monolith Productions & 2014 & \autocite{goap_gdc} \\
+      Alien: Isolation & BT & FPS & Creative Assembly & 2014 & \autocite{vsvelch2020should} \\
+      The Last of Us & BT & TPS & Naughty Dog & 2013 & \autocite{panwar2022npcaiuscase} \\
+      Mafia III & BT & TPS & 2K Games & 2016 & \autocite{holba2021open} \\
       \bottomrule
     \end{tabularx}
-\end{table}
+		\caption{Videospiele der letzten Jahre und ihre Entscheidungssysteme}
+\end{sidewaystable}
 %S.W.A.T. 4&GOAP&FPS&Irrational Games&2005&&
-%Deus Ex: Human Revolution&GOAP&FPS&Eidos Montreal&2011&&
 
