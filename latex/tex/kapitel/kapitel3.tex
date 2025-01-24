@@ -42,6 +42,9 @@ Die letzte Kategorie ist die Composite Task, welche die Sammlung der Child-Tasks
   \label{BT}
 \end{figure}
 
+%Andrere Quellen
+ Oneachupdate, aBTperformsadepth-first traversaluntil a lowlevelbehaviour (representedbya leafnode)has either succeeded or is set to the" running" state. \autocite{qlbt}
+
 \subsection{Suchalgorithmen}
 
 Aufgaben der AI können auch als Suchprobleme formuliert werden, die durch das Finden des besten Pfades gelöst werden. Die Suchalgorithmen konstruieren einen Baum, bei dem der Wurzelknoten den Ausgangszustand darstellt, die Kanten die Operationen des Agenten repräsentieren, die zu einem neuen Knoten führen, welcher einen neuen Zustand repräsentiert. Aus einem Zustand sind mehrere Operationen möglich. Einer der bekannteren Suchalgorithmen ist der Monte Carlo Tree Search (MCTS), welcher Bestandteil von AlphaGo ist. Ein weiterer bekannter Suchalgorithmus ist A*, welcher sowohl die Navigation der NPC als auch die Entscheidungsfindung in GOAP realisiert.
@@ -56,7 +59,7 @@ Ein einfaches Beispiel wäre ein Linien-Folgender-Roboter der mithilfe von Finite
 
 \subsection{Behavior Tree}
 
-Der Behavior Tree (BT) wäre ein weiteres Entscheidungssystem in der Robotik, welches eigentlich aus der Spieleentwicklung kommt.  Sie werden wie auch FSM für die Aufgabenorchestrierung eines Roboters umgesetzt. Der Behavior Tree ist zwar komplexer umzusetzen, hat jedoch im Vergleich zu FSM Vorteile. So können individuelle Aktionen im Behavior Tree leichter wiederverwendet und sind einfacher hinsichtlich Skalierbarkeit werden. Die Behavior Trees müssen im Gegensatz zu FSM, nicht definieren, wie eine Aktion im Bezug zu einer nachfolgenden Aktion steht.  Das Argument für einfachere Wiederverwendbarkeit in Bezug auf Entscheidungssysteme tritt auch in der Spielentwicklung auf.
+Der Behavior Tree (BT) wäre ein weiteres Entscheidungssystem in der Robotik, welches eigentlich aus der Spielentwicklung kommt.  Sie werden wie auch FSM für die Aufgabenorchestrierung eines Roboters umgesetzt. Der Behavior Tree ist zwar komplexer umzusetzen, hat jedoch im Vergleich zu FSM Vorteile. So können individuelle Aktionen im Behavior Tree leichter wiederverwendet und sind einfacher hinsichtlich Skalierbarkeit werden. Die Behavior Trees müssen im Gegensatz zu FSM, nicht definieren, wie eine Aktion im Bezug zu einer nachfolgenden Aktion steht.  Das Argument für einfachere Wiederverwendbarkeit in Bezug auf Entscheidungssysteme tritt auch in der Spielentwicklung auf.
 
 Ein Konzept für die Nutzung eines Behavior Tree in der Robotik wäre die Umsetzung auf einem unbemannten Luftfahrzeug (UAV). Dabei könnte der Behavior Tree als Controller für einen Luftkampf dienen.
 

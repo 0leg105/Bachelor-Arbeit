@@ -11,8 +11,8 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=3830
-NormalPos.bottom=1527
+NormalPos.right=1906
+NormalPos.bottom=1514
 Class=LaTeXView
 Document=thesis.tex
 
@@ -29,8 +29,8 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=3830
-NormalPos.bottom=1527
+NormalPos.right=1906
+NormalPos.bottom=1514
 Class=LaTeXView
 Document=kapitel\kapitel1.tex
 
@@ -47,8 +47,8 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=3830
-NormalPos.bottom=1527
+NormalPos.right=1906
+NormalPos.bottom=1514
 Class=LaTeXView
 Document=kapitel\kapitel2.tex
 
@@ -65,14 +65,14 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=3830
-NormalPos.bottom=1527
+NormalPos.right=1906
+NormalPos.bottom=1514
 Class=LaTeXView
 Document=kapitel\kapitel3.tex
 
 [Frame3_View0,0]
-TopLine=30
-Cursor=3327
+TopLine=51
+Cursor=5135
 
 [Frame4]
 Flags=0
@@ -83,14 +83,14 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=3830
-NormalPos.bottom=1527
+NormalPos.right=1906
+NormalPos.bottom=1514
 Class=LaTeXView
 Document=kapitel\state_of_the_art.tex
 
 [Frame4_View0,0]
-TopLine=0
-Cursor=1891
+TopLine=103
+Cursor=8311
 
 [Frame5]
 Flags=0
@@ -101,13 +101,13 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=3830
-NormalPos.bottom=1527
+NormalPos.right=1906
+NormalPos.bottom=1514
 Class=LaTeXView
 Document=kapitel\Mathe Formel.tex
 
 [Frame5_View0,0]
-TopLine=0
+TopLine=111
 Cursor=5386
 
 [Frame6]
@@ -119,14 +119,14 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=3830
-NormalPos.bottom=1527
+NormalPos.right=1906
+NormalPos.bottom=1514
 Class=LaTeXView
 Document=kapitel\GOAP.tex
 
 [Frame6_View0,0]
-TopLine=46
-Cursor=471
+TopLine=162
+Cursor=9225
 
 [Frame7]
 Flags=0
@@ -137,14 +137,14 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=3830
-NormalPos.bottom=1527
+NormalPos.right=1906
+NormalPos.bottom=1514
 Class=LaTeXView
 Document=kapitel\GOAP_2.tex
 
 [Frame7_View0,0]
-TopLine=191
-Cursor=13179
+TopLine=55
+Cursor=17515
 
 [Frame8]
 Flags=0
@@ -155,8 +155,8 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=3830
-NormalPos.bottom=1527
+NormalPos.right=1906
+NormalPos.bottom=1514
 Class=LaTeXView
 Document=kapitel\plot_kapitel.tex
 
@@ -173,8 +173,8 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=3830
-NormalPos.bottom=1527
+NormalPos.right=1906
+NormalPos.bottom=1514
 Class=LaTeXView
 Document=kapitel\Code Kapitel.tex
 
@@ -191,8 +191,8 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=3830
-NormalPos.bottom=1527
+NormalPos.right=1906
+NormalPos.bottom=1514
 Class=LaTeXView
 Document=abstrakt.tex
 
@@ -200,7 +200,25 @@ Document=abstrakt.tex
 TopLine=0
 Cursor=510
 
+[Frame11]
+Flags=0
+ShowCmd=1
+MinPos.x=-1
+MinPos.y=-1
+MaxPos.x=-1
+MaxPos.y=-1
+NormalPos.left=4
+NormalPos.top=36
+NormalPos.right=1906
+NormalPos.bottom=1514
+Class=LaTeXView
+Document=kapitel\vergleich.tex
+
+[Frame11_View0,0]
+TopLine=0
+Cursor=902
+
 [SessionInfo]
-FrameCount=11
-ActiveFrame=4
+FrameCount=12
+ActiveFrame=11
 
