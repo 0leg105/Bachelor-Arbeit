@@ -8,6 +8,11 @@
 	morecomment=[l]{#}
 }
 
+\lstdefinelanguage{Pseudo}{
+	keywords={FUNCTION, IMPORT, END if, then, void},
+	morecomment=[l]{//}
+}
+
 \lstdefinelanguage{dict}{
 	keywords={class_name, func, for, return, in range, is, var, not, continue},
 }
@@ -47,7 +52,7 @@ Die folgende Abbildung soll die grundlegende Architektur von GOAP darstellen. Di
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=16cm]{GOAP_2/GOAP_UML}
+  \includegraphics[width=16cm]{GOAP_2/GOAP UML}
 	\captionsetup{justification=justified, format=plain}
   \caption{GOAP Architektur}
   \label{GOAP Architektur eines Agenten}
@@ -94,14 +99,14 @@ Der goap\_planner ist eine Referenz auf die Klasse GoapPlanner, welche das Ziel 
 Die Methode update wird durch eine \_process Funktion jedes \textit{Frame} aufgerufen, um kontinuierliche Logik wie Bewegungen oder Raycasting des GoapAgent zu verarbeiten. Die \_process Funktion wird von Godot 4.3 bereitgestellt. Sie befindet sich in der Komponente, welche das Objekt GoapAgent instanziiert. Die update Methode ruft Methoden der Klassen und Komponenten innerhalb des NPC auf. Der Parameter delta repräsentiert die Zeit seit dem letzten Frame und könnte an andere Methoden übergeben werden.
 
 % update Methode
-\lstinputlisting[firstline=2, language=Godot, linerange={12,14-17,19}, caption={update Methode des GoapAgent}, label=lst:caption]{code/goap_enemy.gd}
+\lstinputlisting[firstline=0, language=Pseudo, linerange={1-7}, caption={update Methode des GoapAgent}, label=lst:caption]{code/goap_agent.py}
 
 In der update Methode wird eine Abfrage gestellt, ob der goap\_planner eine neue action\_sequence generiert hat. Wurde eine neue action\_sequence generiert, so wird die Objektvariable current\_step auf $0$ zurückgesetzt und die neue action\_sequence aus dem goap\_planner abgerufen. Die action\_sequence wird dann durch die Methode follow\_sequence ausgeführt.
 
 % follow_sequence Methode
 Über die Methode follow\_sequence geschieht die Ausführung der Aktionen aus der action\_sequence. Sollte action\_sequence leer sein, bereits ausgeführt worden oder ungültig sein, so wird eine neue action\_sequence von dem goap\_planner gefordert. Ansonsten wird mithilfe des current\_step Index die jeweilige Aktion über ihre GoapAction.update Methode ausgeführt. Bei erfolgreicher Ausführung der Aktion wird der current\_step inkrementiert, um auf die nächste Aktion der action\_seqeunce zugreifen zu können.
 
-\lstinputlisting[firstline=2, language=Godot, linerange={21-28}, caption={follow\_sequence Methode des GoapAgent}, label=lst:caption]{code/goap_enemy.gd}
+\lstinputlisting[firstline=0, language=Pseudo,  linerange={16-22}, caption={follow\_sequence Methode des GoapAgent}, label=lst:caption]{code/goap_agent.py}
 
 
 
@@ -160,7 +165,7 @@ Die GoapPlanner Methode update wird über die update Methode des GoapAgent aufge
 
 Für die Bestimmung des current\_goal ist die Methode get\_best\_goal verantwortlich. Ändert sich das Ziel während der Laufzeit oder wird über create\_sequence eine action\_sequence angefragt, so soll eine neue action\_sequence generiert werden. Die Suche geschieht über die Methode create\_new\_sequence. 
 
-\lstinputlisting[firstline=2, language=Godot, linerange={16-22}, caption={update Methode des GoapPlanner}, label=lst:caption]{code/goap_a_star_planner.gd}
+%\lstinputlisting[firstline=2, language=Godot, linerange={}, caption={update Methode des GoapPlanner}, label=lst:caption]{code/goap_a_star_planner.gd}
 
 % create_new_sequence Methode
 Die Methode create\_new\_sequence leitet die Generierung einer action\_sequence ein. Dafür muss ein Wurzelknoten des Typen AStarNode erstellt werden, welcher dem a\_star\_algorithm übergeben wird. Für den Wurzelknoten wird ein Dictionary über die Methode create\_current\_state\_of\_goals instanziiert, in dem die Werte der Zielzustände des current\_goal basierend auf den Werten des current\_state des Agenten überschrieben werden. Das Dictionary wird als Zustand des Wurzelknoten dienen, mit dem die a\_star\_algorithm Methode nach der Aktionssequenz sucht. Die Funktionsweise der a\_star\_algorithm Methode wird im folgenden Quellcode kommentiert. Sie sucht nach den Regeln, welche im Kapitel A$^*$ Algorithmus beschrieben werden.
@@ -180,7 +185,7 @@ Die get\_child\_nodes Methode sucht nach Kanten (Aktionen) welche die benötigte
 
 Wird eine Aktion gefunden, welche den Zustand erfüllt, so wird untersucht ob der Effekt, der Aktion den Zustand umsetzen kann. Erfüllt der Effekt den gewünschten Zustand, so wird ein Kindknoten erstellt. Dieser Kindknoten speichert die Kante (Aktion) die zu dem Knoten geführt hat, sowie den Effekt auf den current\_state. Die restlichen Inhalte des Knoten werden in der zuvor beschriebenen expand\_node Methode instanziiert.
 
-\lstinputlisting[firstline=2, language=Godot, linerange={}, caption={get\_child\_nodes Methode des GoapPlanner}, label=lst:caption]{code/goap_a_star_planner.gd}
+%\lstinputlisting[firstline=2, language=Godot, linerange={}, caption={get\_child\_nodes Methode des GoapPlanner}, label=lst:caption]{code/goap_a_star_planner.gd}
 
 % create_path Methode
 Wenn a\_star\_algorithm einen expand\_node expandiert und dieser keine zu erfüllenden Zustände mehr besitzt, wurde der optimale Pfad gefunden. Um nun die korrekte action\_sequence zu erhalten, müssen die Aktionen vom expand\_node rekursiv zum Wurzelknoten zurückverfolgt werden. Dies wird mithilfe einer \textit{create\_path} Methode durchgeführt.
@@ -254,4 +259,3 @@ Eine get\_preconditions Methode gibt die vorausgesetzten Zustände zurück, welc
 Die update Methode leitet die eigentliche Ausführung der Aktion ein und wird über den GoapAgent gestartet. Die Hoffnung dabei ist, dass die Aktion den erwünschten Wert des Effekts umsetzt. Aufgrund der nicht-deterministischen Natur der Spielwelt kann es jedoch vorkommen, dass der angestrebte Effekt nicht erreicht wird. Wird der Effekt nicht erreicht, so wird eine neue Sequenz angefordert oder das Ziel ändert sich bis dahin. Die Ausführung der Aktion wird dabei über Komponenten der Klasse Npc umgesetzt. Die Methode get\_action\_name gibt den Klassennamen der GoapAction zurück.
 
 %\lstinputlisting[firstline=2, language=Godot, linerange={}, caption={Die Aktion RangedAttack erbt von GoapAction}, label=lst:caption]{code/goap_ranged_attack.gd}
-
