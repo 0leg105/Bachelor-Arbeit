@@ -81,16 +81,18 @@ Ein balancierter Baum ist eine Baumstruktur, bei der die Höhe des Baumes so org
 
 Das Suchproblem soll mit seinen Informationen durch einen Suchalgorithmus gelöst werden. Ein Suchalgorithmus sucht über einen Suchbaum einen Pfad zum Ziel. Wie effizient der gefundene Weg, hängt von dem Suchalgorithmus ab. So wird im Bereich der Suchalgorithmen wird zwischen informierten und uniformierten Algorithmen unterschieden. Informierte Algorithmen können dabei die Distanz zum Ziel über eine Heuristik schätzen, während uniformierte eine solche Schätzung nicht durchführen können. Informierte Suchalgorithmen können einen Pfad durch die Informationen der Heuristik effizienter finden, als uninformierte Suchalgorithmen. Unter die uninformierten Suchalgorithmen fallen beispielsweise die Breitensuche, Dijkstra und Tiefensuche. Zu den informierten Suchalgorithmen gehören unter anderem \textit{Greedy best-first-search} und der A* Algorithmus.
 
-Ein weiterer Unterschied ist die Zeit und Speicherkomplexität. Während uninformierte Algorithmen wie die Tiefensuche weniger Speicher benötigen, können sie ineffizient sein, da sie keine Richtung zum Ziel berücksichtigen. Informierte Algorithmen sind speicherintensiver, können aber Wege schneller finden.
+Ein weiterer Unterschied ist die Zeit und Speicherkomplexität. Während uninformierte Algorithmen wie die Tiefensuche weniger Speicher benötigen, können sie ineffizient sein, da sie keine Richtung zum Ziel berücksichtigen. Informierte Algorithmen sind speicherintensiver, können aber Pfade schneller finden.
 
 
 \subsection{Expansion eines Suchalgorithmus}
 
-Ein Suchalgorithmus beginnt beim Ausgangsknoten und arbeitet sich schrittweise über Iterationen zu einem Zielknoten vor. In jeder Iteration ermittelt der Algorithmus mithilfe der Funktion $TRANSITIONS(n)$ alle möglichen Kanten $ACTIONS(n)$, die vom aktuellen Knoten $n$ ausgehen. Diese Kanten führen zu Kindknoten, welche der offenen Liste hinzugefügt werden. Bei der offenen Liste handelt es sich um eine Vorrangwarteschlange (Prioriy Queue), aus welcher Kindknoten zur Expansion gewählt werden. Wenn ein Kindknoten gewählt wird, wird dieser aus der offenen Liste entfernt. Welcher Knoten aus der offenen Liste zur Expansion gewählt wird, varriert von der spezifischen Strategie des verwendeten Suchalgorithmus ab.
+Ein Suchalgorithmus beginnt beim Ausgangsknoten und arbeitet sich schrittweise über Iterationen mithilfe von Expansionen zu einem Zielknoten vor. In jeder Iteration ermittelt der Algorithmus mithilfe der Funktion $TRANSITIONS(n)$ alle möglichen Kanten $ACTIONS(n)$, die vom aktuellen Knoten $n$ ausgehen. Diese Kanten führen zu Kindknoten, welche der offenen Liste hinzugefügt werden. Bei der offenen Liste handelt es sich um eine Vorrangwarteschlange (Priority Queue), aus welcher Kindknoten zur Expansion gewählt werden. Wenn ein Kindknoten expandiert wird, wird dieser aus der offenen Liste entfernt. Welcher Knoten aus der offenen Liste zur Expansion gewählt wird, varriert vom spezifischen Ansatz des verwendeten Suchalgorithmus ab.
 
 \subsubsection{Bestensuche}
 
-Eine Ansatz wäre die Bestensuche (best-first-search). Knoten die Dieser Ansatz wählt den nächsten Knoten zur Expansion, basierend auf dessen Bewertungsfunktion $f(n)$. Dabei werden Knoten expandiert, welche den geringste $f(n)$-Wert besitzen. Ist der Zustand des expandierten Knoten ein Zielzustand, so wird dieser zurückgegeben. Ansonsten werden die Kindknoten des expandierten Knoten in eine offene-Liste hinzugefügt und die Iteration beginnt erneut.
+Eine Ansatz zur Expansion wäre die Bestensuche (best-first-search). Dieser Ansatz wählt den nächsten Knoten zur Expansion, basierend auf dessen Bewertungsfunktion $f(n)$. Dabei wird der Knoten expandiert, welcher den geringste $f(n)$-Wert besitzt. Ist der Zustand des expandierten Knoten ein Zielzustand, so wird dieser zurückgegeben und der Algorithmus terminiert. Ansonsten werden die Kindknoten zu dem expandierten Knoten in eine offene-Liste hinzugefügt und die Iteration beginnt erneut. Existieren keine weiteren Knoten in der offenen Liste, so wurde kein Pfad zum Ziel gefunden und der Algorithmus terminiert.
+
+Zu den Bestensuchen gehört unter anderem der \textit{Greedy best-first-search} und der A* Algorithmus.
 
 
 \begin{figure}[h]
@@ -104,11 +106,11 @@ Eine Ansatz wäre die Bestensuche (best-first-search). Knoten die Dieser Ansatz 
 
 \subsection{A* Algorithmus}
 
-Gehört zu den informierten und heuristischen Suchverfahren und ist eine Form von best-first-search. Er ist ein so genannter vollständiger Algorithmus und findet einen Pfad zur Lösung, wenn einer vorhanden ist. Der Einsatz des Algorithmus wird oft für Routenplaner benutzt. So benutzt Godot 4.3 den A* Algorithmus für die Navigation von NPC. Der GOAP benutzt A*, um eine optimale Sequenz von Aktionen zu finden, welche das Ziel erfüllen.
+Gehört zu den informierten und heuristischen Suchverfahren und ist eine Form der Bestensuche. Er ist ein vollständiger Algorithmus, was bedeutet, dass er einen Pfad zum Ziel und findet, wenn einer vorhanden ist. Der Einsatz des A* Algorithmus wird oft für Routenplaner benutzt. So benutzt Godot 4.3 den A* Algorithmus für die Navigation von NPC und GOAP, um eine optimale Sequenz an Aktionen zu finden, welche zum Zielzustand führt.
 
 \subsubsection{Bewertungsfunktion}
 
-Suchalgorithmen, wie A* benutzen eine Bewertungsfunktion $f(n)$, welche dazu dient die Priorität eines Knoten $n$ während der Suche zu bewerten. Es werden dabei alle Pfad-Kosten $g(n)$ vom Ausgangsknoten bis zum Knoten $n$ mit der Heuristik $h(n)$ des Knoten $n$ summiert.
+Bestensuchen, wie A* benutzen eine Bewertungsfunktion $f(n)$, welche dazu dient die Priorität eines Knoten $n$ während der Suche zu bewerten. Bei der Bewertungsfunktion von A* werden dabei alle Pfad-Kosten $g(n)$ vom Ausgangsknoten bis zum Knoten $n$ mit der Heuristik $h(n)$ des Knoten $n$ summiert.
 
 \[
 \highlightbox{0.9\textwidth}{$
@@ -118,7 +120,7 @@ Suchalgorithmen, wie A* benutzen eine Bewertungsfunktion $f(n)$, welche dazu die
 $}
 \]
 
-Mit jeder Erweiterung des Pfades von $n$ zu $n^{\ast}$ steigen die Kosten $g(n)$. Dies liegt an den positiven tatsächlichen Aktion-Kosten $ACTIONCOST(n,a,n^*)$ der Kanten zwischen den Knoten .
+Mit jeder Erweiterung des Pfades von $n$ zu $n^{\ast}$ steigen die Kosten $g(n)$. Dies liegt an den positiven tatsächlichen Aktion-Kosten $ACTIONCOST(n,a,n^*)$ der Kanten zwischen den Knoten.
 
 \[
 \highlightbox{0.9\textwidth}{$
@@ -130,8 +132,7 @@ $}
 
 \subsubsection{Heuristik}
 
-Ein Suchalgorithmus sollte einen Pfad mit möglichst geringen Kosten, den optimalen-Pfad, zum Ziel finden. Ob A* einen optimalen Pfad findet, hängt von den Eigenschaften der Heuristik $h(n)$ ab. Eine Heuristik weist die Eigenschaften der Zulässigkeit und Konsistenz auf.
-Bei einer zulässigen Heuristik werden die Kosten stets unterschätzt oder genau geschätzt. Sie bleibt im Intervall $[0, h^{\ast}(n)]$ wobei $h^{\ast}(n)$ die tatsächlichen Kosten sind.
+Ein Suchalgorithmus sollte einen Pfad mit möglichst geringen Kosten (optimalen-Pfad) zum Ziel finden. Ob A* einen optimalen Pfad findet, hängt von den Eigenschaften der Heuristik $h(n)$ ab. Eine Heuristik weist die Eigenschaften der Zulässigkeit und Konsistenz auf. Bei einer zulässigen Heuristik werden die Kosten stets unterschätzt oder genau geschätzt. Sie bleibt im Intervall $[0, h^{\ast}(n)]$ wobei $h^{\ast}(n)$ die tatsächlichen Kosten sind.
 
 \[
 \highlightbox{0.9\textwidth}{$
