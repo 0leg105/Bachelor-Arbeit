@@ -16,6 +16,9 @@ Eine Finite State Machine (FSM) wird häufig für einfache NPC-Logiken empfohlen, 
 
 %- With recent technological developments, FSMs, DTs and BTs for managing decisions of NPCs are deficient in some situations, such as bad performance on overgrown tree structures, repeating mistakes without learning, and selecting the same decisions without being adaptive to different conditions creating the need for more believable character management methods
 
+\section{BT}
+\autocite{review_game_ai}:
+BTs are more flexible to design and easier to test due to the modular design concept, which promotes its successful application in games such asHalo 2 and Bioshock. 
 
 \section{GOAP}
 
@@ -24,10 +27,6 @@ Eine Finite State Machine (FSM) wird häufig für einfache NPC-Logiken empfohlen, 
  - GOAP system in not ideal though. First of all, it is resource-heavy thus it is impossible to reliably implement full-scale system on mobile platform (as of 2018 at least). Additionally, it is really hard to predict possible queue of actions which makes it hard to debug and a challenge to assign satisfying costs to every action.
  - FSM is most definitely not a viable alternative to GOAP. As stated in 1, its maintenance in ever-changing game development environment is too much of a hassle with complicated AI behavior. It is however the perfect solution for small projects because of it simplicity.
 - BT is not perfect solution for more complicated AIs though. Developers need to spend a lot of time to create appropriate conditional nodes and link them with correct behaviors.
-
-\section{BT}
-\autocite{review_game_ai}:
-BTs are more flexible to design and easier to test due to the modular design concept, which promotes its successful application in games such asHalo 2 and Bioshock.
 
 \begin{figure}[h]
   \centering
