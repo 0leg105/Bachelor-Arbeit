@@ -79,21 +79,17 @@ Ein balancierter Baum ist eine Baumstruktur, bei der die Höhe des Baumes so org
 
 \section{Suchalgorithmen}
 
-Das Suchproblem soll mit seinen Informationen durch einen Suchalgorithmus gelöst werden. Ein Suchalgorithmus sucht über einen Suchbaum einen Pfad zum Ziel. Wie effizient der gefundene Weg, hängt von dem Suchalgorithmus ab. So wird im Bereich der Suchalgorithmen wird zwischen informierten und uniformierten Algorithmen unterschieden. Informierte Algorithmen können dabei die Distanz zum Ziel über eine Heuristik schätzen, während uniformierte eine solche Schätzung nicht durchführen können. Informierte Suchalgorithmen können einen Pfad durch die Informationen der Heuristik effizienter finden, als uninformierte Suchalgorithmen. Unter die uninformierten Suchalgorithmen fallen beispielsweise die Breitensuche, Dijkstra und Tiefensuche. Zu den informierten Suchalgorithmen gehören unter anderem \textit{Greedy best-first-search} und der A* Algorithmus.
+Das Suchproblem soll mit seinen Informationen durch einen Suchalgorithmus gelöst werden. Ein Suchalgorithmus sucht über einen Suchbaum einen Pfad zum Ziel. Wie effizient der gefundene Weg, hängt von dem Suchalgorithmus ab. So wird im Bereich der Suchalgorithmen wird zwischen informierten und uniformierten Algorithmen unterschieden. Informierte Algorithmen können dabei die Distanz zum Ziel über eine Heuristik schätzen, während uniformierte eine solche Schätzung nicht durchführen können.
 
-Ein weiterer Unterschied ist die Zeit und Speicherkomplexität. Während uninformierte Algorithmen wie die Tiefensuche weniger Speicher benötigen, können sie ineffizient sein, da sie keine Richtung zum Ziel berücksichtigen. Informierte Algorithmen sind speicherintensiver, können aber Pfade schneller finden.
+Ein weiterer Unterschied ist die Zeit und Speicherkomplexität. Während uninformierte Algorithmen wie die Tiefensuche weniger Speicher benötigen, können sie ineffizient sein, da sie keine Richtung zum Ziel berücksichtigen. Informierte Algorithmen sind speicherintensiver, können aber Pfade schneller durch die Informationen der Heuristik finden.
+Unter die uninformierten Suchalgorithmen fallen die Breitensuche, Dijkstra und Tiefensuche. Zu den informierten Suchalgorithmen gehören unter anderem \textit{Greedy best-first-search} und der A* Algorithmus.
 
 
-\subsection{Expansion eines Suchalgorithmus}
+\subsection{Suche durch informierten Suchalgorithmus}
 
-Ein Suchalgorithmus beginnt beim Ausgangsknoten und arbeitet sich schrittweise über Iterationen mithilfe von Expansionen zu einem Zielknoten vor. In jeder Iteration ermittelt der Algorithmus mithilfe der Funktion $TRANSITIONS(n)$ alle möglichen Kanten $ACTIONS(n)$, die vom aktuellen Knoten $n$ ausgehen. Diese Kanten führen zu Kindknoten, welche der offenen Liste hinzugefügt werden. Bei der offenen Liste handelt es sich um eine Vorrangwarteschlange (Priority Queue), aus welcher Kindknoten zur Expansion gewählt werden. Wenn ein Kindknoten expandiert wird, wird dieser aus der offenen Liste entfernt. Welcher Knoten aus der offenen Liste zur Expansion gewählt wird, varriert vom spezifischen Ansatz des verwendeten Suchalgorithmus ab.
+Ein informierter Suchalgorithmus beginnt beim Ausgangsknoten und arbeitet sich schrittweise über Iterationen mithilfe von Expansionen zu einem Zielknoten vor. In jeder Iteration ermittelt der Algorithmus mithilfe der Funktion $TRANSITIONS(n)$ alle möglichen Kanten $ACTIONS(n)$, die vom aktuellen Knoten $n$ ausgehen. Diese Kanten führen zu Kindknoten, welche der offenen Liste hinzugefügt werden. Bei der offenen Liste handelt es sich um eine Vorrangwarteschlange (Priority Queue), aus welcher Knoten zur Expansion gewählt werden. Wenn ein Knoten expandiert wird, wird dieser aus der offenen Liste entfernt. Sollte der Zielknoten nicht dem Zielknoten entsprechen so werden auch seine Kindknoten generiert und der offenen Liste hinzugefügt. Sollte der Knoten den Zielknoten darstellen, wird dieser zurückgegeben und der Algorithmus terminiert. Wenn keine Knoten in der offenen Liste vorhanden sind, so wurde kein Pfad zum Ziel gefunden und der Algorithmus terminiert. Welcher Knoten aus der offenen Liste zur Expansion gewählt wird, varriert vom spezifischen Ansatz des verwendeten Suchalgorithmus ab.
 
-\subsubsection{Bestensuche}
-
-Eine Ansatz zur Expansion wäre die Bestensuche (best-first-search). Dieser Ansatz wählt den nächsten Knoten zur Expansion, basierend auf dessen Bewertungsfunktion $f(n)$. Dabei wird der Knoten expandiert, welcher den geringste $f(n)$-Wert besitzt. Ist der Zustand des expandierten Knoten ein Zielzustand, so wird dieser zurückgegeben und der Algorithmus terminiert. Ansonsten werden die Kindknoten zu dem expandierten Knoten in eine offene-Liste hinzugefügt und die Iteration beginnt erneut. Existieren keine weiteren Knoten in der offenen Liste, so wurde kein Pfad zum Ziel gefunden und der Algorithmus terminiert.
-
-Zu den Bestensuchen gehört unter anderem der \textit{Greedy best-first-search} und der A* Algorithmus.
-
+Eine Ansatz zur Expansion wäre die Bestensuche (best-first-search). Dieser Ansatz wählt den nächsten Knoten zur Expansion, basierend auf dessen Bewertungsfunktion $f(n)$. Dabei wird der Knoten expandiert, welcher den geringste $f(n)$-Wert besitzt. Zu den Bestensuchen gehört unter anderem der \textit{Greedy best-first-search} und der A* Algorithmus.
 
 \begin{figure}[h]
   \centering
@@ -156,7 +152,7 @@ Die konsistente Heuristik weist eine stärkere Eigenschaft auf als eine zulässi
 
 Mit einer inkonsistenten Heuristik können Pfade auftreten, welche denselben Zustand erreichen. Somit können mehrere Pfade mit unterschiedlichen Kosten, aber demselben Zustand in der offenen Liste auftreten, was zur höheren Zeit. und Speicherkosten führt.
 
-\subsubsection{Beweis für Optimalität}
+\subsubsection{A* Beweis}
 
 Arbeitet der A* Algorithmus mit einer zulässigen oder konsistenten Heuristik, so wird diese den optimalen, kostengünstigsten Pfad zu einem Ziel finden.
 
