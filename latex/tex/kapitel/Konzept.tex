@@ -189,4 +189,11 @@ Eine get\_preconditions Methode gibt die vorausgesetzten Zustände zurück, welche
 
 Die update Methode leitet die eigentliche Ausführung der Aktion ein und wird über den GoapAgent gestartet. Die Hoffnung dabei ist, dass die Aktion den erwünschten Wert des Effekts umsetzt. Aufgrund der nicht-deterministischen Natur der Spielwelt kann es jedoch vorkommen, dass der angestrebte Effekt nicht erreicht wird. Wird der Effekt nicht erreicht, so wird eine neue Sequenz angefordert oder das Ziel ändert sich bis dahin. Die Ausführung der Aktion wird dabei über Komponenten der Klasse Npc umgesetzt. Die Methode get\_action\_name gibt den Klassennamen der GoapAction zurück.
 
+
+\section{Umgebung}
+
+Die Architektur soll in einer Videospiel des Genre FPS implementiert werden, um es mit anderen Entscheidungssystemen vergleichen zu können. Für die Entwicklung wird Godot 4.3 als Game-Engine genutzt.
+
+Bei den Agenten des Genre FPS wird zwischen freundlichen, neutralen und feindlichen NPC unterschieden. Für die Implementation werden feindliche NPC umgesetzt, welche einfache Aktionen und Ziele besitzen. Die Ziele der NPC werden sein den Spieler zufinden und zu eliminieren. Für die Ziele werden Aktionen in Komponenten der Klasse Npc\ref{} umgesetzt wie: schießen, bewegen, umschauen, sehen, patrouillieren, suchen und nachladen.
+
 %\lstinputlisting[firstline=2, language=Godot, linerange={}, caption={Die Aktion RangedAttack erbt von GoapAction}, label=lst:caption]{code/goap_ranged_attack.gd}
