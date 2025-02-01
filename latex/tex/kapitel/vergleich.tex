@@ -43,7 +43,26 @@ Ein weiterer Nachteil der mit dem dynamischen System kommt ist die Komplexität d
 
 Trotz dieser Herausforderungen ist GOAP ein leistungsstarkes Entscheidungssystem für immersive NPC-Verhaltensweisen. Allerdings geht die erhöhte Immersion mit einer komplexeren Implementierung, einem schwierigeren Verständnis und aufwendigerem Debuggen einher.
 
+Die folgende Tabelle soll anhand Harveyballs die Entscheidungssysteme bewerten. Die Bewertung geht aus dem Vergleich und Benchmarks hervor. 
 
+\begin{table}[ht]
+  \caption{Tabellarische Bewertung}
+  \label{tab:ES Vergleich Tabelle}
+  \centering
+  \begin{tabular}{lccc}
+    \toprule
+    & Finite State Machine & Behavior Tree & GOAP\\
+    \midrule
+		Erlernbarkeit & \harveyBallFull & \harveyBallThreeQuarter & \harveyBallHalf\\
+    Implementation	& \harveyBallFull  & \harveyBallThreeQuarter  & \harveyBallHalf\\
+		NPC-Design & \harveyBallQuarter & \harveyBallThreeQuarter & \harveyBallFull\\
+    Skalierbarkeit	& \harveyBallQuarter & \harveyBallHalf & \harveyBallFull\\
+    Debugging	& \harveyBallHalf & \harveyBallThreeQuarter & \harveyBallQuarter\\
+		Performance & \harveyBallFull & \harveyBallThreeQuarter & \harveyBallHalf\\
+		Speicherverbrauch & \harveyBallFull & \harveyBallThreeQuarter & \harveyBallHalf\\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 %\autocite{Schwab2021}:
 %GOAP system in not ideal though. First of all, it is resource-heavy thus it is impossible to reliably implement full-scale system on mobile platform (as of 2018 at least). 
