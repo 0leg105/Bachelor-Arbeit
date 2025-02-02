@@ -14,6 +14,8 @@ Die Ergebnisse werden anschließend anhand einer Tabelle zusammengefasst.
 
 \section{Finite State Machine}
 
+% Hinzufügen: Nach der Fertigstellung zeigen NPC mit FSM vorhersehbares Verhalten.
+
 Die FSM ist schwer skalierbar. Wird eine Aktion (Knoten) geändert oder hinzugefügt, so muss der Graph der FSM angepasst werden. Eine Änderung oder das Hinzufügen einer Aktion kann dazu führen, dass andere Knoten die mit der Aktion in Verbindung stehen ebenfalls geändert werden müssen. Dies kann zu einem Dominoeffekt führen, bei der eine Kette an Knoten geändert werden muss und wiederum Zeitaufwand bedeutet. Zustände und Übergänge sollten dabei vollständig definiert sein, so dass der NPC nicht in falschen Zuständen hängen bleibt. Die FSM wird mit jeder Erweiterung an Aktionen auch unübersichtlicher. So hatte das Spiel Half-Life (1998) ca. 80 so genannte Tasks, welche alle einem Zustand zugewiesen sind.\autocite{U2023} Die Unübersichtlichkeit führt zur erhöhten Komplexität des Entscheidungssystems.
 
 Das Debuggen einer FSM ist vergleichsweise einfach \autocite{review_game_ai}, da ihre Struktur statisch ist und sich nicht dynamisch verändert. Durch die Visualisierung des Graphen lässt sich nachvollziehen, welche Knoten zur ausgeführten Aktion geführt haben. Speichert man zusätzlich die zuletzt durchlaufenen Knoten und gibt diese aus, kann der Ablauf noch besser nachvollzogen und mögliche Fehlerquellen leichter identifiziert werden.
