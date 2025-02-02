@@ -2,17 +2,13 @@
 
 %Man unterscheidet zwischen open-loop und closed-loop Systemen. Bei nondeterministischen environments, also unversehbaren Umgebungen sollten closed-loop Systeme benutzt werden
 
-
-
-\section{Entscheidungssysteme in der Game-AI}
-
 Die Entscheidungsfindung, also die Entscheidung welche Aktionen für einen NPC gewählt werden, werden über sogenannte Entscheidungssysteme realisiert. Basierend auf den Zustand des NPC führen sie verschiedene Aktionen durch. Der Prozessor gibt dem Entscheidungssystem Zeit die jeweilige Aktion darauf auszuführen.
 
-\subsection{Ad-Hoc Behavioring Authoring}
+\section{Ad-Hoc Behavioring Authoring}
 
 Zu den populärsten Entscheidungssystemen der Game AI gehören Ad-Hoc Behaviour Authoring Methoden. Dazu gehören Finite State Machines und Behavior Trees. Diese Arten dominieren die Entscheidungsfindung der NPC in der Game AI. Bei diesen Methoden wird die Verhaltensweise explizit programmiert. Sie besitzen normalerweise keine Art von Algorithmen zum Lernen oder Suchen. Sie sind leicht zu implementieren, visualisieren und debugen. Mit steigender Komplexität wird es jedoch schwieriger das Entscheidungssystem zu designen, erweitern oder anzupassen.
 
-\subsubsection{Finite State Machine}
+\subsection{Finite State Machine}
 
 Eine Finite State Machine (FSM) wird als Graph repräsentiert. Die FSM speichert dabei Informationen in Knoten (Zustände), welche wiederum Kanten (Übergänge) besitzen, welche zu anderen Knoten führen. Eine FSM kann sich zu jedem Zeitpunkt nur in einem Zustand befinden. Ein Zustandswechsel passiert, wenn die Bedingung für den entsprechenden Übergang erfüllt ist. In der Game AI repräsentieren die Knoten Zustände des NPC, wie z.B. Patrouillieren oder Angreifen. Diese Knoten beinhalten Aktionen, die ausgeführt werden und an den jeweiligen Zustand angepasst sind. So benötigt der Zustand patrouillieren Aktionen, die ihn zu bestimmten Punkten bewegen. Die Übergänge zwischen den Zuständen passieren über Bedingungen. So kann ein NPC vom Zustand Patrouillieren in Angreifen wechseln, sobald die Bedingung erfüllt ist, dass dieser den Spieler sieht. Nach Fertigstellung zeigen NPC mit FSM vorhersehbares Verhalten. Der FPS Half-Life wurde beispielsweise über eine FSM realisiert.
 
@@ -24,7 +20,7 @@ Eine Finite State Machine (FSM) wird als Graph repräsentiert. Die FSM speichert 
   \label{FSM}
 \end{figure}
 
-\subsubsection{Behavior Tree}
+\subsection{Behavior Tree}
 
 Der Behavior Tree modelliert eine Baumstruktur. Statt Zustände besitzt der Behavior Tree Tasks. Diese Tasks können in verschiedene Typen kategorisiert werden. Sie erhalten über den Prozessor Zeit ihre Aufgaben durchzuführen.
 
@@ -45,7 +41,7 @@ Die letzte Kategorie ist die Composite Task, welche die Sammlung der Child-Tasks
 %Andrere Quellen
  Oneachupdate, aBTperformsadepth-first traversaluntil a lowlevelbehaviour (representedbya leafnode)has either succeeded or is set to the" running" state. \autocite{qlbt}
 
-\subsection{Suchalgorithmen}
+\section{Suchalgorithmen}
 
 Aufgaben der AI können auch als Suchprobleme formuliert werden, die durch das Finden des besten Pfades gelöst werden. Die Suchalgorithmen konstruieren einen Baum, bei dem der Wurzelknoten den Ausgangszustand darstellt, die Kanten die Operationen des Agenten repräsentieren, die zu einem neuen Knoten führen, welcher einen neuen Zustand repräsentiert. Aus einem Zustand sind mehrere Operationen möglich. Einer der bekannteren Suchalgorithmen ist der Monte Carlo Tree Search (MCTS), welcher Bestandteil von AlphaGo ist. Ein weiterer bekannter Suchalgorithmus ist A*, welcher sowohl die Navigation der NPC als auch die Entscheidungsfindung in GOAP realisiert.
 

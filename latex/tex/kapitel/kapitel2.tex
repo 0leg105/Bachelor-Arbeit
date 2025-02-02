@@ -26,24 +26,53 @@
 
 \chapter{Videospielentwicklung}
 
-Jedes Videospiel hat seine eigenen Regeln, die ein Videospielentwickler über eine bestimmte Programmiersprache entwickelt. So wurde beispielsweise das Arcade-Videospiel „Marble Madness“ (1984) von Atari Games in C programmiert. Zuvor programmierte Atari Games ihre Spiele in Assemblersprache. Die heutigen Spielwelten werden von Game-Developern mithilfe einer Game-Engine entwickelt.
+% Fortsetzen, Umschreiben
+
+Jedes Videospiel hat seine eigenen Regeln, die der jeweilige Entwickler über eine bestimmte Programmiersprache entwickelt. So wurde beispielsweise das Arcade-Videospiel „Marble Madness“ (1984) vom Entwicklerstudio Atari Games in C programmiert. Zuvor programmierte Atari Games ihre Spiele in Assemblersprache. Die heutigen Spielwelten werden von Entwicklern mithilfe einer Game-Engine entwickelt.
 
 
 \section{Game-Engines}
 
-Mit der Zeit wuchs die Komplexität und Kosten von Videospielen, was zu Game-Engines führte. Eine Game-Engine ist eine Entwicklungsumgebung in welcher Videospiele programmiert und zusammengestellt werden. Zu Beginn wurden Game-Engines für bestimmte Videospiele geschrieben, die jedoch für ähnliche Videospiele weiterverwendet wurden. So hat beispielsweise id Software ihre Videospiel-Serie „Commander Keen“ (1990) als Game-Engine programmiert, was die Entwicklungszeit der Commander Keen -Reihe verkürzte und die Game-Engine im Jahr 1991 lizensiert.  Eine weitere bekanntere Game-Engine ist die Doom-Engine (id Tech), welche ebenfalls von id Software stammt und für das Videospiel Doom (1993) programmiert wurde. Die Doom-Engine hat dabei ein minimalistisches Maß an Programmierbarkeit geboten. Benutzer konnten in der Game-Engine Daten in einem vorgegebenen Format hinzufügen. Die daraus entstandenen Spielwelten hatten dabei andere Layouts spielten sich aber wie Doom.
+%1
+%Mit dem Wachstum der Komplexität und Kosten von Videospielen entstanden Game-Engines. Eine Game-Engine ist eine Entwicklungsumgebung, in der Videospiele programmiert und zusammengestellt werden. Zu Beginn wurden Game-Engines zwar für bestimmte Videospiele geschrieben, wurden dann aber für ähnliche Videospiele weiterverwendet. 
+%
+%Allerdings wurden sie 
 
-In heutiger Zeit sind Game-Engines ein Sofware-Programm mit einer Kollektion an Modulen, welche der Spieleentwickler zur Entwicklung seines Videospiels nutzt. Die Größe der Game-Engine variiert nach der Anzahl an Funktionen, welche durch bestimmte Module umgesetzt werden. Typische Funktionen wären: das Rendern von Grafiken, Verarbeitung von Eingaben über Eingabegeräte, Umsetzung von Physik und Kollisionen, Audio-Ausgabe oder Netzwerk-Funktionen für die Umsetzung online mit anderen Spielern zu spielen. Eine Game-Engine kann auch software development kits (SDKs) integrieren, so kann beispielsweise die Funktion der Umsetzung immersiver Physik und Kollision durch die Havok SDK umgesetzt werden.
+Mit dem Wachstum der Komplexität und Kosten von Videospielen entstanden Game-Engines. Eine Game-Engine ist eine Entwicklungsumgebung, in der Videospiele programmiert und zusammengestellt werden. 
 
-Große Entwicklerstudios besitzen ihre eigene Game-Engine, so nutzt beispielsweise das deutsche Entwicklerstudio Crytek die Cryenginge. Eine eigene Game-Engine zu entwickeln benötigt zusätzliche Ressourcen, was bei einem Indiestudio schwer umsetzbar ist. Indie-Entwicklerstudios besitzen deutlich weniger Arbeitskräfte, als große Entwicklerstudios. Sie entwickeln Videospiele, welche sich auf wenige Ziele konzentrieren. Ein Indie-Entwicklerstudio arbeitet ohne finanzielle Unterstützung eines größeren Unternehmens, wodurch sie sich von AAA-Titeln unterscheidet, die mit erheblichen Budgets und großen Teams entwickelt werden. Indiestudio sind daher von Game-Engines abhängig, welche möglichst kostengünstig sind. Einige Game-Engines konzentrieren sich beispielsweise auf ein spezifisches Genre, so konzentriert sich die idTech-Engine auf Shooter.autocite{holfeld2024relevancegodotengineindie}
+Zum Zeitpunkt ihrer Entstehung wurden Game-Engines zwar nur für konkrete Videospiel-Serien geschrieben. So hat das Entwicklerstudio id Software ihre Videospiel-Serie Commander Keen (1990) als Game-Engine programmiert, was die Entwicklungszeit weiterer Commander Keen Spiele verkürzte. Die Game-Engine wurde auch für andere Entwicklerstudios lizensiert, die ähnliche Videospiele wie Commander Keen entwickelten. Eine weitere bekanntere Game-Engine ist die Doom-Engine (id Tech), welche ebenfalls von id Software stammt und für das Videospiel Doom (1993) programmiert wurde. Die Doom-Engine hat dabei ein minimalistisches Maß an Programmierbarkeit geboten. Benutzer konnten in der Game-Engine Daten in einem vorgegebenen Format hinzufügen. Die daraus entstandenen Spielwelten hatten dabei andere Layouts spielten sich aber wie Doom.
 
-Die Wahl einer bestimmten Game-Engine hängt von dem jeweiligen Genre oder spezifischen Anforderungen des zu entwickelnden Videospiels ab. Zu den aktuellen zugänglichen Game-Engines zählen: Unity, Unreal, Cry-Engine, RPGMaker, GameMaker oder Godot. Während sich beispielsweise die RPGMaker-Engine auf das Genre der Rollenspiele spezialisiert, liegt der Fokus der Unreal-Engine auf der Entwicklung grafisch realistischer 3D-Videospiele.
+Heutzutage sind Game-Engines aber auch ein Sofware-Programm mit einer Kollektion an Modulen, die der Entwickler zur Entwicklung verschiedener Videospiel-Genres nutzt. Die Größe der Game-Engine variiert nach der Anzahl an Funktionen, die durch bestimmte Module umgesetzt werden. Typische Funktionen sind das Rendern von Grafiken, die Verarbeitung von Eingaben über Eingabegeräte, Umsetzung von Physik und Kollisionen, Audio-Ausgabe und Netzwerk-Funktionen, die das Spielen mit anderen Spielern umsetzen. Zudem kann eine Game-Engine software development kits (SDKs) integrieren, die weitere Funktionen hinzufügen oder bereits bestehende Funktionen erweitern. Ein Beispiel für eine SDK ist Havok, die eine realistische Physik und Kollision umsetzt.
 
-\subsection{Entwicklung eines Spiel-Objekts}
+Game-Engines können für Entwickler entweder zugänglich oder unzugänglich sein. So entwickelte beispielsweise das deutsche Entwicklerstudio Crytek die Cryengine, die für andere Entwickler über Lizenzen zugänglich ist. Demgegenüber hat das Entwicklerstudio Dice mit der Frostbite Engine eine unzugängliche Game-Engine entwickelt. Die Entwicklung einer eigenen Game-Engine bei Indie-Entwicklerstudios ist schwer umsetzbar. Denn sie haben weniger Arbeitskräfte als große Entwicklerstudios und entwickeln Videospiele ohne finanzielle Unterstützung größerer Unternehmen. Dadurch sind Indiestudios von möglichst kostengünstigen sowie zugänglichen Game-Engines abhängig. Unter zugängliche Game-Engines fallen unter anderem Unity, Unreal-Engine, Cry-Engine, RPGMaker, GameMaker und Godot.
 
-Objekte und NPC der Spielwelt werden über Komponente die es besitzt gesteuert. Die genannten Game-Engines setzen bereits vordefinierte Komponenten mit ihren eigenen Methoden um. Meistens sind diese in ihrer Funktion jedoch zu simpel. So kann es sein, dass diese Komponente mit Skripten modifiziert werden müssen. Es ist auch möglich neue Komponente mit eigenen Skripten zu erstellen. Diese Skripte werden mit einer Entwicklungssprache angepasst, welche je nach Game-Engine variiert.
+Die Wahl oder Entwicklung einer bestimmten Game-Engine hängt von dem jeweiligen Genre und spezifischen Anforderungen des zu entwickelnden Videospiels ab. Einige Game-Engines konzentrieren sich auf ein spezifisches Genre. So konzentriert sich die idTech-Engine auf Shooter. Während sich beispielsweise die RPGMaker-Engine auf das Genre der Rollenspiele spezialisiert, liegt der Fokus der Unreal-Engine auf der Entwicklung grafisch realistischer 3D-Videospiele.
 
-Die folgende Abbildung veranschaulicht den Aufbau eines solchen Skripts in deutschen Pseudo Pascal.\footnote{https://oer-informatik.de/pseudocode}
+%Programmiersprache erläutern
+
+\subsection{Godot}
+Die Game-Engine Godot ist seit 2014 in Entwicklung und open-source unter der MIT license verfügbar. Sie ermöglicht die Entwicklung von Videospielen in 2D und 3D Umgebung. Bei Godot liegt der Fokus offiziell auf Desktop- und Mobile-Builds.\footnote{https://github.com/godotengine}
+
+Die primäre Programmiersprache in Godot ist GDScript, die explizit für Godot entwickelt wurde und der Programmiersprache Python syntaktisch ähnlich ist. Auch die Programmiersprache C# wird von Godot unterstützt. Darüber hinaus werden die Programmiersprachen D, Kotlin, Nim, Python und Rust bereits durch die Community über das GDNative System unterstützt. Offiziell fördert Godot über GDNative auch C und C++.\footnote{https://docs.godotengine.org/en/3.5/tutorials/scripting/gdnative/what_is_gdnative.html}
+
+\subsection{Unity}
+%Abo Satz erweitern?
+Die Unity ist eine weitere Game-Engine, die 2005 veröffentlicht wurde. Aktuell ist sie in einer kostenlosen Version erhältlich, ergänzt durch verschiedene kostenpflichtige Abonnements für erweiterte Funktionen.\footnote{https://unity.com/de/products/compare-plans} Wie auch Godot ermöglicht Unity die Entwicklung von Videospielen in 2D und 3D. Unity unterstützt die Entwicklung von Videospielen für Desktop-, Mobile, Konsolen- und Virtual-Reality-Plattformen.
+
+Unitys primäre Programmiersprache ist C#. Unity unterstützt auch visuelle Programmierlösungen wie Bolt, durch die wenig oder gar nicht programmieren werden muss.\footnote{https://docs.unity3d.com/2019.3/Documentation/Manual/VisualScripting.html}
+
+\subsection{Unreal-Engine}
+
+Die Unreal-Engine wurde mit dem FPS Unreal 1998 veröffentlicht und von Epic Games entwickelt. Die Unreal-Engine ist kostenlos erhältlich. Dabei fallen Lizenzgebühren von 5\%erst ab einem Bruttoproduktumsatz von 1 Million USD an.\footnote{https://www.unrealengine.com/de/license} Durch die Game-Engine ist es möglich, Videospiele in 2D und 3D Umgebung zu entwickeln. Sie fokussiert sich dabei auf die 3D Umgebung und 3D Grafik und ist vielseitig portabel, unter anderem auf Desktop-, Mobile, Konsolen- und Virtual-Reality-Plattformen. 
+%Editor weiter erläutern
+Primär wird C++ als Programmiersprache genutzt. Python ist ausschließlich für die Werkzeuge im Editor vorgesehen und kann nicht für die Spiellogik verwendet werden.\footnote{https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-engine-programming-and-scripting}
+
+
+\section{Entwicklung eines GameObjects}
+
+GameObjects sind Objekte der Spielwelt und werden über ihre Komponenten gesteuert. Eine Komponente kann einem GameObject beispielsweise die Funktion geben, die Spielumgebung wahrzunehmen und mit ihr zu interagieren. Eine Komponente wird über Skripte realisiert. Game-Engines wie Godot, Unity und Unreal-Engine setzen bereits vordefinierte Komponenten mit ihren eigenen Methoden um. Meistens sind Komponenten in ihrer Funktion zu simpel, sodass ihre Skripte modifiziert oder erweitert werden müssen. Diese Skripte werden mit einer Programmiersprache angepasst, die, je nach Game-Engine, variieren kann.
+
+Die folgende Abbildung veranschaulicht den grundlegenden Aufbau eines solchen Skripts in Pseudocode.
 
 \begin{lstlisting}[language=Pseudo, caption={Aufbau eines Komponenten Skripts}]
 IMPORTIERE Game-Engine Module
@@ -66,31 +95,15 @@ ENDE KLASSE Komponente
 
 \end{lstlisting}
 
-\subsection{Godot}
-Die Godot Engine ist seit 2014 in Entwicklung und Open-Source unter der MIT license verfügbar. Sie ermöglicht die Entwicklung von Videospielen in 2D und 3D Umgebung. Bei Godot liegt der Fokus nativ und offiziell auf Desktop- und Mobile-Builds.\footnote{https://github.com/godotengine}
-
-Die Entwicklungssprache für Spielobjekte ist dabei GDScript, welche explizit für Godot entwickelt wurde. Sie ist der Python Sprach syntaktisch ähnlich. Auch C# wird von Godot unterstützt. Durch das GDNative System können in Zukunft auch weitere Programmiersprachen unterstützt werden. So werden die Programmiersprachen D, Kotlin, Nim, Python und Rust durch die Community unterstützt. Offiziell wird auch C und C++ über GDNative unterstützt.\footnote{https://docs.godotengine.org/en/3.5/tutorials/scripting/gdnative/what_is_gdnative.html}
-
-\subsection{Unity}
-
-Die Unity-Engine ist eine weitere Game-Engine, welche 2005 veröffentlicht wurde. Sie ist derzeit in einer kostenlosen Version erhältlich, ergänzt durch verschiedene kostenpflichtige Abonnements für erweiterte Funktionen.\footnote{https://unity.com/de/products/compare-plans} Wie auch Godot ermöglicht Unity die Entwicklung von Videospielen in 2D und 3D. Unity unterstützt dabei die Entwicklung von Videospielen, sowohl für Desktop-, Mobile, Konsolen- und Virtual-Reality-Platformen.
-
-Unitys primäre Entwicklungssprache für Spiel-Objekte ist C#. Unity unterstützt auch visuelle Programmierlösungen wie Bolt, durch die wenig oder gar nicht programmieren werden muss.\footnote{https://docs.unity3d.com/2019.3/Documentation/Manual/VisualScripting.html}
-
-
-\subsection{Unreal-Engine}
-
-Die Unreal-Engine wurde mit dem FPS Unreal 1998 veröffentlicht und von Epic Games entwickelt. Die Unreal-Engine ist kostenlos zu erhalten. Lizenzgebühren von 5\% fallen erst ab einem Bruttoproduktumsatz von 1 Million USD an.\footnote{https://www.unrealengine.com/de/license} Durch die Game-Engine ist es möglich Videospiele in 2D und 3D Umgebung zu entwickeln. Sie fokussiert sich dabei auf die 3D Umgebung und 3D Grafik und ist vielseitig portabel, sowohl auf Desktop-, Mobile, Konsolen- und Virtual-Reality-Platformen. 
-
-Primär wird C++ als Entwicklungssprache genutzt. Python ist ausschließlich für die Werkzeuge im Editor vorgesehen und kann nicht zur Laufzeit verwendet werden, beziehungsweise nicht für die Spiellogik geeignet.\footnote{https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-engine-programming-and-scripting}
-
-
-
 \section{Game-AI}
 
-Spieleentwickler nutzen akademische Forschungen aus dem Bereich der AI, um Algorithmen zu entwickeln, welche Agenten der Spielwelt \textit{Non-Player Character (NPC)} ein menschlicheres oder tierischeres Verhalten verleihen. Eine Spielwelt beinhaltet statische und dynamische Entitäten, wie NPC welche die Spielwelt immersiv machen. Die NPC, werden im Gegensatz zur Spielfigur vom Computer gesteuert. Ein NPC kann der Spielfigur je nach Narrativ freundlich, neutral oder feindlich interagieren. Ein Beispiel für feindliche NPC sind die Geister aus Pac-Man. Darin versuchten die Geister die Spielfigur in der Spielwelt zu fangen.
+Ein GameObject kann unter anderem ein Agent der Spielwelt sein und wird in diesem Fall als Non-Player Character (NPC) bezeichnet. Im Gegensatz zu der Spielfigur werden NPCs von dem Computer gesteuert. Die Aufgabe der NPCs ist es, die Spielwelt immersiver zu gestalten. Dafür nutzen Spieleentwickler akademische Forschungen aus dem Bereich der AI, um solche Algorithmen zu entwickeln, die NPCs der Spielwelt ein menschlicheres oder tierischeres Verhalten verleihen. Je nach Narrativ können NPCs mit der Spielfigur freundlich, neutral oder feindlich interagieren. Ein Beispiel für feindliche NPCs sind die Geister in Pac-Man. Darin versuchen sie, die Spielfigur in der Spielwelt zu fangen.
 
-Die Game-AI kann über Komponente realisiert werden. Die AI im Videospiel Bereich lässt dabei in drei Bereiche unterteilen: Bewegung (\textit{Movement}), Entscheidungsfindung (\textit{Decision making}) und Strategie (\textit{Strategy}). Bewegung und Entscheidungsfindung beziehen sich dabei auf einzelne NPC, während Strategie-AI auf Gruppen von NPC (\textit{Group AI}) angewendet wird. Nicht alle Videospiele benötigen alle der drei genannten Bereiche. So benötigt Schach keine AI für Bewegung oder Entscheidungsfindung, sondern ausschließlich für Strategie.
+Die Game-AI wird über Komponenten\ref{} realisiert und lässt sich in drei Bereiche unterteilen: Bewegung (\textit{Movement}), Entscheidungsfindung (\textit{Decision making}) und Strategie (\textit{Strategy}). Während Bewegung und Entscheidungsfindung sich auf einzelne NPCs beziehen, wird die Strategie-AI auf Gruppen von NPCs (\textit{Group AI}) angewendet. Nicht alle Videospiele benötigen alle der drei genannten Bereiche. So benötigt Schach keine Game-AI für Bewegung oder Entscheidungsfindung, sondern ausschließlich für Strategie.
+
+Der Bereich der Bewegungs-AI arbeitet hauptsächlich mit Algorithmen, die dafür sorgen, dass ein NPC von einer Position zu der Nächsten gelangt, Hindernissen ausweicht oder den optimalen Pfad zu einem Ziel findet.
+
+Eine Strategie-AI sorgt für die Koordination einer ganzen Gruppe von NPCs. Sie soll dabei die Entscheidungsfindung der NPCs beeinflussen. Beispielsweise hat die Strategie-AI des FPS Half-Life die feindlichen NPCs dazu gebracht, die Spielerfigur zu flankieren.
 
 \begin{figure}[h]
   \centering
@@ -99,7 +112,3 @@ Die Game-AI kann über Komponente realisiert werden. Die AI im Videospiel Bereich
   \caption{Game-AI Model: Die Thesis fokussiert sich auf den Bereich der Entscheidungsfindung (\textit{Decisionmaking}) in grün markiert}
   \label{Game AI}
 \end{figure}
-
-Der Bereich der Bewegungs-AI arbeitet hauptsächlich mit Algorithmen, die dafür sorgen, dass ein NPC von einer Position in zur nächsten gelangt, Hindernissen ausweicht oder den optimalen Pfad zu einem Ziel findet.
-
-Eine Strategie-AI sorgt für die Koordination einer ganzen Gruppe von NPC. Die Strategie-AI soll dabei die Entscheidungsfindung der NPC beeinflussen. Beispielsweise hat die Strategie-AI des FPS Half-Life die feindlichen NPC dazu gebracht Spielerfigur zu flankieren.
