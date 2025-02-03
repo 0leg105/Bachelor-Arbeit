@@ -1,6 +1,12 @@
 \chapter{Lösungskonzept}
 
-Das folgende Kapitel beschreibt ein Konzept von GOAP, welches schließlich zur eigentlichen Implementation führen soll. Vor der Implementation soll eine Grundlegende Architektur von GOAP anhand von UML-Notation dargestellt werden. Mithilfe von Pseudocode sollen die Methoden und Attribute die in den UML-Klassendiagrammen vorkommen weiter erläutert werden. Folglich wird die Umgebung beschrieben auf denen die Entscheidungssysteme unter anderem GOAP getestet werden. Das Konzept basiert dabei auf den Informationen aus dem GOAP Grundkapitel \ref{} sowie wissenschaftlicher Literatur im Bereich von GOAP.
+Ziel der Thesis ist es einen Vergleich der Entscheidungssysteme\ref{} Finite State Machine (FSM)\ref{}, Behavior Tree (BT)\ref{} und Goal Oriented Action Planning (GOAP)\ref{} aufzustellen und diese letztendlich zu bewerten. Die Entscheidungssysteme werden auf die folgenden Punkte verglichen: Erlernbarkeit, Implementation, Skalierbarkeit, Debugging, Performance und Speicherverbrauch.
+
+Durch eine eigenständige Implementation sollen praktische Erfahrungen in den Vergleich und die Bewertung der Entscheidungssysteme einfließen. Die Implementierung erfolgt in Form eines First-Person-Shooters (FPS)\ref{} unter Verwendung der Game Engine Godot 4.3\ref{}. Die Spielwelt der Implementation ist dabei 2D-kartierbar und enthält Deckungen wie Wände und Säulen sowie eine vom Spieler gesteuerte Spielfigur und verschiedene NPC-Klassen. Der Spieler kann sich auf der Spielwelt frei bewegen und von NPCs erkannt werden. Diese NPCs sind dem Spieler feindlich gesinnt und besitzen einfache Aktionen und Ziele. Ihr Ziel ist es, den Spieler zu finden und zu eliminieren. 
+Um das Ziel zu erreichen, werden Aktionen in Form von Komponenten\ref{} realisiert wie: schießen, bewegen, umschauen, sehen, patrouillieren, Spieler-, Deckung suchen und nachladen. Die NPC-Klassen unterscheiden sich in ihren verwendeten Entscheidungssystemen, nutzen jedoch dieselben Komponenten\ref{} zur Ausführung ihrer Aktionen. Die resultierende Performance und der Speicherverbrauch der implementierten NPC-Klassen wird anhand von Benchmarks gemessen.
+
+Das Kapitel befasst sich insbesondere mit der Umsetzung des GOAP-Entscheidungssystems. Die beiden Entscheidungssysteme FSM und BT wurden in den Grundkapitel erläutert. Es wird die Grundlegende GOAP Architektur anhand von UML-Notation dargestellt und beschrieben werden. Mithilfe von Pseudocode werden die in den UML-Klassendiagrammen dargestellten Methoden und Attribute weiter erläutert. Darüber hinaus wird der Benchmark vorgestellt, der die Performance und den Speicherverbrauch misst. Die Architektur basiert dabei auf den Informationen aus dem GOAP Grundkapitel\ref{} sowie wissenschaftlicher Literatur zum Thema GOAP.
+
 
 \section{GOAP Architektur}
 
@@ -192,8 +198,23 @@ Die update Methode leitet die eigentliche Ausführung der Aktion ein und wird übe
 
 \section{Umgebung}
 
-Die Architektur soll in einer Videospiel des Genre FPS implementiert werden, um es mit anderen Entscheidungssystemen vergleichen zu können. Für die Entwicklung wird Godot 4.3 als Game-Engine genutzt.
+Die Architektur soll in einem Videospiel des Genre FPS\ref{} implementiert werden, um es mit anderen Entscheidungssystemen FSM\ref{} und BT\ref{} vergleichen zu können. Für die Implementation wird Godot 4.3 als Game-Engine und die Programmiersprache GDScript benutzt.
 
-Bei den Agenten des Genre FPS wird zwischen freundlichen, neutralen und feindlichen NPC unterschieden. Für die Implementation werden feindliche NPC umgesetzt, welche einfache Aktionen und Ziele besitzen. Die Ziele der NPC werden sein den Spieler zufinden und zu eliminieren. Für die Ziele werden Aktionen in Komponenten der Klasse Npc\ref{} umgesetzt wie: schießen, bewegen, umschauen, sehen, patrouillieren, suchen und nachladen.
+Bei den Agenten des Genre FPS wird zwischen freundlichen, neutralen und feindlichen NPC unterschieden. Für die Implementation werden feindliche NPCs umgesetzt, die einfache Aktionen und Ziele besitzen. Das Ziel des NPC ist es den Spieler zu finden und eliminieren. Für das Erreichen des Zieles, werden Aktionen in Komponenten der Klasse Npc umgesetzt wie: schießen, bewegen, umschauen, sehen, patrouillieren, Spieler-, Deckung suchen und nachladen.
+
+Die Spielwelt ist dabei 2D kartierbar. Sie soll Deckungen, wie Wände und Säulen besitzen für die NPCs besitzen und bestimmte Koordinaten für das Patrouillieren.
+
+Aus der Erfahrung der Implementation, sollen folglich Schlüsse gezogen werden die im Vergleich erläutert werden. Wie Beispielsweise die Implementation und Skalierbarkeit und 
 
 %\lstinputlisting[firstline=2, language=Godot, linerange={}, caption={Die Aktion RangedAttack erbt von GoapAction}, label=lst:caption]{code/goap_ranged_attack.gd}
+
+\section{Benchmark}
+
+Ein Benchmark ist ein standardisierter Test, der die Leistung von Systemen bewertet. Mit Hilfe der Resultate eines Benchmarks können Systeme verglichen werden. In der Softwareentwicklung werden Benchmarks häufig genutzt, um die Geschwindigkeit, Stabilität oder Ressourcennutzung von Programmen oder Geräten zu messen.
+
+Die verschiedenen Entscheidungssysteme werden über die Benchmarks getestet. Bei dem Benchmark handelt es sich um einen Performance- und Speicher-Test. 
+
+Der Performance-Test misst während der Ausführung des Videospieles die Frames-Per-Second(FPS). Die FPS bezeichnen die Anzahl der Bilder, die pro Sekunde auf einem Bildschirm angezeigt werden. In Videospielen ist FPS eine wichtige Kennzahl für die Flüssigkeit und die visuelle Qualität einer Animation. Je mehr Bilder pro Sekunde angezeigt werden, desto flüssiger und somit ruckelfreier wirkt die Darstellung. Leistungsstärkere Hardware kann höhere FPS ermöglichen, besonders bei rechenintensiven Anwendungen. Ein akzeptables Maß in Videospielen sind 30 FPS.
+
+%Ein Speicher-Test misst
+
