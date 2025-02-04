@@ -1,0 +1,16 @@
+FUNKTION update(delta) :void
+    WENN goap_planner neue action_sequence gefunden hat DANN
+        current_step auf 0 setzen
+        action_sequence \Leftarrow goap_planner
+    ENDE WENN
+    follow_sequence(delta)
+ENDE update()
+
+FUNKTION follow_sequence(delta) :void
+    WENN action_sequence leer ODER action_sequence durchgegangen ODER action_sequence[current_step] nicht valide DANN
+        goap_planner melden dass neue action_sequence benoetigt wird
+        ENDE follow_sequence()
+    WENN action_sequence[current_step] fertig ausgeführt DANN
+        current_step inkrementieren
+ENDE follow_sequence()
+

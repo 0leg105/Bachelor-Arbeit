@@ -28,22 +28,23 @@ FUNKTION follow_sequence(delta :real) :void
     dezeitige Aktion ausführen
 ENDE follow_sequence()
 
-FUNKTION Bestensuche(Ausgangszustand) :Zielknoten
+FUNKTION bestensuche(Ausgangszustand) :Zielknoten
     Leere offenen Liste als PriorityQueue erstellen
     Knoten mit Ausgangszustand der offenen Liste hinzufuegen
     SOLANGE offene Liste nicht leer
         Expansions Knoten aus offenen Liste lesen und ihn daraus entfernen
         WENN Expansions Knoten Ziel erfuellt DANN
             Expansions Knoten zurueckgeben
-            FUER JEDEN Kindknoten VON Expandiere(Knoten)
-                Kindknoten der offenen Liste hinzufuegen
-            NAECHSTER Knoten
+            ENDE bestensuche()
         ENDE WENN
+        FUER JEDEN Kindknoten VON expandiere(Knoten)
+            Kindknoten der offenen Liste hinzufuegen
+        NAECHSTER Knoten
     ENDE SOLANGE
     Kein Zielknoten gefunden
-ENDE Bestensuche()
+ENDE bestensuche()
 
-FUNKTION Expandiere(Knoten) :Kindknoten[]
+FUNKTION expandiere(Knoten) :Kindknoten[]
     Leeres Kindknoten Array erstellen
     Knoten Zustand in s speichern
     FUER JEDE Kante VON ACTION(s)
@@ -52,4 +53,4 @@ FUNKTION Expandiere(Knoten) :Kindknoten[]
         Kindknoten dem Kindknoten Array hinzufuegen
     NAECHSTE Kante
     Kindknoten Array zurueckgeben
-ENDE Expandiere()
+ENDE expandiere()

@@ -1,6 +1,6 @@
 \chapter{Goal Oriented Action Planning}
 
-Das Goal Oriented Action Planning gehört zu den Entscheidungssystemen in der Game AI und besteht aus dem A* Suchalgorithmus. Er ist für die Planung zu einem bestimmten Ziel gedacht. Planung ist der Prozess der Suche einer Sequenz an Aktionen zur Erreichung eines Zieles. Die Suche kann dabei als Suchproblem dargestellt werden. Für das Verständnis wird daher Kenntnis der Themen Suchalgorithmen und Suchprobleme benötigt.
+Das Goal Oriented Action Planning gehört zu den Entscheidungssystemen in der Game AI und besteht aus dem A* Suchalgorithmus. Er ist für die Planung zu einem bestimmten Ziel gedacht. Planung ist der Prozess der Suche einer Sequenz an Aktionen zur Erreichung eines Zieles. Die Suche kann dabei als Suchproblem dargestellt werden. Für das Verständnis wird daher Kenntnis der Themen Suchalgorithmen und Suchprobleme empfohlen.
 
 %ergänzen:
 %\autocite{ai_standard}
@@ -31,10 +31,10 @@ Das GOAP -System basiert dabei auf dem STRIPS System. Wie auch STRIPS besitzt GO
 Eine FSM wurde im Videospiel \textit{F.E.A.R} für die Ausführung der Aktionen benötigt. Die NPC führten ihre Aktionen durch eine Kombination aus Animationen und Bewegungen aus. Beispielsweise sorgte eine Cover-Aktion dafür, dass der NPC hinter eine Deckung lief und dort eine Deckungs-Animation abspielte. Eine Shoot-Aktion hingegen aktivierte eine entsprechende Schuss-Animation. Die FSM bestand dabei aus den drei Zuständen GoTo, Animate und UseSmartObject. 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=7cm]{GOAP/GOAP_FSM}
+  \includegraphics[width=0.7\textwidth]{GOAP/fsm.pdf}
 	\captionsetup{justification=justified, format=plain}
   \caption{GOAP Finite State Machine}
-  \label{GOAP_FSM}
+  \label{fig:Goap FSM}
 \end{figure}
 
 \textit{Monolith} hat durch die Zustände \textit{Animate} und \textit{UseSmartObject} Animationen umgesetzt. Der Unterschied zwischen den beiden Zuständen bestand darin, dass \textit{UseSmartObject} Animationen steuerte, die von \textit{SmartObjects} in der Spielwelt vorgegeben wurden, während \textit{Animate} Animationen abspielte, die direkt im NPC gespeichert waren. Der Zustand \textit{GoTo} hat ebenfalls Animationen abgespielt, kombinierte diese jedoch mit der tatsächlichen Bewegung des NPCs durch die Spielwelt.
