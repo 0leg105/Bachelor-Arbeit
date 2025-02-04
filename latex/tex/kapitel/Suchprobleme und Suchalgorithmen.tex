@@ -1,0 +1,203 @@
+\newcommand{\highlightbox}[2]{%
+    \colorbox{cyan!20}{%
+        \parbox{#1}{\vspace{0.5em}\centering #2\vspace{0.5em}}%
+    }%
+}
+
+\lstdefinelanguage{Pseudo}{
+	keywords={FUNKTION, WENN, SOLANGE, DANN, FUER, JEDEN, JEDE ,ENDE, NAECHSTE, NAECHSTER, VON, FUNCTION, IMPORT, END if, then, void},
+	morecomment=[l]{//}
+}
+
+\chapter{Suchproblem und Suchalgorithmen}
+
+Ein Agent muss für ein bestimmtes Ziel die richtige Auswahl an Aktionen treffen, die nach ihrer Ausführung den Zielzustand erreichen. Der Prozess der Bestimmung der Abfolge von Aktionen wird als Suche bezeichnet und mithilfe von Suchalgorithmen, wie A$^*$, durchgeführt. Für diesen Prozess benötigt der Agent einen solchen Raum mit Regeln und Informationen, der im Suchproblem definiert wird. Ein Suchalgorithmus sucht die richtige Auswahl an Aktionen und gibt sie in eine Aktions-Sequenz wieder. Die Suche der Aktionen geschieht über einen Suchbaum, der durch das Suchproblem definiert wird. Die Informationen des Kapitels basieren auf den folgenden wissenschaftlichen Arbeiten: \autocite{RN2020}, \autocite{4082128} und \autocite{Felner2011}.
+
+\section{Suchproblem}
+
+Ein Suchproblem wird durch einen Satz möglicher Zustände, einen Ausgangszustand, Zielzustände, Aktionen, ein Übergangsmodell und Aktionskosten definiert. Ein Satz möglicher Zustände beschreibt die Umwelt des Agenten. Der Ausgangszustand $s$ gibt den Zustand an, von dem der Agent startet. Zielzustände definieren ein oder mehrere Ziele, die der Agent verfolgt.
+
+\[
+\highlightbox{0.9\textwidth}{$
+    \begin{aligned}
+			s = \{AtCover, GunLoaded, PlayerAlive\}
+    \end{aligned}
+$}
+\]
+
+Die Aktionen des Agenten können in bestimmten Zuständen $ACTIONS(s)$ ausgeführt werden.
+
+\[
+\highlightbox{0.9\textwidth}{$
+    \begin{aligned}
+			ACTIONS(GunLoaded) &= \{Shoot\} \\
+			ACTIONS(\lnot GunLoaded) &= \{Reload\}
+    \end{aligned}
+$}
+\]
+
+Ein Übergangsmodell $TRANSITION(s,a) = s^*$ beschreibt den resultierenden Zustand $s^*$, der aus einer Aktion $a$ im derzeitigen Zustand $s$ resultiert.
+
+\[
+\highlightbox{0.9\textwidth}{$
+    \begin{aligned}
+			TRANSITIONS(GunLoaded, Shoot) &= \lnot PlayerAlive
+    \end{aligned}
+$}
+\]
+
+Durch eine Aktion-Kosten-Funktion $ACTIONCOST(s,a,s^*)$ erhält man die Kosten einer Aktion $a$, die in einem Zustand $s$ ausgeführt wird und in einen neuen Zustand $s^*$ führen.
+
+\section{Suchbaum}
+
+Die Lösung eines Suchproblems ist eine Aktionssequenz, die nach ihrer Ausführung den Ausgangszustand in den Zielzustand überführt. Die Suche nach einer solchen Aktions-Sequenz geschieht über einen Suchbaum.
+
+Ein Suchbaum ist eine Baumstruktur, die in der Informatik für das speichern von Daten benutzt wird. Die Struktur basiert auf einer Anordnung von Knoten, die mit anderen Knoten durch Kanten verbunden sind. Diese Knoten speichern, je nach Anwendung bestimmte Daten. Wenn der Suchbau einen Wurzelknoten, von dem aus sämtliche anderen Knoten erreichbar sind oder der seinerseits von jedem anderen Knoten aus erreicht werden kann, handelt es sich um einem Wurzelbaum. Es gibt verschiedene Typen von Suchbäumen, die sich in ihren Eigenschaften und Zwecken unterscheiden, wie zum Beispiel Binäre Suchbäume oder AVL-Bäume. In Abbildung\ref{} wird ein Suchbaum dargestellt.
+
+\subsection{Knoten eines Suchbaums}
+Ein Knoten speichert dabei:
+\begin{itemize}
+	\item Einen Zustand, zu dem die Aktion des jeweiligen Knoten geführt hat
+	\item Eine Aktion, die auf dem Eltern-Knoten ausgeführt wurde
+	\item Einen Eltern-Knoten, auf dem die Aktion durchgeführt wurde und den jeweiligen Knoten generiert hat
+	\item Die Pfad-Kosten, der die summierten Kosten vom Ausgangsknoten bis zu dem jeweiligen Knoten speichert
+\end{itemize}
+
+\subsection{Gerichtete und ungerichtete Suchbäume} \label{gerichtete Graphen}
+
+Die Kanten eines Suchbaums bestimmten ob dieser gerichtet oder ungerichtet ist. In einem ungerichteten Suchbaum sind die Kanten zwischen den Knoten bidirektional, sodass sie keine feste Richtung vorgeben. Wenn eine Kante in einem ungerichteten Suchbaum die Knoten A und B verbindet, dann ist die Kante in beide Richtungen durchquerbar. Wodurch man mit der Kante sowohl von A nach B, als auch von B nach A navigieren kann. In einem ungerichteten Suchbaum kann jeder Knoten der Wurzelknoten sein. Bei einem gerichteten Suchbaum verbindet eine Kante zwei Knoten, wobei eine klare Richtung von einem Knoten zu dem anderen Knoten vorgegeben ist. Das bedeutet, dass die Kante nur in eine Richtung durchquerbar ist: vom Elternknoten zu dem Kindknoten.
+
+\subsection{Balancierte und unbalancierte Suchbäume}
+
+Eine Eigenschaft des Suchbaums ist die Balance, die ihn als balanciert oder unbalanciert klassifiziert. Die Klassifizierung basiert auf der Anordnung der Knoten, insbesondere auf deren Höhe. Die Höhe entspricht der maximalen Anzahl an Kanten von der Wurzel bis zu einem Blatt. Bei einem balancierten Suchbaum, deren Höhe so optimiert ist, dass Such-, Einfüge- und Löschoperationen effizient durchgeführt werden können. Dabei sind die Knoten möglichst gleichmäßig verteilt, um eine übermäßige Baumhöhe zu vermeiden. Der Höhenunterschied zwischen den linken und rechten Teilbäumen darf höchstens 1 betragen. Ein Baum gilt als unbalanciert, wenn der Höhenunterschied größer als 1 ist.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\textwidth]{Suchalgorithmen/suchbaum aufbau.pdf}
+	\captionsetup{justification=justified, format=plain}
+  \caption{Suchbaum Aufbau}
+  \label{Suchalgorithmen}
+	%Suchbaum: Fängt vom Ausgangszustand an und soll den Zielzustand $\lnot \textit{PlayerAlive}$ erreichen. Grüne Knoten sind expandierte Knoten, die in eine geschlossene Liste hinzugefügt werden. Blaue Knoten sind offene gefundene Nachbarknoten aus der offenen-Liste. Gestrichelte Knoten sind nicht entdeckte Knoten. Im Falle des Beispiels hat sich der Suchalgorithmus für den Knoten GunLoaded entschieden, da dieser optimaler als andere Nachbarknoten ist. Von dort aus ist der Zielzustand erreichbar und der Algorithmus würde eine Sequenz von Aktionen geben: \textit{[Reload,Shoot]}
+\end{figure}
+
+\section{Suchalgorithmen}
+
+Das Suchproblem soll mit seinen Informationen durch einen Suchalgorithmus gelöst werden. Ein Suchalgorithmus sucht über einen Suchbaum einen Pfad zu dem Ziel. Wie effizient der gefundene Weg, hängt von dem Suchalgorithmus ab. 
+
+Im Bereich der Suchalgorithmen wird zwischen informierten und uniformierten Algorithmen unterschieden. Informierte Algorithmen können die Distanz zu dem Ziel mithilfe einer Heuristik schätzen, während uniformierte eine solche Schätzung nicht durchführen können. Ein weiterer Unterschied ist die Zeit und Speicherkomplexität. Während uninformierte Algorithmen wie die Tiefensuche weniger Speicher benötigen, können sie ineffizient sein, da sie keine Richtung zu dem Ziel berücksichtigen. Informierte Algorithmen sind speicherintensiver, können aber Pfade schneller durch die Informationen der Heuristik finden. Unter die uninformierten Suchalgorithmen fallen die Breitensuche, Dijkstra und Tiefensuche. Zu den informierten Suchalgorithmen gehört unter anderem die Bestensuchen.
+
+
+\subsection{Expansion einer Bestensuche}
+
+Zu den informierten Suchalgorithmen gehört unter anderem die Bestensuche. Eine Bestensuche arbeitet sich schrittweise über Iterationen mithilfe von Expansionen zu einem Zielknoten vor. Vor der ersten Iteration wird ein Wurzelknoten mit dem Ausgangszustand generiert und der offenen Liste hinzugefügt. Die offenen Liste stellt dabei eine Vorrangwarteschlange (Priority Queue) dar. So wird sichergestellt, dass bei der ersten Iteration der Wurzelknoten betrachtet wird.
+
+In der Iteration werden Knoten aus der offenen Liste expandiert. Bei einer Expansion ermittelt der Algorithmus mithilfe der Funktion $TRANSITIONS(n)$ alle möglichen Kanten $ACTIONS(n)$, die vom aktuellen Knoten $n$ ausgehen und zu Kindknoten führen. Für die Kindknoten wird eine Bewertung durch die Bewertungsfunktion $f(n)$ berechnet, die je nach Suchalgorithmus variiert. Diese Kindknoten werden daraufhin sortiert nach ihrer Bewertung der offenen Liste hinzugefügt. Wenn ein Knoten expandiert wird, wird dieser aus der offenen Liste entfernt. Sollte der gelesene Knoten dem Ziel entsprechen, terminiert der Algorithmus und gibt den Knoten zurück. Ansonsten wird dieser expandiert und die resultierenden Kindknoten der offenen Liste hinzugefügt. Die Iteration wird solange fortgeführt bis der Zielknoten gefunden wurde oder sich keine Knoten in der offenen Liste befinden und somit keine Knoten zu dem Ziel führen.
+
+Zu den Bestensuchen gehört unter anderem der \textit{Greedy best-first-search} und der A$^*$ Algorithmus, die sich in ihrer Bewertungsfunktion unterscheiden.
+
+Die Abbildung\ref{} veranschaulicht eine abstrakte Suche in einem Suchbaum unter Verwendung der Bestensuche. Dabei sind die grünen Knoten bereits expandierte Knoten, während die blauen Knoten zur offenen Liste gehören. Gestrichelte Knoten und Kanten repräsentieren nicht entdeckte Elemente, während die Blätter des Baums potenzielle Zielknoten darstellen. Der gefundene Pfad [A, C, E] weist mit $f(n) = 6$ die geringsten Kosten auf und stellt somit den optimalen Pfad dar.
+
+\lstinputlisting[firstline=0, language=Pseudo, linerange={31-55}, caption={Pseudocode Bestensuche}, label=lst:caption]{code/goap_agent.py}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\textwidth]{Suchalgorithmen/bfs suchbaum}
+	\captionsetup{justification=justified, format=plain}
+  \caption{Suchbeispiel über Bestensuche}
+  \label{fig:bestensuche beispiel}
+\end{figure}
+
+\subsection{A$^*$ Algorithmus}
+
+Der A$^*$ Algorithmus gehört zu den informierten und heuristischen Suchverfahren und ist eine Form der Bestensuche. Er ist ein vollständiger Algorithmus, was bedeutet, dass er einen Pfad zu dem Ziel und findet, wenn einer vorhanden ist. Der A$^$-Algorithmus wird häufig in Routenplanern eingesetzt. Unter anderem benutzten, \hyperref[chap:game engines]{Game-Engines} wie Godot 4.3 den A$^*$-Algorithmus für die Navigation von NPCs.
+
+\subsubsection{Bewertungsfunktion}
+
+Bestensuchen benutzen eine Bewertungsfunktion $f(n)$, die dazu dient die Priorität eines Knoten $n$ während der Suche zu bewerten. Bei der Bewertungsfunktion des A$^*$ Algorithmus werden dabei alle Pfad-Kosten $g(n)$ vom Ausgangsknoten bis zu dem Knoten $n$ mit der Heuristik $h(n)$ des Knoten $n$ summiert.
+
+\[
+\highlightbox{0.9\textwidth}{$
+    \begin{aligned}
+			f(n) = g(n) + h(n)
+    \end{aligned}
+$}
+\]
+
+Mit jeder Erweiterung des Pfades von $n$ zu $n^{\ast}$ steigen die Kosten $g(n)$. Dies liegt an den positiven Aktion-Kosten $ACTIONCOST(n,a,n^*)$ der Kanten zwischen den Knoten.
+
+\[
+\highlightbox{0.9\textwidth}{$
+    \begin{aligned}
+			g(n) + ACTIONCOST(n,a,n^*) + h(n^*) &= g(n^*) + h(n^*)
+    \end{aligned}
+$}
+\]
+
+\subsubsection{Heuristik}
+
+Ein Suchalgorithmus sollte einen Pfad mit möglichst geringen Kosten zum Ziel finden, der als optimaler Pfad bezeichnet wird. Ob der A$^*$ Algorithmus einen optimalen Pfad findet, hängt von den Eigenschaften der Heuristik $h(n)$ ab. Eine Heuristik weist die Eigenschaften der Zulässigkeit und Konsistenz auf. Bei einer zulässigen Heuristik werden die Kosten stets unterschätzt oder genau geschätzt. Die Kosten einer solchen Heuristik bleiben stets im Intervall $[0, h^{\ast}(n)]$ der tatsächlichen Kosten des Zielknoten $h^{\ast}(n)$.
+
+\[
+\highlightbox{0.9\textwidth}{$
+    \begin{aligned}
+			0 \leq h(n) \leq h^*(n)
+    \end{aligned}
+$}
+\]
+
+Eine konsistente Heuristik, muss gleichzeitig zulässig sein und die Dreiecksungleichung erfüllen. Umgekehrt muss eine zulässige Heuristik nicht konsistent sein. Die Dreiecksungleichung gibt an, dass die Heuristik $h(n)$ geringer sein soll als die Summe der Aktion $a$ und die Heuristik des folgenden Knoten $h(n^*)$.
+
+\[
+\highlightbox{0.9\textwidth}{$
+    \begin{aligned}
+			h(n) \leq ACTIONCOST(n,a,n^*) + h(n^*)
+    \end{aligned}
+$}
+\]
+
+Die konsistente Heuristik weist eine stärkere Eigenschaft auf, als eine zulässige Heuristik. Der expandierte Knoten bei einer konsistenten Heuristik wird optimal sein, weshalb dieser Knoten nicht erneut in die offene-Liste hinzufügt werden muss.
+
+Bei einer inkonsistenten Heuristik können Pfade auftreten, die zu dem selben Zustand führen. Dies führt dazu, dass mehrere Pfade mit demselben Zustand, aber unterschiedlichen Kosten, in der offenen Liste erscheinen, was zu höheren Zeit- und Speicherkosten führt.
+
+\subsubsection{Beweis für Optimalität}
+
+Arbeitet der A$^*$ Algorithmus mit einer zulässigen oder konsistenten Heuristik, so wird diese den optimalen, kostengünstigsten Pfad zu einem Ziel finden.
+
+Vorraussetzung:
+\begin{itemize}
+\item Der A$^*$ Algorithmus expandiert auf Knoten mit der geringsten $f(n)$
+\item Wir haben zwei mögliche Zielknoten:
+\begin{itemize}
+	\item optimaler Zielknoten: $G_o$
+	\item suboptimaler Zielknoten: $G_s_o$
+\end{itemize}
+\item Eine zulässige Heuristik: $0 \leq h(n) \leq h^*(n)$
+\item Einen nicht expandierten Knoten: $n$
+\end{itemize}
+
+Beweis:
+\begin{enumerate}
+	\item Da keine weiteren Schritte vom Zielzustand möglich sind gilt: $h(G_o) \land h(G_s_o) = 0$
+	\[
+	\highlightbox{0.9\textwidth}{$
+		\begin{align*}
+			f(G_o) &= g(G_o) + h(G_o) \\
+			f(G_o) &= g(G_o) \\
+			f(G_s_o) &= g(G_s_o) + h(G_s_o) \\
+			f(G_s_o) &= g(G_s_o)
+		\end{align*}
+	$}
+	\]
+	
+	Da $G_s_$ suboptimal ist folgt, dass die Pfadkosten $f(n)$ von $G_s_o > G_o$ sind und somit: $f(G_s_o) > f(G_o)$.
+	\item Da $g(G_o)$ der tatsächliche Zielknoten ist und $h^*(n)$ die tatsächlichen Kosten von $G_o$ sind gilt:
+	\[
+	\highlightbox{0.9\textwidth}{$
+    \begin{align*}
+			f(n) = g(n) + h(n) &< g(n) + h^*(n) = g(G_o) = f(G_o) \\
+			f(n) &< g(G_o)
+		\end{align*}
+	$}
+	\]
+\end{enumerate}
+Aus 1. und 2. folgt: $f(n) < f(G_o) < f(G_s_o)$. Somit würde der A$^*$ Algorithmus nicht zu $G_s_o$ führen und ist mit einer zulässigen Heuristik optimal.

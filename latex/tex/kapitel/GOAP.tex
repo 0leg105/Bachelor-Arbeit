@@ -1,6 +1,6 @@
 \chapter{Goal Oriented Action Planning}
 
-Das Goal Oriented Action Planning gehört zu den Entscheidungssystemen in der Game AI und besteht aus dem A* Suchalgorithmus. Er ist für die Planung zu einem bestimmten Ziel gedacht. Planung ist der Prozess der Suche einer Sequenz an Aktionen zur Erreichung eines Zieles. Die Suche kann dabei als Suchproblem dargestellt werden. Für das Verständnis wird daher Kenntnis der Themen Suchalgorithmen und Suchprobleme empfohlen.
+Das Goal Oriented Action Planning gehört zu den \hyperref[chap:entscheidungssysteme]{Entscheidungssystemen} in der Game AI und besteht aus dem A* Suchalgorithmus. Er ist für die Planung zu einem bestimmten Ziel gedacht. Planung ist der Prozess der Suche einer Sequenz an Aktionen zur Erreichung eines Zieles. Die Suche kann dabei als Suchproblem dargestellt werden. Für das Verständnis wird daher Kenntnis der Themen Suchalgorithmen und Suchprobleme empfohlen.
 
 %ergänzen:
 %\autocite{ai_standard}
@@ -15,7 +15,7 @@ Das Goal Oriented Action Planning gehört zu den Entscheidungssystemen in der Ga
 
 \section{Historie}
 
-Das Entscheidungssystem \textit{Goal Oriented Action Planning} (\textit{GOAP}) entstand in der Entwicklung des Videospiel \textit{F.E.A.R First Encounter Assault Recon (2005)}. Die Entwickler wollten ein Videospiel entwickeln, das wie ein Actionfilm wirkt, mit intensiven Kämpfen. Für die intensiven Kämpfe benötigt man NPC, welche Deckung nehmen, blind feuern, über Fenster springen, Granaten werfen, untereinander kommunizieren und weitere Aktionen ausführen können.
+Das \hyperref[chap:entscheidungssysteme]{Entscheidungssystem} \textit{Goal Oriented Action Planning} (\textit{GOAP}) entstand in der Entwicklung des Videospiel \textit{F.E.A.R First Encounter Assault Recon (2005)}. Die Entwickler wollten ein Videospiel entwickeln, das wie ein Actionfilm wirkt, mit intensiven Kämpfen. Für die intensiven Kämpfe benötigt man NPC, welche Deckung nehmen, blind feuern, über Fenster springen, Granaten werfen, untereinander kommunizieren und weitere Aktionen ausführen können.
 
 Zuvor nutzte \textit{Monolith} Finite State Machines (\textit{FSM}) als Entscheidungssystem. Den Entwicklern fiel es jedoch zunehmend aufwendig, eine FSM mit neuen Zuständen und den dazugehörigen Aktionen zu erweitern. In einem vorherigen Videospiel \textit{No One Lives Forever (2000)}, wurde veruscht eine dynamische FSM zu implementieren, die sich an Zielzustände anpassen konnte. Allerdings wurde auch diese Lösung als zu unflexibel wahrgenommen. Aus dem Versuch der dynamischen FSM und STRIPS hat Jeff Orkin das GOAP System entwickelt, welches Echtzeitplanung erfüllen soll. Eine der Herausforderungen, mit denen sich Jeff Orkin während der Entwicklung konfrontiert sah, war die Berücksichtigung der Performance.\autocite{retro_fear}
 
@@ -206,7 +206,7 @@ Der Algorithmus erstellt nun einen Suchbaum. Der Wurzelknoten im Suchbaum speich
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=10cm]{GOAP/GOAP_1}
+  \includegraphics[width=0.5\textwidth]{GOAP/goap baum 1}
 	\captionsetup{justification=justified, format=plain}
   \caption{GOAP A* Suche: Grüne Knoten sind Knoten, welche erweitert wurden. Blaue Knoten sind Knoten aus der offenen Liste.}
   \label{GOAP A* Suche: Erste Aktionen}
@@ -218,7 +218,7 @@ Zur weiteren Suche entscheidet sich der A* Algorithmus für den Knoten mit den g
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=15cm]{GOAP/GOAP_2}
+  \includegraphics[width=0.6\textwidth]{GOAP/goap baum 2}
 	\captionsetup{justification=justified, format=plain}
   \caption{GOAP A* Suche}
   \label{GOAP A* Suche: Erste Aktionen}
@@ -229,7 +229,7 @@ Für den expandierten Knoten \textit{GunLoaded, AtCover} werden nun Aktionen ges
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=15cm]{GOAP/GOAP_3}
+  \includegraphics[width=0.6\textwidth]{GOAP/goap baum 3}
 	\captionsetup{justification=justified, format=plain}
   \caption{GOAP A* Suche}
   \label{GOAP A* Suche: Erste Aktionen}
@@ -240,7 +240,7 @@ Der Knoten der durch die Aktion \textit{Reload} entstand, hat dabei die geringst
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=15cm]{GOAP/GOAP_4}
+  \includegraphics[width=0.6\textwidth]{GOAP/goap baum 4}
 	\captionsetup{justification=justified, format=plain}
   \caption{GOAP A* Suche}
   \label{GOAP A* Suche: Erste Aktionen}
@@ -248,7 +248,16 @@ Der Knoten der durch die Aktion \textit{Reload} entstand, hat dabei die geringst
 
 Aus der offenen Liste wird der nächste Knoten \textit{AtPlayer} gewählt, da dieser die niedrigsten Kosten von allen anderen offenen Knoten hat. Dieser wird durch die Aktion \textit{GoToPlayer} erfüllt und führt zu einem Knoten mit leerem Zustand.
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.6\textwidth]{GOAP/goap baum final}
+	\captionsetup{justification=justified, format=plain}
+  \caption{GOAP A* Suche}
+  \label{GOAP A* Suche: Erste Aktionen}
+\end{figure}
+
 Letztlich wird der günstigste Knoten aus der offenen Liste genommen. Da dieser erfüllt ist, bzw. keine weiteren Zustände besitzt, gibt der Planner nun die Aktionen die zu ihm geführt habe in einer Sequenz zurück. Im Beispiel wäre es die Sequenz: [\textit{Melee, GoToPlayer}]. Diese Sequenz muss nun gespiegelt werden, da der A* Algorithmus vom Zielzustand angefangen hat. Somit wäre die richtige Sequenz [\textit{GoToPlayer, Melee}]
+
 \clearpage
 
 %\section{Unterschiede STRIPS und GOAP}
