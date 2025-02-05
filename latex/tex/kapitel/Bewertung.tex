@@ -1,31 +1,10 @@
 \chapter{Ergebnis}
 
-In diesem Kapitel werden die \hyperref[chap:entscheidungssysteme]{Entscheidungssysteme} Finite State Machine (FSM), Behavior Tree (BT) und Goal Oriented Action Planning (GOAP) aus der Erfahrung durch die Implementation, Benchmarks, wissenschaftlicher Literatur verglichen und bewertet.
+In diesem Kapitel werden die \hyperref[chap:entscheidungssysteme]{Entscheidungssysteme} Finite State Machine (FSM), Behavior Tree (BT) und Goal Oriented Action Planning (GOAP) aus der Erfahrung durch die Implementation, Benchmarks, wissenschaftlicher Literatur verglichen und folglich bewertet.
 
-Der Vergleich wird sich auf die folgenden Punkte fokussieren: Erlernbarkeit, Skalierbarkeit, Debugging, Umsetzung, Performance und Speicherverbrauch. 
-
-%Die Erlernbarkeit beschreibt, wie komplex es für Entwickler ist, das jeweilige Entscheidungssystem zu verstehen und anzuwenden. Sie hängt von mehreren Faktoren ab. Dazu gehört die Verständlichkeit der Konzepte, die Verfügbarkeit von Dokumentationen sowie die notwendigen Vorkenntnisse für die Nutzung. 
-
-%Der Punkt Skalierbarkeit bewertet, wie komplex es ist das System mit Aktionen zu erweitern oder bestehende zu ändern. 
-
-%Das Debugging beschreibt, wie komplex Fehler im Entscheidungssystem gefunden und behoben werden können. 
-
-%Bei der Implementation liegt der Fokus auf der praktischen Umsetzung des Entscheidungssystems in der Game Engine Godot. Dabei wird insbesondere betrachtet, wie aufwendig die Implementierung ist. 
+Der Vergleich wird sich auf die folgenden Punkte fokussieren: Erlernbarkeit, Umsetzung, Skalierbarkeit, Debugging, Performance und Speicherverbrauch. 
 
 Für den Vergleich der Performance und Speicherverbrauch werden Ergebnisse von Benchmarks einbezogen.
-
-
-%Das folgende Kapitel die drei besprochenen \hyperref[chap:entscheidungssysteme]{Entscheidungssysteme} vergleichen. Der Vergleich wird sich auf die Implementierung und Performance fokussieren. Eine Implementierung wird bewertet auf die Punkte der Skalierbarkeit, Änderung und Architektur Komplexität. Der Performance Vergleich geschieht über Benchmark Tests, mit einem Fokus auf Frames Per Second (FPS) und Speicherverbrauch.
-
-%Mit der Skalierbarkeit ist die Erweiterung der Entscheidungssysteme gemeint. Eine Erweiterung passiert, wenn dem NPC neue Aktionen hinzufügt werden. Die Aktion muss dabei in das Entscheidungssystem mit ihren \hyperref[chap:game-objects]{Komponenten} und Zuständen integriert werden. Auch Änderungen einer Aktion kann zu Änderungen im Entscheidungssystemen führen. Die Erweiterung und Skalierung beansprucht Zeit. So wäre es im Vorteil, wenn das Entscheidungssystem hinsichtlich Skalierbarkeit und Änderung möglichst einfach ist. Dabei wäre es unter anderem im Vorteil, wenn die Funktionsweise möglichst einfach ist.
-
-%Bei Erweiterungen oder Änderungen von Aktionen muss das Entscheidungssystem auch getestet werden. Das Testen (Debuggen) prüft unter anderem die Spiellogik, Performance und Speicherverbrauch. Mit Spiellogik ist gemeint, dass ein NPC korrekte Aktionen im Sinne des Spielers ausführt. Beispielsweise macht es keinen Sinn, dass der NPC den Spieler im Nahkampf angreift, obwohl der Weg zum Spieler zu weit ist und der NPC die Möglichkeit hat sein Waffe zu benutzen. Das Testen kann je nach Entscheidungssystem unterschiedlich komplex und Zeit benötigen. Ein möglichst einfaches Nachvollziehen der Entscheidungen des Entscheidungssystem wäre dabei im Vorteil und variiert nach Entscheidungssystem. 
-
-%Auch die Implementation eines Entscheidungssystems wird bewertet. Die Entscheidungssysteme sind in ihrer Funktionsweise und Architektur unterschiedlich komplex. Die Funktionsweise und Architektur sollte bei einem Entscheidungssystem für den Entwickler möglichst nachvollziehbar sein. Eine möglichst simple Umsetzung wäre dabei im Vorteil, um Zeit zu sparen.
-
-%Über Benchmarks soll festgestellt werden, wie sich die Entscheidungssysteme hinsichtlich Performance und Speicherverbrauch unterscheiden. So wäre ein möglichst effizientes Entscheidungssystem im Vorteil und spiegelt sich im Videospiel wieder. Eine gute Performance und guter Speicherverbrauch ist im Vorteil für den Konsumenten und Entwickler. Bei einem effizienten Videospiel benötigt der Konsument keine teure Hardware und erhält ein flüssigeres Spielerlebnis, was wiederum für positive Wertungen führt. Somit hat auch der Entwickler einen Vorteil, da sein Videospiel durch die Wertung Aufmerksamkeit bekommt, was wiederum zu Käufen des Videospieles führen kann.
-
-%Die Ergebnisse werden anschließend anhand einer Tabelle zusammengefasst.
 
 \section{Ergebnisse der Implementierung}
 
@@ -46,6 +25,20 @@ Aufgrund der verschiedenen Task-Kategorien\ref{} ist der BT anspruchsvoller in d
 Mit dem dynamischen System kommt die Komplexität der Funktionsweise. GOAP wird im Gegensatz zu den anderen beiden Entscheidungssysteme für fortgeschrittene Entwickler empfohlen. Kenntnisse im Bereich von Graphentheorie und Suchalgorithmen können das Verständnis und die Nutzung von GOAP jedoch erheblich erleichtern. In Bezug auf Dokumentation und verfügbare Bibliotheken weist GOAP deutliche Mängel auf. Wie bereits im Kapitel\ref{} erläutert, fordern Studien wie \autocite{sielicki2018adaptation} eine stärkere Verbreitung von Dokumentationen und Bibliotheken für GOAP. Im Vergleich zu den anderen Entscheidungssystemen gibt es zu GOAP deutlich weniger Dokumentation.
 
 
+\subsection{Umsetzung}
+
+Bei der Umsetzung liegt der Fokus auf der praktischen Umsetzung des Entscheidungssystems in der Game-Engine Godot. Dabei wird betrachtet, wie aufwendig die Implementierung der Funktionsweise und Architektur des Entscheidungssystems ist sowie das designen der NPCs.
+
+%FSM
+Die FSM ist als Ad-Hoc-Authoring Methode ein statisches Entscheidungssystem und in Godot unkompliziert zu implementieren. Die Architektur besteht dabei aus einer Knoten Klasse und einer Koordinaten Klasse. Einen Knoten zu erstellen und diesen mit Aktions Komponenten zu ergänzen ist einfach. Doch mit der größe der Komplexität eines NPC steigt der Aufwand die FSM instandzuhalten, da mit der Anzahl an Aktionen die Anzahl der Knoten im Graphen steigen.
+
+%BT
+Auch der BT ist als Ad-Hoc-Authoring Methode ein statisches Entscheidungssystem und in Godot unkompliziert zu implementieren. Im Vergleich zur FSM hat er aber durch die verschiedenen Task-Typen\ref{} eine komplexere Architektur. Die Architektur ist aber unaufwendig zu realisieren und man hat durch die verschiedenen Kategorien der Tasks die Möglichkeit komplexere NPC Verhalten umzusetzen. Dennoch wird der BT als zu statisch empfunden.\autocite{aiag}. Zudem müssen Entwickler viel Zeit darauf verwenden, passende BT-Knoten zu erstellen und sie mit den richtigen Verhaltensweisen verknüpfen.\autocite{Schwab2021} Wie bereits in den zuvor erläuterten Studien aus dem Kapitel\ref{chap:sota bt}, kann die Struktur eines BT jedoch durch Methoden wie maschinelles Lernen oder GOAP automatisch generiert werden.
+
+%GOAP
+Der GOAP ist als dynamisches System das komplexeste der drei Entscheidungssysteme, wenn es um die Implementierung geht. Sie erfordert ein tiefgehendes Verständnis der Funktionsweise von GOAP. Hat man diese jedoch verstanden, können immersive NPC-Verhalten designed werden. Hinzu kommt das Godot 4.3 Datenstrukturen, wie Sets und PriorityQueues nicht beinhaltet, sodass diese für bessere Zugriffszeiten selbst implementiert werden müssen. Beim Designen von NPC-Verhalten ist insbesondere die Zuweisung der Kosten einer Aktion eine Herausforderung \autocite{Schwab2021}. Doch mit der Komplexität ist es möglich immersive NPC-Verhaltensweisen zu programmieren.
+
+
 \subsection{Skalierbarkeit}
 
 Der Punkt Skalierbarkeit bewertet, wie komplex es ist das System mit Aktionen zu erweitern oder bestehende zu ändern.
@@ -57,9 +50,7 @@ Die FSM ist schwer skalierbar. Wird eine Aktion (Knoten) geändert oder hinzugefü
 Wie auch die FSM ist der BT ein statisches Entscheidungssystem. Er ist jedoch im Vergleich zu FSM skalierbarer. Die Aktionen eines Behavior Tree sind durch die Tasks loser gekoppelt und müssen sich nicht gegenseitig stark beeinflussen. So kann bei einer Erweiterung ein neuer Zweig hinzugefügt werden mit seinen eigenen Tasks, ohne viele bestehende Aktionen oder Strukturen zu verändern.\autocite{aiag}  Allerdings kann auch ein BT mit zunehmender Anzahl an Aktionen unübersichtlich werden. Erfahrung zeigt, dass das Lesen und Verstehen eines Behavior Trees schwieriger ist als bei einer FSM. Wobei es Literaturen wie \autocite{} gibt die das Gegenteil behaupten.
 
 %GOAP
-Das Entscheidungssystem GOAP ist hinsichtlich der Skalierbarkeit den zuvor beschriebenen Systemen überlegen. 
-Es müssen bei neuen Aktionen oder Änderungen bestehender Aktionen keine manuellen Verknüpfungen getätigt werden, da alle Aktionen unabhängig voneinander existieren. 
-Die Reihenfolge der Aktionsausführung wird dynamisch durch GOAP bestimmt, was es zu einem anpassungsfähigen Entscheidungssystem macht.
+Das Entscheidungssystem GOAP ist hinsichtlich der Skalierbarkeit den zuvor beschriebenen Systemen überlegen. Es müssen bei neuen Aktionen oder Änderungen bestehender Aktionen keine manuellen Verknüpfungen getätigt werden, da alle Aktionen unabhängig voneinander existieren. Die Reihenfolge der Aktionsausführung wird dynamisch durch GOAP bestimmt, was es zu einem anpassungsfähigen Entscheidungssystem macht.
 
 
 \subsection{Debugging}
@@ -76,82 +67,38 @@ Auch das Debuggen soll laut Quellen wie \autocite{aiag} und \autocite{review_gam
 Ein Nachteil der mit dem dynamischen System kommt ist das Debuggen. Es ist es schwierig, die mögliche Reihenfolge der Aktionen vorherzusagen, da GOAP die Aktionen basierend auf ihren Kosten und Zuständen auswählt und nicht durch statische Verbindungen, wie es in Ad-hoc-Behavior-Authoring-System der Fall ist. Eine mögliche Lösung wäre eine Visualisierung des Suchbaums, wie er durch den A*-Algorithmus in GOAP generiert wird. Eine solche Darstellung würde aufzeigen, welche Aktionen potenziell in Frage kamen und welche letztendlich priorisiert wurden. Allerdings ist die Implementierung dieser Visualisierung deutlich komplexer als bei einer FSM oder einem BT.
 
 
-\subsection{Umsetzung}
-
-Bei der Umsetzung liegt der Fokus auf der praktischen Umsetzung des Entscheidungssystems in der Game-Engine Godot. Dabei wird betrachtet, wie aufwendig die Implementierung der Funktionsweise Architektur des Entscheidungssystems ist.
+\section{Ergebnise der Benchmarks}
 
 %FSM
-Die FSM ist als Ad-Hoc-Authoring Methode ein statisches Entscheidungssystem und in Godot unkompliziert zu implementieren. Die Architektur besteht dabei aus einer Knoten Klasse und einer Koordinaten Klasse. Einen Knoten zu erstellen und diesen mit Aktions Komponenten zu ergänzen ist einfach. Doch mit der größe der Komplexität eines NPC steigt der Aufwand die FSM instandzuhalten, da mit der Anzahl an Aktionen die Anzahl der Knoten im Graphen steigen. Die FSM wird für einfach NPC-Logiken empfohlen.
-
-%BT
-Auch der BT ist als Ad-Hoc-Authoring Methode ein statisches Entscheidungssystem und in Godot unkompliziert zu implementieren. Im Vergleich zur FSM hat er aber durch die verschiedenen Task-Typen\ref{} eine komplexere Architektur. Die Architektur ist aber unaufwendig zu realisieren und man hat durch die verschiedenen Kategorien der Tasks die Möglichkeit komplexere NPC Verhalten umzusetzen. Dennoch wird der BT als zu statisch empfunden.\autocite{aiag}. Zudem müssen Entwickler viel Zeit darauf verwenden, passende BT-Knoten zu erstellen und sie mit den richtigen Verhaltensweisen verknüpfen.\autocite{Schwab2021} Wie bereits in den zuvor erläuterten Studien aus dem Kapitel\ref{chap:sota bt}, kann die Struktur eines BT jedoch durch Methoden wie maschinelles Lernen oder GOAP automatisch generiert werden.
-
-%GOAP
-Die Implementierung ist somit anspruchsvoller als bei einer FSM oder einem BT und erfordert ein tiefgehendes Verständnis der Funktionsweise von GOAP. 
-Hat man diese jedoch verstanden, können immersive NPC-Verhalten designed werden. 
-Beim Designen von NPC-Verhalten ist insbesondere die Zuweisung der Kosten einer Aktion ist eine Herausforderung \autocite{Schwab2021}.
-
-\section{Finite State Machine}
-
-% Hinzufügen: Nach der Fertigstellung zeigen NPC mit FSM vorhersehbares Verhalten.
-
-%Die FSM ist schwer skalierbar. Wird eine Aktion (Knoten) geändert oder hinzugefügt, so muss der Graph der FSM angepasst werden. Eine Änderung oder das Hinzufügen einer Aktion kann dazu führen, dass andere Knoten die mit der Aktion in Verbindung stehen ebenfalls geändert werden müssen. Dies kann zu einem Dominoeffekt führen, bei der eine Kette an Knoten geändert werden muss und wiederum Zeitaufwand bedeutet. Zustände und Übergänge sollten dabei vollständig definiert sein, so dass der NPC nicht in falschen Zuständen hängen bleibt. Die FSM wird mit jeder Erweiterung an Aktionen auch unübersichtlicher. So hatte das Spiel Half-Life (1998) ca. 80 so genannte Tasks, welche alle einem Zustand zugewiesen sind.\autocite{U2023} Die Unübersichtlichkeit führt zur erhöhten Komplexität des \hyperref[chap:entscheidungssysteme]{Entscheidungssystems}.
-
-%Das Debuggen einer FSM ist vergleichsweise einfach \autocite{review_game_ai}, da ihre Struktur statisch ist und sich nicht dynamisch verändert. Durch die Visualisierung des Graphen lässt sich nachvollziehen, welche Knoten zur ausgeführten Aktion geführt haben. Speichert man zusätzlich die zuletzt durchlaufenen Knoten und gibt diese aus, kann der Ablauf noch besser nachvollzogen und mögliche Fehlerquellen leichter identifiziert werden.
-
-%Die Implementation und das designen einer FSM ist einfach. 
-%Hauptsächlich werden Kenntnisse über endliche Automaten benötigt. 
-%Es gibt genügend Internet Quellen, welche eine FSM Implementation dokumentieren. Eine FSM wird auch häufig als Einführungsbeispiel in die Game-AI Entscheidungssysteme genommen, wie es in vielen Fachbüchern, wie \autocite{} zur Game-AI ersichtlich ist.
-sie viel zu unskalierbar und undynamisch ist.\autocite{review_game_ai}
-Eine Finite State Machine (FSM) wird häufig für einfache NPC-Logiken empfohlen, da ihr Design, die Implementierung, Visualisierung und das Debuggen vergleichsweise einfach sind. 
-Doch mit der größe des Spieles steigt der Aufwand die FSM umzusetzen, da sie viel zu unskalierbar und undynamisch ist.\autocite{review_game_ai} 
-Im Punkt der Skalierbarkeit ist sie GOAP unterlegen.\autocite{Schwab2021} 
 Außerdem können Leistungsprobleme auftreten, insbesondere bei einer übermäßigen Anzahl von Zuständen.\autocite{U2023} 
-Die Nachteile führten dazu, dass die Spielindustrie nach alternativen Methoden für die Entscheidungsfindung von NPCs suchte \autocite{U2023}. 
-Ein Beispiel hierfür ist GOAP von Jeff Orkin, welcher mit GOAP einen neuen Ansatz entwickelte.
-
-\section{Behavior Tree}
-
-%Wie auch die FSM ist der BT ein statisches \hyperref[chap:entscheidungssysteme]{Entscheidungssystem}. Er ist jedoch im Vergleich zu FSM skalierbarer. Die Aktionen eines Behavior Tree sind durch die Tasks loser gekoppelt und müssen sich nicht gegenseitig stark beeinflussen. So kann bei einer Erweiterung ein neuer Zweig hinzugefügt werden mit seinen eigenen Tasks, ohne viele bestehende Aktionen oder Strukturen zu verändern.\autocite{aiag}  Allerdings kann auch ein BT mit zunehmender Anzahl an Aktionen unübersichtlich werden. Erfahrung zeigt, dass das Lesen und Verstehen eines Behavior Trees schwieriger ist als bei einer FSM. Wobei es Literaturen wie \autocite{} gibt die das Gegenteil behaupten.
-
-%Auch das Debuggen soll laut Quellen wie \autocite{aiag} und \autocite{review_game_ai} einfacher sein. 
-%Insbesondere durch die Tasks und ihre Rückgabewerte lässt sich nachvollziehen, welche Pfade im Baum durchlaufen wurden. 
-%Eine Visualisierung ist ebenfalls möglich und kann das Verständnis zusätzlich erleichtern.
-
-%Ein Vorteil im Gegensatz zur FSM ist, dass man komplexe Verhalten eines NPC einfacher designen kann \autocite{aiag}. 
-%Dafür hat der BT durch die verschiedenen Kategorien der Tasks eine höhere Komplexität, wodurch es aber erst möglich ist interessante NPC Verhalten zu entwickeln. 
-%Entwickler müssen viel Zeit darauf verwenden, passende Bedingungsknoten zu erstellen und sie mit den richtigen Verhaltensweisen zu verknüpfen \autocite{Schwab2021}. 
-%Kenntnisse in der Graphentheorie, insbesondere über \ref{gerichtete Graphen}, sind für das Verständnis eines BT von Vorteil.
- 
-%Ein BT eignet sich gut für immersive NPC-Logiken. 
-%Allerdings ist er mit seinen verschiedenen Tasks schwieriger zu erlernen als eine FSM. 
-%Zudem wird der BT als Ad-hoc-Behavior-Authoring-System als zu statisch empfunden.\autocite{aiag}
 
 
-\section{GOAP}
-
-%Das \hyperref[chap:entscheidungssysteme]{Entscheidungssystem} GOAP ist hinsichtlich der Skalierbarkeit den zuvor beschriebenen Systemen überlegen. 
-%Es müssen bei neuen Aktionen oder Änderungen bestehender Aktionen keine manuellen Verknüpfungen getätigt werden, da alle Aktionen unabhängig voneinander existieren. 
-%Die Reihenfolge der Aktionsausführung wird dynamisch durch GOAP bestimmt, was es zu einem anpassungsfähigen Entscheidungssystem macht.
-
-%Ein Nachteil der mit dem dynamischen System kommt ist das Debuggen. Es ist es schwierig, die mögliche Reihenfolge der Aktionen vorherzusagen, da GOAP die Aktionen basierend auf ihren Kosten und Zuständen auswählt und nicht durch statische Verbindungen, wie es in Ad-hoc-Behavior-Authoring-System der Fall ist. Eine mögliche Lösung wäre eine Visualisierung des Suchbaums, wie er durch den A*-Algorithmus in GOAP generiert wird. Eine solche Darstellung würde aufzeigen, welche Aktionen potenziell in Frage kamen und welche letztendlich priorisiert wurden. Allerdings ist die Implementierung dieser Visualisierung deutlich komplexer als bei einer FSM oder einem BT.
-
-%Ein weiterer Nachteil der mit dem dynamischen System kommt ist die Komplexität der Funktionsweise. 
-%Die Implementierung ist somit anspruchsvoller als bei einer FSM oder einem BT und erfordert ein tiefgehendes Verständnis der Funktionsweise von GOAP. 
-%Hat man diese jedoch verstanden, können immersive NPC-Verhalten designed werden. 
-%Beim Designen von NPC-Verhalten ist insbesondere die Zuweisung der Kosten einer Aktion ist eine Herausforderung \autocite{Schwab2021}. 
-%Kenntnisse im Bereich von Graphentheorie und Suchalgorithmen können das Verständnis und die Nutzung von GOAP jedoch erheblich erleichtern.
-
-Trotz dieser Herausforderungen ist GOAP ein leistungsstarkes Entscheidungssystem für immersive NPC-Verhaltensweisen. 
-Allerdings geht die erhöhte Immersion mit einer komplexeren Implementierung, einem schwierigeren Verständnis und aufwendigerem Debuggen einher.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=16cm]{Vergleich/avg_fps}
+	\captionsetup{justification=justified, format=plain}
+  \caption{FPS-Performance Benchmark}
+  \label{FPS-Performance Benchmark}
+\end{figure}
 
 
+\section{Bewertung}
 
-Die folgende Tabelle soll anhand Harveyballs die Entscheidungssysteme bewerten. Die Bewertung geht aus dem Vergleich und Benchmarks hervor. 
+Die Wahl des Entscheidungssystems hängt stark von den Anforderungen des Projekts ab.
 
-\begin{table}[ht]
+Eine Finite State Machine wird für einfache NPC-Logiken empfohlen. Sie ist von den anderen zwei Entscheidungssystem am einfachsten zu erlernen und in Godot umzusetzen. Will man aber komplexe NPC-Verhalten programmieren, so wird die Anzahl der Knoten wachsen, der FSM-Graph unübersichtlicher und die Wartbarkeit wird schwieriger. Die Erweiterung durch weitere Knoten kann zur Anpassung der FSM führen und somit zu einem erhöhten Zeitaufwand. Das Debuggen ist jedoch durch die statische Natur der FSM vergleichsweise einfach, insbesondere wenn eine Visualisierung genutzt wird.
+
+Für mittlere bis komplexe NPC-Verhaltensweisen ist der Behavior Tree zu empfehlen. Er ist in ihrer Funktionsweise komplexer als die FSM, hat aber viel Dokumentation zur Umsetzung, die in Godot ohne Schwierigkeiten möglich ist. Es gibt viele Konzepte die das 
+Die Skalierbarkeit und Debuggen des BT ist ebenfalls einfach.
+
+Will man komplexe NPC-Verhalten umsetzen, so ist GOAP die beste Wahl. Mit der komplexen Funktionsweise und eher mageren Dokumentation ist es schwierig, sich einzuarbeiten. In Bezug auf Skalierbarkeit übertrifft GOAP die anderen Systeme, da neue Aktionen unabhängig voneinander existieren und nicht manuell verknüpft werden müssen. Dies macht GOAP besonders anpassungsfähig. Allerdings ist das Debuggen aufgrund der dynamischen Entscheidungen schwieriger. Eine mögliche Lösung wäre die Visualisierung des Suchbaums, jedoch ist dies deutlich aufwendiger zu implementieren als bei FSM oder BT.
+
+Die Tabelle\ref{tab:es vergleich tabelle} veranschaulicht die abschließende Bewertung der Entscheidungssysteme mithilfe von Harvey Balls. Je voller der Harvey Ball, desto besser die Bewertung. Die Bewertungen basieren auf Vergleichen und Benchmarks.
+
+
+\begin{table}[h]
   \caption{Tabellarische Bewertung}
-  \label{tab:ES Vergleich Tabelle}
+  \label{tab:es vergleich tabelle}
   \centering
   \begin{tabular}{lccc}
     \toprule
@@ -167,23 +114,3 @@ Die folgende Tabelle soll anhand Harveyballs die Entscheidungssysteme bewerten. 
     \bottomrule
   \end{tabular}
 \end{table}
-
-%\autocite{Schwab2021}:
-%GOAP system in not ideal though. First of all, it is resource-heavy thus it is impossible to reliably implement full-scale system on mobile platform (as of 2018 at least). 
-%Additionally, it is really hard to predict possible queue of actions which makes it hard to debug and a challenge to assign satisfying costs to every action.
-%FSM is most definitely not a viable alternative to GOAP. As stated in 1, its maintenance in ever-changing game development environment is too much of a hassle with complicated AI behavior. It is however the perfect solution for small projects because of it simplicity.
-%BT is not perfect solution for more complicated AIs though. Developers need to spend a lot of time to create appropriate conditional nodes and link them with correct behaviors.
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=16cm]{Vergleich/avg_fps}
-	\captionsetup{justification=justified, format=plain}
-  \caption{FPS-Performance Benchmark}
-  \label{FPS-Performance Benchmark}
-\end{figure}
-
-
-%Zusammenfassung:
-%- With recent technological developments, FSMs, DTs and BTs for managing decisions of NPCs are deficient in some situations, such as bad performance on overgrown tree structures, repeating mistakes without learning, and selecting the same decisions without being adaptive to different conditions creating the need for more believable character management methods
-
-%Oleg: Man merkt, dass mit der komplexität und Funktionen immersivere NPC-Verhalten entwicklet werden können
