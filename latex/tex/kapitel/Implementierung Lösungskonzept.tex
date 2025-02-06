@@ -44,7 +44,7 @@
 \chapter{Implementierung des Lösungskonzepts}
 \label{chap:implementierung lk}
 
-Die praktische Umsetzung des GOAP Systems wird nun in diesem Kapitel beschrieben. Es soll insbesondere auf die Umsetzung des GOAP-Entscheidungssystem eingegangen werden. Zunächst wird die grundlegende Architektur von GOAP mit ihren Modulen erläutert, gefolgt von einer Darstellung des Szenarios, in dem die \hyperref[chap:entscheidungssysteme]{Entscheidungssysteme} implementiert werden. Abschließend wird die Realisierung der Benchmarks behandelt.
+Die praktische Umsetzung des GOAP Systems wird nun in diesem Kapitel beschrieben. Es soll insbesondere auf die Umsetzung des GOAP-Entscheidungssystem eingegangen werden. Zunächst wird die grundlegende Architektur von GOAP mit ihren Modulen erläutert, gefolgt von einer Darstellung des Szenarios, in dem die \hyperref[chap:entscheidungssysteme]{Entscheidungssysteme} implementiert werden. Abschlie\ss{}end wird die Realisierung der Benchmarks behandelt.
 
 So soll die Grundlegende GOAP Architektur anhand von UML-Notation dargestellt und beschrieben werden. Sie bildet die Grundlage für die Implementation des Entscheidungssystems im Szenario. Mithilfe von Pseudocode werden die in den UML-Klassendiagrammen dargestellten Methoden und Attribute weiter erläutert. Die Architektur basiert dabei auf den Informationen aus dem GOAP Grundkapitel\ref{}, wissenschaftlicher Literatur zum Thema GOAP und der F.E.A.R SDK\autocite{}.
 
@@ -111,7 +111,7 @@ ENDE update()
 In der update Methode werden Abfragen gestellt, ob der goap\_planner eine neue action\_sequence generiert hat. Wurde eine neue action\_sequence generiert, so wird die Objektvariable current\_step auf $0$ zurückgesetzt und die neue action\_sequence aus dem goap\_planner abgerufen. Die action\_sequence wird darauf durch die Methode follow\_sequence ausgeführt werden.
 
 % follow_sequence Methode
-Über die Methode follow\_sequence geschieht die eigentliche Ausführung der Aktionen aus der action\_sequence. Sollte action\_sequence leer sein, bereits ausgeführt worden oder ungültig sein, so wird eine neue action\_sequence von dem goap\_planner gefordert werden. Ansonsten wird mithilfe des current\_step Index die jeweilige Aktion über ihre GoapAction update Methode ausgeführt werden. Bei erfolgreicher Ausführung der Aktion wird der current\_step inkrementiert, um auf die nächste Aktion der action\_seqeunce zugreifen zu können.
+\"{U}ber die Methode follow\_sequence geschieht die eigentliche Ausführung der Aktionen aus der action\_sequence. Sollte action\_sequence leer sein, bereits ausgeführt worden oder ungültig sein, so wird eine neue action\_sequence von dem goap\_planner gefordert werden. Ansonsten wird mithilfe des current\_step Index die jeweilige Aktion über ihre GoapAction update Methode ausgeführt werden. Bei erfolgreicher Ausführung der Aktion wird der current\_step inkrementiert, um auf die nächste Aktion der action\_seqeunce zugreifen zu können.
 
 \begin{lstlisting}[language=Pseudo, caption={follow\_sequence Methode des GoapAgent}, mathescape=true]
 FUNKTION follow_sequence(delta) : void
@@ -144,7 +144,7 @@ Die Abbildung\ref{} zeigt den Aufbau des GoapPlanner. Bei den Methoden handelt e
 \subsubsection{Klassenatribute}
 \label{chap:goapplanner klassenattribute}
 
-Der GoapPlanner arbeitet mit Zielen und Aktionen, welche durch die Arrays actions und goals gegeben werden. Über current\_goal wird das Ziel gespeichert, zu dem eine action\_sequence gesucht wird. Die action\_sequence ist die generierte Aktionssequenz durch den GoapPlanner und wird in einem Array mit GoapAction als Elementtyp gespeichert. Das current\_state Dictionary speichert den derzeitigen Zustand des NPC. Die Initialisierung des current\_state findet über den state\_manager Parameter statt, welcher über die update Methode übergeben wird. Das create\_sequence Attribut informiert den GoapPlanner darüber, ob eine neue action\_sequence generiert werden soll. Das effect\_action\_dict Dictionary speichert alle Zustände als \textit{key} und die Aktionen, welche den Zustand beeinflussen können als \textit{values}. So erhält man eine schnellere Zugriffszeit, als wenn man jeden Effekt einer Aktion im Array mit dem benötigten Zustand vergleicht. Ähnlich zur Tabelle, wie im GOAP Grundlagenkapitel \ref{}.
+Der GoapPlanner arbeitet mit Zielen und Aktionen, welche durch die Arrays actions und goals gegeben werden. \"{U}ber current\_goal wird das Ziel gespeichert, zu dem eine action\_sequence gesucht wird. Die action\_sequence ist die generierte Aktionssequenz durch den GoapPlanner und wird in einem Array mit GoapAction als Elementtyp gespeichert. Das current\_state Dictionary speichert den derzeitigen Zustand des NPC. Die Initialisierung des current\_state findet über den state\_manager Parameter statt, welcher über die update Methode übergeben wird. Das create\_sequence Attribut informiert den GoapPlanner darüber, ob eine neue action\_sequence generiert werden soll. Das effect\_action\_dict Dictionary speichert alle Zustände als \textit{key} und die Aktionen, welche den Zustand beeinflussen können als \textit{values}. So erhält man eine schnellere Zugriffszeit, als wenn man jeden Effekt einer Aktion im Array mit dem benötigten Zustand vergleicht. \"{A}hnlich zur Tabelle, wie im GOAP Grundlagenkapitel \ref{}.
 
 %\begin{lstlisting}[language=dict, caption={effect\_action\_dict aus der Implementierung}]
 %effect_action_dict = {
@@ -174,7 +174,7 @@ Der GoapPlanner arbeitet mit Zielen und Aktionen, welche durch die Arrays action
 % update
 Die GoapPlanner Methode update wird über die update Methode des GoapAgent aufgerufen. Hierbei werden Methoden und Abfragen durchgeführt, welche die current\_goal und die dazugehörige action\_sequence bestimmen. 
 
-Für die Bestimmung des current\_goal ist die Methode get\_best\_goal verantwortlich. Ändert sich das Ziel während der Laufzeit oder wird über create\_sequence eine action\_sequence angefragt, so soll eine neue action\_sequence generiert werden. Die Suche geschieht über die Methode create\_new\_sequence. 
+Für die Bestimmung des current\_goal ist die Methode get\_best\_goal verantwortlich. \"{A}ndert sich das Ziel während der Laufzeit oder wird über create\_sequence eine action\_sequence angefragt, so soll eine neue action\_sequence generiert werden. Die Suche geschieht über die Methode create\_new\_sequence. 
 
 \begin{lstlisting}[language=Pseudo, caption={update Methode des GoapAgent}, mathescape=true]
 FUNKTION update(state_manager: StateManager) $\rightarrow$ bool
@@ -184,9 +184,9 @@ FUNKTION update(state_manager: StateManager) $\rightarrow$ bool
         current_goal $\leftarrow$ new_goal
         action_sequence $\leftarrow$ create_new_sequence()
         root_node Speicher freigeben
-        ZURÜCKGEBEN WAHR
+        ZUR\"{U}CKGEBEN WAHR
     ENDE WENN
-    ZURÜCKGEBEN FALSCH
+    ZUR\"{U}CKGEBEN FALSCH
 ENDE FUNKTION
 \end{lstlisting}
 
@@ -197,7 +197,7 @@ Die Methode create\_new\_sequence leitet die Generierung einer action\_sequence 
 Die open\_list wird über eine PriorityQueue realisiert. Man beachte, dass Godot 4.3 keine PriorityQueue besitzt und man diese selbst implementieren müsste. Eine PriorityQueue speichert Knoten, sortierter nach ihren $f(n)$ Kosten, sodass Knoten mit den niedrigsten Kosten bevorzugt abgerufen werden. 
 
 % expand_node Methode
-Die expand\_node Methode fügt Kindknoten child\_node des expandierten Knoten expanded\_node in die open\_list, welche vorher von A$^*$ gewählt wurde. Es folgt die Instanziierung der Kosten $g(n)$, $h(n)$ und $f(n)$ des child\_node. Abschließend wird der child\_node in die \textit{open\_list} hinzugefügt.
+Die expand\_node Methode fügt Kindknoten child\_node des expandierten Knoten expanded\_node in die open\_list, welche vorher von A$^*$ gewählt wurde. Es folgt die Instanziierung der Kosten $g(n)$, $h(n)$ und $f(n)$ des child\_node. Abschlie\ss{}end wird der child\_node in die \textit{open\_list} hinzugefügt.
 
 % get_child_nodes Methode
 Die get\_child\_nodes Methode sucht nach Kanten (Aktionen) welche die benötigten Zustände des Knoten erfüllen können. Dabei werden die benötigten Zustände mit den Zuständen der effect\_action\_dict verglichen.
@@ -216,17 +216,17 @@ FUNKTION a_star_algorithm(root_node) $\rightarrow$ action_sequence
 		expanded_node $\leftarrow$ open_list.pop()
 		WENN expanded_node.is_satisfied() DANN
 			open_list Speicher freigeben
-			ZURÜCKGEBEN create_path(expanded_node)
+			ZUR\"{U}CKGEBEN create_path(expanded_node)
 		ENDE WENN
 		expanded_node in closed_list hinzufügen
 		expand_node(expanded_node, open_list, closed_list)
 	ENDE SOLANGE
 	open_list Speicher freigeben
-	ZURÜCKGEBEN []
+	ZUR\"{U}CKGEBEN []
 ENDE FUNKTION
 
 FUNKTION expand_node(expanded_node, open_list, closed_list) $\rightarrow$ void
-	FÜR JEDES child_node IN get_child_nodes(expanded_node)
+	F\"{U}R JEDES child_node IN get_child_nodes(expanded_node)
 		WENN child_node IN closed_list DANN
 			FORTSETZEN
 		ENDE WENN
@@ -239,7 +239,7 @@ FUNKTION expand_node(expanded_node, open_list, closed_list) $\rightarrow$ void
 		child_node.set_g_cost(child_node_g_cost)
 		child_node.set_f_cost(child_node_f_cost)
 		open_list.push(child_node)
-	ENDE FÜR
+	ENDE F\"{U}R
 ENDE FUNKTION
 \end{lstlisting}
 
@@ -260,15 +260,15 @@ Der AStarNode hat die Funktionsweise eines Knoten in einem Suchbaum. Sie werden 
 \subsubsection{Klassenattribute}
 \label{chap:astarnode klassenattribute}
 
-Ein AStarNode speichert die Informationen des Suchproblems. Darunter die bis dahin erfüllten Zustände des Elternknoten parent\_node im Attribut current\_state\_of\_goals, sowie alle Zielzustände die bis zu dem Knoten benötigt wurden im Attribut goal\_state. Über das Klassenattribut parent\_node kann die create\_path Methode des GoapPlanner rekursiv auf die Aktionen action des Typs GoapAction zurückschließen. Die Kosten $f(n)$ werden unter f\_cost und $g(n)$ -Kosten unter g\_cost gespeichert.
+Ein AStarNode speichert die Informationen des Suchproblems. Darunter die bis dahin erfüllten Zustände des Elternknoten parent\_node im Attribut current\_state\_of\_goals, sowie alle Zielzustände die bis zu dem Knoten benötigt wurden im Attribut goal\_state. \"{U}ber das Klassenattribut parent\_node kann die create\_path Methode des GoapPlanner rekursiv auf die Aktionen action des Typs GoapAction zurückschlie\ss{}en. Die Kosten $f(n)$ werden unter f\_cost und $g(n)$ -Kosten unter g\_cost gespeichert.
 
 
 \subsubsection{Methoden}
 \label{chap:astarnode methoden}
 
-Durch den Godot Konstruktor \_init wird ein AStarNode mit seinen Attributen instanziiert. Die Berechnung der Kosten passiert durch die GoapPlanner Methode expand\_node. Dort werden über die setter- Methoden des AStarNode set\_g\_cost und set\_f\_cost initialisiert. Über die Methode get\_unsatasfied\_states werden alle Zustände zurückgegeben, welche noch nicht erreicht wurden. Die Größe des Arrays welches von get\_unsatasfied\_states gegeben wird repräsentiert die heuristischen Kosten $f(n)$ der Aktion. Die Heuristik Kosten werden ebenfalls in der expand\_node Methode des GoapPlanner berechnet und initialisiert.
+Durch den Godot Konstruktor \_init wird ein AStarNode mit seinen Attributen instanziiert. Die Berechnung der Kosten passiert durch die GoapPlanner Methode expand\_node. Dort werden über die setter- Methoden des AStarNode set\_g\_cost und set\_f\_cost initialisiert. \"{U}ber die Methode get\_unsatasfied\_states werden alle Zustände zurückgegeben, welche noch nicht erreicht wurden. Die Grö\ss{}e des Arrays welches von get\_unsatasfied\_states gegeben wird repräsentiert die heuristischen Kosten $f(n)$ der Aktion. Die Heuristik Kosten werden ebenfalls in der expand\_node Methode des GoapPlanner berechnet und initialisiert.
 
-Wird eine action gewählt, so wird ein AStarNode mit den dazugehörigen Zuständen current\_state\_of\_goals und goal\_states generiert werden. Die Generierung des neuen AStarNode geschieht über die apply\_action\_to\_state Methode. Die Methode wird vom GoapPlanner durch die Methode get\_child\_nodes auf dem expanded\_node aufgerufen. Dabei wird die action und der current\_state als Parameter übergeben. Basierend auf den Parameter initialisiert die Methode, die Attribute goal\_states und current\_state\_of\_goals für den neuen Knoten. Außerdem initialisiert sie den zu expandierten Knoten als parent\_node sowie die Aktion als action.
+Wird eine action gewählt, so wird ein AStarNode mit den dazugehörigen Zuständen current\_state\_of\_goals und goal\_states generiert werden. Die Generierung des neuen AStarNode geschieht über die apply\_action\_to\_state Methode. Die Methode wird vom GoapPlanner durch die Methode get\_child\_nodes auf dem expanded\_node aufgerufen. Dabei wird die action und der current\_state als Parameter übergeben. Basierend auf den Parameter initialisiert die Methode, die Attribute goal\_states und current\_state\_of\_goals für den neuen Knoten. Au\ss{}erdem initialisiert sie den zu expandierten Knoten als parent\_node sowie die Aktion als action.
 
 Die Prüfung ob die Zustände eines expanded\_node erfüllt wurden, wird durch is\_satasfied geprüft. Dazu schaut die Methode ob das Array welches über die Methode get\_unsatasfied\_states zurückgegeben wird leer ist. Sollte das Array leer sein, so gibt es keine zu erfüllenden Zustände und der AStarNode ist der Zielknoten.
 
@@ -286,9 +286,9 @@ Ein GoapGoal repräsentiert ein Ziel. Der GoapPlanner bewertet die verfügbaren 
   \label{fig:GoapGoal}
 \end{figure}
 
-Die Priorität und Gültigkeit wird aus dem Klassenattribut state\_manager abgeleitet. Die get\_best\_goal des GoapPlanner benötigt die Gültigkeit und Priorität, um in folge dessen das Ziel auszuwählen. Die Abfragen geschehen durch die Methoden get\_priority und is\_valid. Ein Ziel wird erst dann berücksichtigt, wenn es durch die Methode is\_valid als gültig bestätigt wurde. Anschließend kann dessen Priorität mithilfe von get\_priority ermittelt werden. 
+Die Priorität und Gültigkeit wird aus dem Klassenattribut state\_manager abgeleitet. Die get\_best\_goal des GoapPlanner benötigt die Gültigkeit und Priorität, um in folge dessen das Ziel auszuwählen. Die Abfragen geschehen durch die Methoden get\_priority und is\_valid. Ein Ziel wird erst dann berücksichtigt, wenn es durch die Methode is\_valid als gültig bestätigt wurde. Anschlie\ss{}end kann dessen Priorität mithilfe von get\_priority ermittelt werden. 
 
-Über die Methode get\_desired\_state werden die Zielzustände aufgerufen, welche der GoapPlanner zur Suche der action\_sequence benötigt. 
+\"{U}ber die Methode get\_desired\_state werden die Zielzustände aufgerufen, welche der GoapPlanner zur Suche der action\_sequence benötigt. 
 
 Die Methode get\_goal\_name gibt den Klassennamen des GoapGoal zurück, welche von Debug Methoden genutzt werden kann.
 
@@ -337,6 +337,6 @@ Die Benchmarks benötigen eine Umgebung auf der die NPCs mit ihren jeweiligen En
   \label{fig:ego shooter}
 \end{figure}
 
-Der Performance-Benchmark\ref{}, speichert während der Ausführung die Häufigkeit der Bilder-Pro-Sekunde für die jeweilige Anzahl an NPCs im gesamten Szenario. Der Benchmark beginnt mit einem NPC und wächst kontinuierlich, wobei alle 30 Sekunden ein neuer NPC der jeweiligen Klasse in die Spielwelt instanziiert wird. Für jede NPC-Klasse wird der Benchmark dreimal ausgeführt. Abschließend wird aus den gesammelten Daten der durchschnittliche FPS-Wert für jede NPC-Anzahl berechnet.
+Der Performance-Benchmark\ref{}, speichert während der Ausführung die Häufigkeit der Bilder-Pro-Sekunde für die jeweilige Anzahl an NPCs im gesamten Szenario. Der Benchmark beginnt mit einem NPC und wächst kontinuierlich, wobei alle 30 Sekunden ein neuer NPC der jeweiligen Klasse in die Spielwelt instanziiert wird. Für jede NPC-Klasse wird der Benchmark dreimal ausgeführt. Abschlie\ss{}end wird aus den gesammelten Daten der durchschnittliche FPS-Wert für jede NPC-Anzahl berechnet.
 
-Der Speicher-Benchmark\ref{}, gibt den Speicherverbrauch des gesamten Szenario. Auch dieser Benchmark beginnt mit einem NPC und wächst kontinuierlich, wobei alle 10 Sekunden ein neuer NPC der jeweiligen Klasse in die Spielwelt instanziiert wird. Für jede NPC-Klasse wird der Benchmark einmal ausgeführt. Abschließend wird auch hier aus den gesammelten Daten der durchschnittliche Speicherverbrauch für jede NPC-Anzahl berechnet.
+Der Speicher-Benchmark\ref{}, gibt den Speicherverbrauch des gesamten Szenario. Auch dieser Benchmark beginnt mit einem NPC und wächst kontinuierlich, wobei alle 10 Sekunden ein neuer NPC der jeweiligen Klasse in die Spielwelt instanziiert wird. Für jede NPC-Klasse wird der Benchmark einmal ausgeführt. Abschlie\ss{}end wird auch hier aus den gesammelten Daten der durchschnittliche Speicherverbrauch für jede NPC-Anzahl berechnet.

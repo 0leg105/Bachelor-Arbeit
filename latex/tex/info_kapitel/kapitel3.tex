@@ -18,7 +18,7 @@ Man kann sich auch selbst ein Makro für das Einfügen von Bildern schreiben:
 
 \begin{sidewaysfigure}
  \includegraphics[width=22cm]{kapitel3/ws-wsdl20-fehler}
-  \caption{Sehr große Grafiken kann man drehen, damit sie auf die Seite passen}
+  \caption{Sehr gro\ss{}e Grafiken kann man drehen, damit sie auf die Seite passen}
   \label{Kap2:wsdl-fehler}
 \end{sidewaysfigure}
 
@@ -192,7 +192,7 @@ Ebenso können Sie nicht"=funktionale Anforderungen mit Hilfe von Quality Attrib
    {Buchhaltungssystem} % Artefakt
    {Das System befindet sich im normalen Betriebszustand} % Umgebung
    {Jahresabschluss ist durchgeführt und kann als PDF abgerufen werden} % Antwort
-   {10 Minuten} % Antwort-Maß
+   {10 Minuten} % Antwort-Ma\ss{}
 
 Die Abgrenzung von funktionalen und nicht-funktionalen Anforderungen ist nicht immer einfach und bereitet manchen Studierenden Probleme. Als Hilfestellung kann die von der ISO25010 \autocite{ISO25010} zur Verfügung gestellte Liste dienen, siehe \autoref{kapitel3/iso25010}.
 
@@ -210,13 +210,13 @@ Die Abgrenzung von funktionalen und nicht-funktionalen Anforderungen ist nicht i
 \end{itemize}
 
 
-\chapter{Track Changes - Manuelle Änderungsmarkierung}
+\chapter{Track Changes - Manuelle \"{A}nderungsmarkierung}
 In diesem Dokument können Track Changes \chreplaced[id=B1]{verwendet}{aktiviert und benutzt} werden\\ (\lstinline|\chreplaced[id=B1]{verwendet}{aktiviert und benutzt}|). Durch die ID können die Anmerkungen \chdeleted[id=B2]{einem} dem Autor zugeordnet werden (\verb|\chdeleted[id=B2]{einem}|). B1 steht für die erste betreuende Person und B2 für die zweite. Ergänzungen in einem Satz wie beispielsweise in diesem Satz \chadded[id=B1]{gibt es} kein Verb können über \lstinline|\chadded[id=B2]{gibt es}| hinzugefügt werden.  
 
 Es ist ebenfalls möglich Textteile \chhighlight[id=B1]{hervorzuheben} mit dem Befehl \\ \lstinline|\chhighlight[id=B1]{hervorzuheben}|. Zudem können Kommentare\chcomment[id=B2]{das ist mein Kommentar} über den Befehl \lstinline|\chcomment[id=B2]{das ist mein Kommentar}| hinzugefügt werden.
 
 
-Das Verzeichnis zur Ausgabe aller Änderungen erfolgt über das Flag \lstinline|tc| in der docinfo.tex.  Dieser Befehl ist vor der Abgabe unbedingt auf \lstinline|notc| zu ändern.
+Das Verzeichnis zur Ausgabe aller \"{A}nderungen erfolgt über das Flag \lstinline|tc| in der docinfo.tex.  Dieser Befehl ist vor der Abgabe unbedingt auf \lstinline|notc| zu ändern.
 
 Weitere Informationen zu der Nutzung des Paketes finden Sie unter: \url{https://ctan.org/pkg/changes?lang=de}
 
