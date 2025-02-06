@@ -51,7 +51,7 @@ Der Punkt Skalierbarkeit bewertet, wie komplex es ist das System mit Aktionen zu
 Die FSM ist schwer skalierbar. Wird eine Aktion (Knoten) ge\"{a}ndert oder hinzugef\"{u}gt, so muss der Graph der FSM angepasst werden. Eine \"{A}nderung oder das Hinzuf\"{u}gen einer Aktion kann dazu f\"{u}hren, dass andere Knoten die mit der Aktion in Verbindung stehen ebenfalls ge\"{a}ndert werden m\"{u}ssen. Dies kann zu einem Dominoeffekt f\"{u}hren, bei der eine Kette an Knoten ge\"{a}ndert werden muss und wiederum Zeitaufwand bedeutet. Zust\"{a}nde und \"{U}berg\"{a}nge sollten dabei vollst\"{a}ndig definiert sein, so dass der NPC nicht in falschen Zust\"{a}nden h\"{a}ngen bleibt. Die FSM wird mit jeder Erweiterung an Aktionen auch un\"{u}bersichtlicher. So hatte das Spiel Half-Life (1998) ca. 80 so genannte Tasks, welche alle einem Zustand zugewiesen sind. Die Un\"{u}bersichtlichkeit f\"{u}hrt zur erh\"{o}hten Komplexit\"{a}t des Entscheidungssystems. Au\ss{}erdem k\"{o}nnen Leistungsprobleme auftreten, insbesondere bei einer \"{u}berm\"{a}\ss{}igen Anzahl von Knoten. \autocite{U2023}
 
 %BT
-Wie auch die FSM ist der BT ein statisches Entscheidungssystem. Er ist jedoch im Vergleich zu FSM skalierbarer. Die Aktionen eines BT sind durch die Tasks loser gekoppelt und m\"{u}ssen sich nicht gegenseitig stark beeinflussen. So kann bei einer Erweiterung ein neuer Zweig hinzugef\"{u}gt werden mit seinen eigenen Tasks, ohne viele bestehende Aktionen oder Strukturen zu ver\"{a}ndern.\autocite{aiag} Allerdings kann auch ein BT mit zunehmender Anzahl an Aktionen un\"{u}bersichtlich werden. Erfahrung zeigt, dass das Lesen und Verstehen eines BT schwieriger ist als bei einer FSM. Wobei es Literaturen wie \autocite{} gibt die das Gegenteil behaupten.
+Wie auch die FSM ist der BT ein statisches Entscheidungssystem. Er ist jedoch im Vergleich zu FSM skalierbarer. Die Aktionen eines BT sind durch die Tasks loser gekoppelt und m\"{u}ssen sich nicht gegenseitig stark beeinflussen. So kann bei einer Erweiterung ein neuer Zweig hinzugef\"{u}gt werden mit seinen eigenen Tasks, ohne viele bestehende Aktionen oder Strukturen zu ver\"{a}ndern.\autocite{aiag} Allerdings kann auch ein BT mit zunehmender Anzahl an Aktionen un\"{u}bersichtlich werden. Erfahrung zeigt, dass das Lesen und Verstehen eines BT schwieriger ist als bei einer FSM.
 
 %GOAP
 Das Entscheidungssystem GOAP ist hinsichtlich der Skalierbarkeit den zuvor beschriebenen Systemen \"{u}berlegen. Es m\"{u}ssen bei neuen Aktionen oder \"{A}nderungen bestehender Aktionen keine manuellen Verkn\"{u}pfungen get\"{a}tigt werden, da alle Aktionen unabh\"{a}ngig voneinander existieren. Die Reihenfolge der Aktionsausf\"{u}hrung wird dynamisch durch GOAP bestimmt, was es zu einem anpassungsf\"{a}higen Entscheidungssystem macht.
@@ -97,7 +97,7 @@ Die Abbildung \ref{fig:mem benchmark} veranschaulicht die Ergebnisse des Speiche
   \centering
   \includegraphics[width=12cm]{Vergleich/avg_mem.pdf}
 	\captionsetup{justification=justified, format=plain}
-  \caption{BPS-Performance Benchmark}
+  \caption{Speicher-Benchmark}
   \label{fig:mem benchmark}
 \end{figure}
 
