@@ -42,16 +42,18 @@
 
 
 \chapter{Implementierung des Lösungskonzepts}
+\label{chap:implementierung lk}
 
 Die praktische Umsetzung des GOAP Systems wird nun in diesem Kapitel beschrieben. Es soll insbesondere auf die Umsetzung des GOAP-Entscheidungssystem eingegangen werden. Zunächst wird die grundlegende Architektur von GOAP mit ihren Modulen erläutert, gefolgt von einer Darstellung des Szenarios, in dem die \hyperref[chap:entscheidungssysteme]{Entscheidungssysteme} implementiert werden. Abschließend wird die Realisierung der Benchmarks behandelt.
 
-So soll Die Grundlegende GOAP Architektur anhand von UML-Notation dargestellt und beschrieben werden. Sie bildet die Grundlage für die Implementation des Entscheidungssystems im Szenario. Mithilfe von Pseudocode werden die in den UML-Klassendiagrammen dargestellten Methoden und Attribute weiter erläutert. Die Architektur basiert dabei auf den Informationen aus dem GOAP Grundkapitel\ref{}, wissenschaftlicher Literatur zum Thema GOAP und der F.E.A.R SDK\footnote{https://github.com/xfw5/Fear-SDK-1.08/tree/2fc3557b0037d5fe01ac607b907d4b8511b9e4b2}.
+So soll die Grundlegende GOAP Architektur anhand von UML-Notation dargestellt und beschrieben werden. Sie bildet die Grundlage für die Implementation des Entscheidungssystems im Szenario. Mithilfe von Pseudocode werden die in den UML-Klassendiagrammen dargestellten Methoden und Attribute weiter erläutert. Die Architektur basiert dabei auf den Informationen aus dem GOAP Grundkapitel\ref{}, wissenschaftlicher Literatur zum Thema GOAP und der F.E.A.R SDK\autocite{}.
 
 \section{GOAP Architektur}
+\label{chap:goap architektur}
 
 Aus dem GOAP-Kapitel\ref{} geht hervor, dass ein GOAP-System aus einem Planner, Zielen, Aktionen und einer FSM besteht. Diese Module sollen ihre Aufgaben erfüllen, wie im Grundlagenkapitel zu GOAP beschrieben. Dafür müssen diese Module in einer Architektur zusammenarbeiten. Die grundlegende Architektur von GOAP wird in Abbildung\ref{} dargestellt.
 
-Der Agent wird über eine GoapAgent Klasse realisiert. Sie soll in der Architektur die Hauptklasse darstellen und als Schnittstelle zur restlichen Spielwelt fungieren. Die Spielwelt benötigt nämlich eine Schnittstelle, um dem NPC Informationen zu übergeben, wie beispielsweise bestimmte Koordinaten zum erfüllen bestimmter Aktionen. Die zentrale Aufgabe des GoapAgent ist nämlich die Aktionen einer Aktionssequenz ausführen. Für die Ausführung der eigentlichen Aktionen werden dabei \hyperref[chap:game-objects]{Komponenten} benötigt, welche die Spielwelt manipulieren können. Die Klasse Npc stellt diese Komponenten bereit. Ein Beispiel einer solchen Komponente ist die vision\_component, die es dem NPC ermöglicht den Spieler zu erfassen.
+Der Agent wird über eine GoapAgent Klasse realisiert. Sie soll in der Architektur die Hauptklasse darstellen und als Schnittstelle zur restlichen Spielwelt fungieren. Die Spielwelt benötigt nämlich eine Schnittstelle, um dem NPC Informationen zu übergeben, wie beispielsweise bestimmte Koordinaten zum erfüllen bestimmter Aktionen. Die zentrale Aufgabe des GoapAgent ist nämlich die Aktionen einer Aktionssequenz ausführen. Für die Ausführung der eigentlichen Aktionen werden dabei \hyperref[chap:game-objects]{Komponenten} benötigt, welche die Spielwelt manipulieren können. Die Klasse Npc\ref{} stellt diese Komponenten bereit. Ein Beispiel einer solchen Komponente ist die vision\_component, die es dem NPC ermöglicht den Spieler zu erfassen.
 
 Der StateManager verwaltet die Zustände des NPC, die von GoapAction und GoapGoal abgefragt werden. Diese Zustände können über die Komponenten der Oberklasse Npc oder durch nichtdeterministische Umstände der Spielwelt verändert werden. Ein Beispiel für einen Zustand der im StateManager verwaltet wird, ist die Sichtbarkeit der Spielfigur, die durch die vision\_component beeinflusst wird.
 
@@ -63,17 +65,19 @@ Es wird keine FSM in der Architektur umgesetzt, da die Implementation keine Anim
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.8\textwidth, trim=20 20 20 20]{Lösungskonzept/goap.pdf}
+  \includegraphics[width=0.8\textwidth, trim=20 20 20 20]{Implementation/goap arc.pdf}
 	\captionsetup{justification=justified, format=plain}
   \caption{GOAP Architektur}
   \label{fig:GOAP Architektur}
 \end{figure}
 
 \subsection{GoapAgent}
+\label{chap:goapagent uml}
 
 Die Abbildung\ref{} stellt die Klasse GoapAgent dar. In den folgenden Unterkapiteln werden die Klassenattribute und Methoden in ihrer Funktion beschrieben. Der GoapAgent speichert folgende Klassenvariablen: goap\_planner, action\_sequence und den current\_step. Bei den Methoden handelt es sich um: update und follow\_sequence.
 
 \subsubsection{Klassenatribute}
+\label{chap:goapagent klassenatribute}
 
 Der goap\_planner ist eine Referenz auf die Klasse GoapPlanner, welcher die action\_sequence des GoapAgent bestimmt. Das Array action\_sequence speichert Objekte vom Typ der Klasse GoapAction. Sie stellt die ermittelte Aktionssequenz durch den A* Algorithmus dar. Die Integer-Klassenvaraible current\_step handelt als Indexzeiger, welcher auf die aktuell auszuführende Aktion des action\_sequence verweist.
 
@@ -87,6 +91,7 @@ Der goap\_planner ist eine Referenz auf die Klasse GoapPlanner, welcher die acti
 \end{figure}
 
 \subsubsection{Methoden}
+\label{chap:goapagent methoden}
 
 Die update Methode ruft Methoden der Klassen und \hyperref[chap:game-objects]{Komponenten} innerhalb des NPC auf. Sie wird wiederum durch eine \_process Funktion jedes \textit{Frame} aufgerufen, um kontinuierliche Logik wie Bewegungen oder Raycasting des GoapAgent zu verarbeiten. Sie wird über die Komponente aufgerufen, welche das Objekt GoapAgent instanziiert. Der Parameter delta repräsentiert die Zeit seit dem letzten Frame und könnte an andere Methoden übergeben werden.
 
@@ -124,6 +129,7 @@ ENDE FUNKTION
 
 
 \subsection{GoapPlanner}
+\label{chap:goapplanner uml}
 
 Die Abbildung\ref{} zeigt den Aufbau des GoapPlanner. Bei den Methoden handelt es sich um: 
 
@@ -136,6 +142,7 @@ Die Abbildung\ref{} zeigt den Aufbau des GoapPlanner. Bei den Methoden handelt e
 \end{figure}
 
 \subsubsection{Klassenatribute}
+\label{chap:goapplanner klassenattribute}
 
 Der GoapPlanner arbeitet mit Zielen und Aktionen, welche durch die Arrays actions und goals gegeben werden. Über current\_goal wird das Ziel gespeichert, zu dem eine action\_sequence gesucht wird. Die action\_sequence ist die generierte Aktionssequenz durch den GoapPlanner und wird in einem Array mit GoapAction als Elementtyp gespeichert. Das current\_state Dictionary speichert den derzeitigen Zustand des NPC. Die Initialisierung des current\_state findet über den state\_manager Parameter statt, welcher über die update Methode übergeben wird. Das create\_sequence Attribut informiert den GoapPlanner darüber, ob eine neue action\_sequence generiert werden soll. Das effect\_action\_dict Dictionary speichert alle Zustände als \textit{key} und die Aktionen, welche den Zustand beeinflussen können als \textit{values}. So erhält man eine schnellere Zugriffszeit, als wenn man jeden Effekt einer Aktion im Array mit dem benötigten Zustand vergleicht. Ähnlich zur Tabelle, wie im GOAP Grundlagenkapitel \ref{}.
 
@@ -162,6 +169,7 @@ Der GoapPlanner arbeitet mit Zielen und Aktionen, welche durch die Arrays action
 %\end{lstlisting}
 
 \subsubsection{Methoden}
+\label{chap:goapplaner methoden}
 
 % update
 Die GoapPlanner Methode update wird über die update Methode des GoapAgent aufgerufen. Hierbei werden Methoden und Abfragen durchgeführt, welche die current\_goal und die dazugehörige action\_sequence bestimmen. 
@@ -236,6 +244,7 @@ ENDE FUNKTION
 \end{lstlisting}
 
 \subsection{AStarNode}
+\label{chap:astarnode uml}
 
 Der AStarNode hat die Funktionsweise eines Knoten in einem Suchbaum. Sie werden über die get\_child\_node Methode instanziiert. Folgende Abbildung zeigt die Struktur der Klasse AStarNode in der UML-Notation.
 
@@ -249,11 +258,13 @@ Der AStarNode hat die Funktionsweise eines Knoten in einem Suchbaum. Sie werden 
 
 
 \subsubsection{Klassenattribute}
+\label{chap:astarnode klassenattribute}
 
 Ein AStarNode speichert die Informationen des Suchproblems. Darunter die bis dahin erfüllten Zustände des Elternknoten parent\_node im Attribut current\_state\_of\_goals, sowie alle Zielzustände die bis zu dem Knoten benötigt wurden im Attribut goal\_state. Über das Klassenattribut parent\_node kann die create\_path Methode des GoapPlanner rekursiv auf die Aktionen action des Typs GoapAction zurückschließen. Die Kosten $f(n)$ werden unter f\_cost und $g(n)$ -Kosten unter g\_cost gespeichert.
 
 
 \subsubsection{Methoden}
+\label{chap:astarnode methoden}
 
 Durch den Godot Konstruktor \_init wird ein AStarNode mit seinen Attributen instanziiert. Die Berechnung der Kosten passiert durch die GoapPlanner Methode expand\_node. Dort werden über die setter- Methoden des AStarNode set\_g\_cost und set\_f\_cost initialisiert. Über die Methode get\_unsatasfied\_states werden alle Zustände zurückgegeben, welche noch nicht erreicht wurden. Die Größe des Arrays welches von get\_unsatasfied\_states gegeben wird repräsentiert die heuristischen Kosten $f(n)$ der Aktion. Die Heuristik Kosten werden ebenfalls in der expand\_node Methode des GoapPlanner berechnet und initialisiert.
 
@@ -263,10 +274,11 @@ Die Prüfung ob die Zustände eines expanded\_node erfüllt wurden, wird durch i
 
 
 \subsection{GoapGoal}
+\label{chap:goapgoal uml}
 
 Ein GoapGoal repräsentiert ein Ziel. Der GoapPlanner bewertet die verfügbaren Ziele, vergleicht sie miteinander und wählt eines aus, basierend auf deren Gültigkeit und Priorität. Der Zielzustand des jeweiligen GoapGoal wird als Ausgangszustand für Suche genutzt. Die Klasse GoapGoal wird in der folgenden Abbildung mittels UML-Notation dargestellt.
 
-\begin{figure}[h]
+\begin{figure}[t]
   \centering
   \includegraphics[width=0.5\textwidth, trim=20 20 20 20]{Lösungskonzept/goal.pdf}
 	\captionsetup{justification=justified, format=plain}
@@ -283,6 +295,7 @@ Die Methode get\_goal\_name gibt den Klassennamen des GoapGoal zurück, welche v
 
 %FORTSETZUNG
 \subsection{GoapAction}
+\label{chap:goapaction uml}
 
 Ein Aktion des Typs GoapAction, repräsentieren die Kanten eines Suchbaums. Sie besitzen Daten zur Generierung eines neuen Knoten. Folgende Abbildung stellt die GoapAction Klasse nach UML-Notation dar.
 
@@ -302,3 +315,20 @@ Eine get\_preconditions Methode gibt die vorausgesetzten Zustände zurück, welc
 
 Die update Methode leitet die eigentliche Ausführung der Aktion ein und wird über den GoapAgent gestartet. Die Hoffnung dabei ist, dass die Aktion den erwünschten Wert des Effekts umsetzt. Aufgrund der nicht-deterministischen Natur der Spielwelt kann es jedoch vorkommen, dass der angestrebte Effekt nicht erreicht wird. Wird der Effekt nicht erreicht, so wird eine neue Sequenz angefordert oder das Ziel ändert sich bis dahin. Die Ausführung der Aktion wird dabei über \hyperref[chap:game-objects]{Komponenten} der Klasse Npc umgesetzt. Die Methode get\_action\_name gibt den Klassennamen der GoapAction zurück.
 
+
+\section{Umsetzung des Szenario}
+\label{chap:implementierung szenario}
+
+Die Benchmarks benötigen eine Umgebung auf der die NPCs mit ihren jeweiligen Entscheidungssystemen getestet werden. Zu diesem Zweck agieren die NPCs\ref{} in einer 2D kartierbaren Spielwelt, die in der Abbildung \ref{} dargestellt wird. Die NPC-Klassen unterscheiden sich in ihren Entscheidungssystemen, die Komponenten, die für eine Ausführung einer Aktion benötigt werden bleiben für alle NPC Klassen identisch und werden mit der Oberklasse Npc vererbt. Bei den Komponenten handelt es sich um: Health-, Hit-, Melee-, Shoot-, Neighbor-, Move, LookAt-, Patrol-, Cover-, Vision- und PlayerBlock-Component. Sie ändern dabei die Zustände des StateManger, die in der GOAP Architektur erläutert wird\ref{}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\textwidth, trim=20 20 20 20]{Implementation/npc class.pdf}
+	\captionsetup{justification=justified, format=plain}
+  \caption{Vererbung der Npc Klasse}
+  \label{fig:npc class}
+\end{figure}
+
+Der Performance-Benchmark\ref{}, speichert während der Ausführung die Häufigkeit der Bilder-Pro-Sekunde für die jeweilige Anzahl an NPCs im gesamten Szenario. Der Benchmark beginnt mit einem NPC und wächst kontinuierlich, wobei alle 30 Sekunden ein neuer NPC der jeweiligen Klasse in die Spielwelt instanziiert wird. Für jede NPC-Klasse wird der Benchmark dreimal ausgeführt. Abschließend wird aus den gesammelten Daten der durchschnittliche FPS-Wert für jede NPC-Anzahl berechnet.
+
+Der Speicher-Benchmark\ref{}, gibt den Speicherverbrauch des gesamten Szenario. Auch dieser Benchmark beginnt mit einem NPC und wächst kontinuierlich, wobei alle 10 Sekunden ein neuer NPC der jeweiligen Klasse in die Spielwelt instanziiert wird. Für jede NPC-Klasse wird der Benchmark einmal ausgeführt. Abschließend wird auch hier aus den gesammelten Daten der durchschnittliche Speicherverbrauch für jede NPC-Anzahl berechnet.

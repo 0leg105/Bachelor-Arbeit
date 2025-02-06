@@ -10,10 +10,12 @@
 }
 
 \chapter{Suchproblem und Suchalgorithmen}
+\label{chap:suchproblem und suchalgorithmen}
 
 Ein Agent muss für ein bestimmtes Ziel die richtige Auswahl an Aktionen treffen, die nach ihrer Ausführung den Zielzustand erreichen. Der Prozess der Bestimmung der Abfolge von Aktionen wird als Suche bezeichnet und mithilfe von Suchalgorithmen, wie A$^*$, durchgeführt. Für diesen Prozess benötigt der Agent einen solchen Raum mit Regeln und Informationen, der im Suchproblem definiert wird. Ein Suchalgorithmus sucht die richtige Auswahl an Aktionen und gibt sie in eine Aktions-Sequenz wieder. Die Suche der Aktionen geschieht über einen Suchbaum, der durch das Suchproblem definiert wird. Die Informationen des Kapitels basieren auf den folgenden wissenschaftlichen Arbeiten: \autocite{RN2020}, \autocite{4082128} und \autocite{Felner2011}.
 
 \section{Suchproblem}
+\label{chap:suchproblem}
 
 Ein Suchproblem wird durch einen Satz möglicher Zustände, einen Ausgangszustand, Zielzustände, Aktionen, ein Übergangsmodell und Aktionskosten definiert. Ein Satz möglicher Zustände beschreibt die Umwelt des Agenten. Der Ausgangszustand $s$ gibt den Zustand an, von dem der Agent startet. Zielzustände definieren ein oder mehrere Ziele, die der Agent verfolgt.
 
@@ -49,12 +51,15 @@ $}
 Durch eine Aktion-Kosten-Funktion $ACTIONCOST(s,a,s^*)$ erhält man die Kosten einer Aktion $a$, die in einem Zustand $s$ ausgeführt wird und in einen neuen Zustand $s^*$ führen.
 
 \section{Suchbaum}
+\label{chap:suchbaum}
 
 Die Lösung eines Suchproblems ist eine Aktionssequenz, die nach ihrer Ausführung den Ausgangszustand in den Zielzustand überführt. Die Suche nach einer solchen Aktions-Sequenz geschieht über einen Suchbaum.
 
 Ein Suchbaum ist eine Baumstruktur, die in der Informatik für das speichern von Daten benutzt wird. Die Struktur basiert auf einer Anordnung von Knoten, die mit anderen Knoten durch Kanten verbunden sind. Diese Knoten speichern, je nach Anwendung bestimmte Daten. Wenn der Suchbau einen Wurzelknoten, von dem aus sämtliche anderen Knoten erreichbar sind oder der seinerseits von jedem anderen Knoten aus erreicht werden kann, handelt es sich um einem Wurzelbaum. Es gibt verschiedene Typen von Suchbäumen, die sich in ihren Eigenschaften und Zwecken unterscheiden, wie zum Beispiel Binäre Suchbäume oder AVL-Bäume. In Abbildung\ref{} wird ein Suchbaum dargestellt.
 
 \subsection{Knoten eines Suchbaums}
+\label{chap: knoten eines suchbaums}
+
 Ein Knoten speichert dabei:
 \begin{itemize}
 	\item Einen Zustand, zu dem die Aktion des jeweiligen Knoten geführt hat
@@ -64,10 +69,12 @@ Ein Knoten speichert dabei:
 \end{itemize}
 
 \subsection{Gerichtete und ungerichtete Suchbäume} \label{gerichtete Graphen}
+\label{chap:gerichtet und ungerichtete suchbäume}
 
 Die Kanten eines Suchbaums bestimmten ob dieser gerichtet oder ungerichtet ist. In einem ungerichteten Suchbaum sind die Kanten zwischen den Knoten bidirektional, sodass sie keine feste Richtung vorgeben. Wenn eine Kante in einem ungerichteten Suchbaum die Knoten A und B verbindet, dann ist die Kante in beide Richtungen durchquerbar. Wodurch man mit der Kante sowohl von A nach B, als auch von B nach A navigieren kann. In einem ungerichteten Suchbaum kann jeder Knoten der Wurzelknoten sein. Bei einem gerichteten Suchbaum verbindet eine Kante zwei Knoten, wobei eine klare Richtung von einem Knoten zu dem anderen Knoten vorgegeben ist. Das bedeutet, dass die Kante nur in eine Richtung durchquerbar ist: vom Elternknoten zu dem Kindknoten.
 
 \subsection{Balancierte und unbalancierte Suchbäume}
+\label{chap:balancierte und unbalancierte suchbäume}
 
 Eine Eigenschaft des Suchbaums ist die Balance, die ihn als balanciert oder unbalanciert klassifiziert. Die Klassifizierung basiert auf der Anordnung der Knoten, insbesondere auf deren Höhe. Die Höhe entspricht der maximalen Anzahl an Kanten von der Wurzel bis zu einem Blatt. Bei einem balancierten Suchbaum, deren Höhe so optimiert ist, dass Such-, Einfüge- und Löschoperationen effizient durchgeführt werden können. Dabei sind die Knoten möglichst gleichmäßig verteilt, um eine übermäßige Baumhöhe zu vermeiden. Der Höhenunterschied zwischen den linken und rechten Teilbäumen darf höchstens 1 betragen. Ein Baum gilt als unbalanciert, wenn der Höhenunterschied größer als 1 ist.
 
@@ -81,6 +88,7 @@ Eine Eigenschaft des Suchbaums ist die Balance, die ihn als balanciert oder unba
 \end{figure}
 
 \section{Suchalgorithmen}
+\label{chap:suchalgorithmen}
 
 Das Suchproblem soll mit seinen Informationen durch einen Suchalgorithmus gelöst werden. Ein Suchalgorithmus sucht über einen Suchbaum einen Pfad zu dem Ziel. Wie effizient der gefundene Weg, hängt von dem Suchalgorithmus ab. 
 
@@ -88,6 +96,7 @@ Im Bereich der Suchalgorithmen wird zwischen informierten und uniformierten Algo
 
 
 \subsection{Expansion einer Bestensuche}
+\label{chap:bestensuche}
 
 Zu den informierten Suchalgorithmen gehört unter anderem die Bestensuche. Eine Bestensuche arbeitet sich schrittweise über Iterationen mithilfe von Expansionen zu einem Zielknoten vor. Vor der ersten Iteration wird ein Wurzelknoten mit dem Ausgangszustand generiert und der offenen Liste hinzugefügt. Die offenen Liste stellt dabei eine Vorrangwarteschlange (Priority Queue) dar. So wird sichergestellt, dass bei der ersten Iteration der Wurzelknoten betrachtet wird.
 
@@ -108,10 +117,12 @@ Die Abbildung\ref{} veranschaulicht eine abstrakte Suche in einem Suchbaum unter
 \end{figure}
 
 \subsection{A$^*$ Algorithmus}
+\label{chap:a stern suchalgorithmus}
 
 Der A$^*$ Algorithmus gehört zu den informierten und heuristischen Suchverfahren und ist eine Form der Bestensuche. Er ist ein vollständiger Algorithmus, was bedeutet, dass er einen Pfad zu dem Ziel und findet, wenn einer vorhanden ist. Der A$^$-Algorithmus wird häufig in Routenplanern eingesetzt. Unter anderem benutzten, \hyperref[chap:game engines]{Game-Engines} wie Godot 4.3 den A$^*$-Algorithmus für die Navigation von NPCs.
 
 \subsubsection{Bewertungsfunktion}
+\label{chap:a stern bewertungsfunktion}
 
 Bestensuchen benutzen eine Bewertungsfunktion $f(n)$, die dazu dient die Priorität eines Knoten $n$ während der Suche zu bewerten. Bei der Bewertungsfunktion des A$^*$ Algorithmus werden dabei alle Pfad-Kosten $g(n)$ vom Ausgangsknoten bis zu dem Knoten $n$ mit der Heuristik $h(n)$ des Knoten $n$ summiert.
 
@@ -160,6 +171,7 @@ Die konsistente Heuristik weist eine stärkere Eigenschaft auf, als eine zuläss
 Bei einer inkonsistenten Heuristik können Pfade auftreten, die zu dem selben Zustand führen. Dies führt dazu, dass mehrere Pfade mit demselben Zustand, aber unterschiedlichen Kosten, in der offenen Liste erscheinen, was zu höheren Zeit- und Speicherkosten führt.
 
 \subsubsection{Beweis für Optimalität}
+\label{chap:a stern beweis}
 
 Arbeitet der A$^*$ Algorithmus mit einer zulässigen oder konsistenten Heuristik, so wird diese den optimalen, kostengünstigsten Pfad zu einem Ziel finden.
 

@@ -1,8 +1,9 @@
 \chapter{State of the art}
-
+\label{chap: sota}
 
 
 \section{Videospiel-Markt}
+\label{chap: sota videospielmarkt}
 
 Videospiele sind Bestandteil des Medienkonsums in Deutschland. Rund 6 von 10 Menschen in Deutschland spielen Computer- und Videospiele. Der deutsche Videospiel-Markt machte mit Videospiel-Hardware, Videospiel-Abo-Diensten und Videospielen im Jahr 2023 einen Umsatz von 9,97 Milliarden Euro. Dabei machten Videospiele und In-Game Käufe mit 5,845 Milliarden Euro einen Umsatz von ca. 59\% aus. Im Vorjahr 2022 entstand ein Umsatz von 9,432 Milliarden Euro, somit stieg der Umsatz von 2022 im Jahr 2023 um 6\%.  Zahlen für das Jahr 2024 sind noch nicht bekannt.
 
@@ -29,12 +30,14 @@ Folglich kann davon ausgegangen werden, dass es Stakeholder gibt, die sich für V
 
 
 \section{Game-Engines}
+\label{chap:sota game-engines}
 
 Seit der Doom-Engine sind neue \hyperref[chap:game engines]{Game-Engines} entstanden und haben sich weiterentwickelt. Zu den gängigen zugänglichen Game-Engines gehören: Unreal-Engine, Unity und Godot. Godot ist dabei die jüngste Game-Engine und konkurriert mit der Unity. In den letzten Jahren hat Unity das Vertrauen von Entwicklerstudios verloren. Viele Entwicklerstudios wechseln nun in den letzten Jahren ihre Game-Engine. Das folgende Teilkapitel wird den derzeitgen Stand von den drei Game-Engines beschreiben.  
 
 %Große Entwicklerstudios besitzen ihre eigene Game-Engine. So nutzt beispielsweise das deutsche Entwicklerstudio Crytek die Cryengine. Eine eigene Game-Engine zu entwickeln benötigt zusätzliche Ressourcen. Dagegen ist dies bei Indie-Entwicklerstudios schwer umsetzbar. Denn sie haben weniger Arbeitskräfte als große Entwicklerstudios und entwickeln Videospiele ohne finanzielle Unterstützung größerer Unternehmen. Dadurch sind Indiestudios von möglichst kostengünstigen Game-Engines abhängig.\autocite{holfeld2024relevancegodotengineindie}
 
 \subsection{Unity}
+\label{chap:sota unity}
 
 Unitys Versuch, ein neues Gebührenmodell für Entwickler einzuführen, hat die Wahrnehmung der \hyperref[chap:game engines]{Game-Engine} als entwickler-freundliches Programm negativ beeinflusst. So kündigte Unity September 2023 eine Änderung des Gebührenmodells, zum Anfang des Jahres 2024, an. Die neue Regelung sah vor, dass Entwickler ab einem Umsatz von 200.000 US-Dollar und mindestens 200.000 Installationen für jede Erstinstallation eines Spiels 20 US-Cent an Unity zahlen sollen.\autocite{golem1}
 
@@ -45,12 +48,14 @@ Aufgrund der Kritik von Entwicklerstudios hat sich Unity nach der Ankündigung de
 Trotz der Ankündigung das Gebührenmodell zu ändern, sprachen viele Entwicklern von einem Vertrauensverlust. So hat Entwicklerstudio Re-Logic, welches Godot mit Spenden unterstützt hat, weiterhin Kritik an Unity geäußert und ihre Vorgehen infrage gestellt.\autocite{golem3}
 
 \subsection{Godot}
+\label{chap:sota godot}
 
 Godot ist die \hyperref[chap:game engines]{Game-Engine} auf der die Implementierung umgesetzt wurde. Godots Relevanz ist in den letzten Jahren gestiegen. Die Game-Engine wird öfter mit der Unity-Engine verglichen, welche ebenfalls von Indie-Entwicklerstudios benutzt wird. Als Game-Engine konzentriert sich Godot auf die 2D-Umgebung, aber auch die 3D-Umgebung wird gefördert. Sie ist jedoch nicht so weit entwickelt wie die 3D-Umgebung der Unreal-Engine.
 
 Aufgrund der Änderungen im Gebührenmodell von Unity haben sich viele Videospielentwickler, die zuvor auf Unity als Entwicklungsplattform setzten, nach Alternativen bei der Konkurrenz umgesehen. Im Vergleich zu Unity bietet Godot eine größere Sicherheit vor Lizenzänderungen sowie Mehrkosten, da es sich bei Godot um ein Open-Source Programm handelt. Lizensiert ist Godot unter der MIT-Lizenz, wodurch Godot im Gegensatz zu Unity zu jedem Zweck genutzt, bearbeitet und weitervertrieben werden kann.\autocite{golem4} Aufgrund der genannten Punkte ist Godot eine zunehmend bevorzugte Wahl für Entwickler und eine Konkurrenz zu Unity. Unter den Godot Dokumentationen gibt es explizite Anleitungen, wie man von Unity auf Godot migrieren kann.\footnote{https://docs.godotengine.org/en/3.1/getting_started/editor/unity_to_godot.html}
 
 \subsubsection{Investitionen}
+\label{chap:godot investitionen}
 
 Godot ist im Laufe seiner Entwickler, neben Videospielentwickler, auch für größere Unternehmen interessant geworden. So hat \textit{Microsoft} 2017 eine \$24.000 Spende an Godot getätigt, da C# mit Godot kompatibel wurde. Der Spieleentwickler \textit{Epic Games} hat 2020 eine \$250.000 Spende getätigt, da Epic Games OpenSource Projekte fördert, welche 3D-Grafik Umgebungen weiterentwickeln.\autocite{megagrant} Man beachte, dass Epic Games selbst die Unreal Engine entwickelt und eigentlich ein Konkurrent ist. Im Jahr 2020 und 2021 hat \textit{Meta} an Godot gespendet, damit diese die XR Umgebung für Godot entwickeln. Auch \textit{Khronos Group} möchte die XR Umgebung weiterentwickeln und unterstützt Godot aufgrund der Integration von \textit{OpenXR} \autocite{khronos}. Entwicklerstudios selbst spenden ebenfalls an Godot. So hat das Entwicklerstudio \textit{Re-Logic} eine \$100.000 Spende im Jahr 2023 getätigt.\autocite{gdfd2023} 
 
@@ -68,12 +73,14 @@ Godot wird hauptsächlich über den Godot Development Fund finanziert. Weitere Inv
 
 
 \subsection{Unreal-Engine}
+\label{chap:sota unreal-engine}
 
 Die Unreal-Engine ist ein \hyperref[chap:game engines]{Game-Engine} die sich auf 3D Umgebung spezialisiert hat. Sie ist besonders für größere Entwicklerstudios geeignet, da sie in ihren Funktionen und Eigenschaften komplexer ist. 
 
 Große Entwicklerstudios besitzen eigene Game-Engines auf denen sie ihre Videospiele entwickeln. Eine eigene Game-Engine hat seine Vor und Nachteile. Einerseits hat das Entwicklerstudio die Möglichkeit ihre Werkzeuge selbständig zu erstellen, ändern und erweitern sowie Kosten für Lizenzen zu sparen, andererseits muss man das Personal ausbilden, wenn die Game-Engine außerhalb nicht zugänglich ist. So nehmen Entwicklerstudios die Lizenzkosten einer Game-Engine in Kauf und wechseln beispielsweise auf eine öffentlich zugängliche Game-Engine, wie Unreal-Engine. So wechselt das Entwicklerstudio, der Halo Reihe, auf die Unreal-Engine, um einfacher, neue Mitarbeiter zu finden, die gleich in die Produktion einsteigen können.\autocite{golem6} Das Entwicklerstudio CD Project Red wechselte ebenfalls von ihrer Red-Enigne auf die Unreal-Engine. Der Grund wiederum war, die technische Ausrichtung eine Videospieles frühzeitig festlegen zu können, da in der Vergangenheit viel Aufwand in die kontinuierliche Anpassung und Weiterentwicklung der Red-Engine investiert wurde.\autocite{golem7} Daraus lässt sich der Trend erkennen, dass sich die Unreal-Engine als standard Framework der Game-Engines etablieren kann.
 
 \section{Entscheidungssysteme in der Game AI}
+\label{chap:sota entscheidungssysteme}
 
 In der Funktionalität von \hyperref[chap:entscheidungssysteme]{Entscheidungssystemen} wie Behavior Trees (BT), Finite State Machines (FSM) und Goal-Oriented Action Planning (GOAP) wurde bereits eingehend auf deren Grundlagen eingegangen. Das folgende Kapitel widmet sich nun der praktischen Anwendung dieser drei Systeme sowie fortschrittlicher Methoden des maschinellen Lernens in der modernen Videospielentwicklung und Forschung.
 
@@ -87,6 +94,7 @@ Angemerkt sein noch, dass es schwierig zu sagen ist, welche Entscheidungssysteme
 
 
 \subsection{Fortschrittliche Methoden des maschinellen Lernens}
+\label{chap:sota ml}
 
 Der Trend von fortschrittliche Methoden des maschinellen Lernens, hat an Bedeutung gewonnen. Die Methoden spielen zwar eine immer größere Rolle im alltäglichen Leben, haben jedoch einen eher geringeren Einfluss im Bereich der Game AI. Diese Methoden erfordern große Mengen an Daten für das Training und es ist äußerst schwierig, sie auf unvorhergesehene Situationen, wie in Videospielen, zu testen. \autocite{U2023}
 
@@ -98,6 +106,7 @@ Die Evolutionäre-Algorithmen sind inspiriert durch Darwins Theorie der Evolution
 
 
 \subsection{Finite State Machines}
+\label{chap:fsm sota}
 
 In den frühen Tagen der Spielentwicklung waren FSM ausreichend, um eine Entscheidungsfindung für NPC bereitzustellen. So wurde bereits im Grundlagenkapitel das Videospiel \textit{Half-Life (1998)} erwähnt. Auch abseits des FPS-Genre wurde die FSM verwendet. 2D-Videospiele wie Pac-Man und Sonic nutzten FSM, um das Verhalten ihrer NPC zu definieren. \autocite{U2023}
 
@@ -107,7 +116,7 @@ Bei komplexen Videospielen wird öfter eine Hierarchical State Machine (HFSM) umg
 
 
 \subsection{Behavior Trees}
-\label{chap:sota bt}
+\label{chap:bt sota}
 
 BT sind in den Vordergrund der Game-AI gerückt. So bieten sie einen intuitiveren Ansatz als frühere Techniken wie FSM, die oft komplexe Datenstrukturen erforderten die bei einer Vergrößerung einen schlecht strukturierten Code erzeugen \autocite{qlbt}. Im Kapitel wurden bereits die Videospiele \textit{Alien Isolation (2014)} und \textit{The Last of Us (2013)} als erfolgreiche Titel in Richtung Game-AI beschrieben. Beide Titel setzen den BT als \hyperref[chap:entscheidungssysteme]{Entscheidungssystem} um. Der BT wurde mit dem Videospiel Titel \textit{Halo 2 (2004)} eingeführt.
 
@@ -115,6 +124,7 @@ Schaut man sich Studien bezüglich Entscheidungssysteme an, so kann man den Behav
 
 
 \subsection{GOAP}
+\label{chap:goap sota}
 
 Im Vergleich zu Behavior Trees ist der Forschungsstand zu GOAP im Bereich der Game-AI weniger umfangreich. Dennoch existieren Studien, die Ansätze zur Nutzung von GOAP beschreiben. So wurde in \autocite{Schwab2021} eine Methode beschrieben, die mittels GOAP ein Behavior Tree konstruiert. Da das manuelle Erstellen von BTs eine aufwendige und stark parameterabhängige Aufgabe darstellt, bietet die automatische Konstruktion eine Alternative. Diese Methode beobachtet zunächst das Verhalten, das GOAP in einer Monte-Carlo-Simulation zeigt, und nutzt anschließend einen genetischen Algorithmus, um einen geeigneten Behavior Tree zu entwickeln. Die resultierenden Behavior Trees zeichnen sich dadurch aus, dass sie verständlich, anpassbar und ebenso leistungsfähig wie manuell erstellte Modelle sind. \autocite{Schwab2021}
 

@@ -1,21 +1,27 @@
 \chapter{Lösungskonzept}
+\label{chap:lösungskonzept}
 
 Ziel dieser Thesis ist es, die Entscheidungssysteme Finite State Machine (FSM), Behavior Tree (BT) und Goal-Oriented Action Planning (GOAP) zu vergleichen und anschließend zu bewerten. Die \hyperref[chap:entscheidungssysteme]{Entscheidungssysteme} werden auf die folgenden Punkte verglichen: Erlernbarkeit, Implementation, Skalierbarkeit, Debugging, Performance und Speicherverbrauch.
 
 Für den Vergleich und die abschließende Bewertung werden sowohl wissenschaftliche Literatur als auch eigene Erfahrungen herangezogen. Letztere basieren auf einer Implementierung der drei genannten Entscheidungssysteme in einem spezifischen Szenario. Aus diesem Szenario wird anschließend über Benchmarks die Performance und der Speicherverbrauch gemessen. Es soll insbesondere die Umsetzung des GOAP-Entscheidungssystem beschrieben werden. Die beiden Entscheidungssysteme FSM und BT wurden in den Grundkapitel\ref{} erläutert.
 
-\section{Implementation}
+\section{Implementierung}
+\label{chap:lk implementierung}
 
 Durch eine eigenständige Implementation sollen praktische Erfahrungen in den Vergleich und die Bewertung der \hyperref[chap:entscheidungssysteme]{Entscheidungssysteme} einfließen. Die Implementierung erfolgt in Form eines First-Person-Shooters (FPS)\ref{} Szenario unter Verwendung der \hyperref[chap:game engines]{Game-Engine} \hyperref[chap:godot]{Godot} 4.3. Die Spielwelt des Implementation ist dabei 2D-kartierbar und enthält Deckungen wie Wände und Säulen sowie eine vom Spieler gesteuerte Spielfigur und verschiedene NPC-Klassen. Der Spieler kann sich auf der Spielwelt frei bewegen und von NPCs erkannt werden. Diese NPCs sind dem Spieler feindlich gesinnt und besitzen einfache Aktionen und Ziele. Ihr Ziel ist es, den Spieler zu finden und zu eliminieren.
 
 Um das Ziel zu erreichen, werden Aktionen in Form von \hyperref[chap:game-objects]{Komponenten} realisiert wie: schießen, bewegen, umschauen, sehen, patrouillieren, Spieler-, Deckung suchen und nachladen. Die NPC-Klassen unterscheiden sich in ihren verwendeten Entscheidungssystemen, nutzen jedoch dieselben Komponenten zur Ausführung ihrer Aktionen. Zwar werden für das Szenario eigenständige Komponenten entwickelt, diese werden jedoch nicht weiter beschrieben.
 
 \section{Benchmark}
+\label{chap:benchmark}
 
 Ein Benchmark ist ein standardisierter Test, der die Leistung von Systemen bewertet. Mit Hilfe der Resultate eines Benchmarks können Systeme verglichen werden. In der Softwareentwicklung werden Benchmarks häufig genutzt, um die Geschwindigkeit, Stabilität oder Ressourcennutzung von Programmen oder Geräten zu messen.
 
-Für den Vergleich wird die Performance und der Speicherverbrauch der drei \hyperref[chap:entscheidungssysteme]{Entscheidungssysteme} über die Benchmarks gemessen. Während eines Benchmarks bewegt sich die Spielfigur in Drehungen auf zufällige Koordinaten der Spielwelt, woraufhin die NPCs entsprechend ihres Entscheidungssystem reagieren. Die Kartierung des Spielwelt ist für jede NPC Klasse gleich.
+Für den Vergleich wird die Performance und der Speicherverbrauch der drei \hyperref[chap:entscheidungssysteme]{Entscheidungssysteme} über die Benchmarks gemessen. Während eines Benchmarks bewegt sich die Spielfigur in Drehungen auf zufällige Koordinaten der Spielwelt, woraufhin die NPCs entsprechend ihres Entscheidungssystem reagieren. Die Test wird unter identischen Bedingungen für alle Entscheidungssysteme durchgeführt, um eine faire Vergleichbarkeit zu gewährleisten. Die Ergebnisse werden in der Bewertung \ref{} anschließend analysiert und bewertet.
 
-Der Performance-Bechnmark misst während der Ausführung des Videospieles die Frames-Per-Second(FPS). Die FPS bezeichnen die Anzahl der Bilder, die pro Sekunde auf einem Bildschirm angezeigt werden. In Videospielen ist FPS eine wichtige Kennzahl für die Flüssigkeit und die visuelle Qualität einer Animation. Je mehr Bilder pro Sekunde angezeigt werden, desto flüssiger und somit ruckelfreier wirkt die Darstellung. Leistungsstärkere Hardware kann höhere FPS ermöglichen, besonders bei rechenintensiven Anwendungen. Ein akzeptables Maß in Videospielen sind 30 FPS.
+Der Performance-Bechnmark misst während der Ausführung des Videospieles die Bilder-pro-Sekunde (FPS). Die FPS bezeichnen die Anzahl der Bilder, die pro Sekunde auf einem Bildschirm angezeigt werden. In Videospielen ist FPS eine wichtige Kennzahl für die Flüssigkeit und die visuelle Qualität einer Animation. Je mehr Bilder pro Sekunde angezeigt werden, desto flüssiger und somit ruckelfreier wirkt die Darstellung. Leistungsstärkere Hardware kann besonders bei rechenintensiven Anwendungen höhere FPS ermöglichen. Ein akzeptables Maß in Videospielen sind 30 FPS.
+
 %Speicher-Test
+Der Speicher-Test misst den Speicherverbrauch der drei \hyperref[chap:entscheidungssysteme]{Entscheidungssysteme} während der Laufzeit. Dabei wird der von den NPCs genutzte Arbeitsspeicher (RAM) in regelmäßigen Intervallen in Bytes erfasst. Ziel ist es, Unterschiede im Speicherbedarf der einzelnen Entscheidungssysteme zu analysieren und ihre Effizienz zu bewerten. Dabei wird der von den NPCs genutzte Arbeitsspeicher (RAM) in regelmäßigen Intervallen in Bytes erfasst.Je weniger Bytes verbraucht werden, desto effizienter ist das Entscheidungssystem in Bezug auf den Speicherverbrauch.
 
+Ziel ist der Benchmarks ist es, Unterschiede im Speicherbedarf und Performance der einzelnen Entscheidungssysteme zu analysieren und ihre Effizienz zu bewerten.

@@ -1,4 +1,5 @@
 \chapter{Ergebnis}
+\label{chap:ergebnis}
 
 In diesem Kapitel werden die \hyperref[chap:entscheidungssysteme]{Entscheidungssysteme} Finite State Machine (FSM), Behavior Tree (BT) und Goal Oriented Action Planning (GOAP) aus der Erfahrung durch die Implementation, Benchmarks, wissenschaftlicher Literatur verglichen und folglich bewertet.
 
@@ -12,6 +13,7 @@ In Kapitel\ref{} wird das Lösungskonzept beschrieben. Dort wird erläutert, dass 
 
 
 \subsection{Erlernbarkeit}
+\label{chap:erlernbarkeit}
 
 Die Erlernbarkeit beschreibt, wie komplex es für Entwickler ist, das jeweilige Entscheidungssystem zu verstehen und anzuwenden. Sie hängt von mehreren Faktoren ab. Dazu gehört die Verständlichkeit der Konzepte, die Verfügbarkeit von Dokumentationen sowie die notwendigen Vorkenntnisse für die Nutzung.
 
@@ -26,6 +28,7 @@ Mit dem dynamischen System kommt die Komplexität der Funktionsweise. GOAP wird i
 
 
 \subsection{Umsetzung}
+\label{chap:umsetzung}
 
 Bei der Umsetzung liegt der Fokus auf der praktischen Umsetzung des Entscheidungssystems in der Game-Engine Godot. Dabei wird betrachtet, wie aufwendig die Implementierung der Funktionsweise und Architektur des Entscheidungssystems ist sowie das designen der NPCs.
 
@@ -40,6 +43,7 @@ Der GOAP ist als dynamisches System das komplexeste der drei Entscheidungssystem
 
 
 \subsection{Skalierbarkeit}
+\label{chap:skalierbarkeit}
 
 Der Punkt Skalierbarkeit bewertet, wie komplex es ist das System mit Aktionen zu erweitern oder bestehende zu ändern.
 
@@ -54,6 +58,7 @@ Das Entscheidungssystem GOAP ist hinsichtlich der Skalierbarkeit den zuvor besch
 
 
 \subsection{Debugging}
+\label{chap:debugging}
 
 Das Debugging beschreibt, wie komplex Fehler im Entscheidungssystem gefunden und behoben werden können. 
 
@@ -67,11 +72,16 @@ Auch das Debuggen soll laut Quellen wie \autocite{aiag} und \autocite{review_gam
 Ein Nachteil der mit dem dynamischen System kommt ist das Debuggen. Es ist es schwierig, die mögliche Reihenfolge der Aktionen vorherzusagen, da GOAP die Aktionen basierend auf ihren Kosten und Zuständen auswählt und nicht durch statische Verbindungen, wie es in Ad-hoc-Behavior-Authoring-System der Fall ist. Eine mögliche Lösung wäre eine Visualisierung des Suchbaums, wie er durch den A*-Algorithmus in GOAP generiert wird. Eine solche Darstellung würde aufzeigen, welche Aktionen potenziell in Frage kamen und welche letztendlich priorisiert wurden. Allerdings ist die Implementierung dieser Visualisierung deutlich komplexer als bei einer FSM oder einem BT.
 
 
-\section{Ergebnise der Benchmarks}
+\section{Ergebnisse der Benchmarks}
+\label{chap:erbnisse benchmark}
 
-%FSM
-Außerdem können Leistungsprobleme auftreten, insbesondere bei einer übermäßigen Anzahl von Zuständen.\autocite{U2023} 
+Die Abbildung \ref{} zeigt die Ergebnisse des Performance-Benchmarks. Laut Quellen wie \autocite{} gilt insbesondere GOAP als ressourcenintensiv. Der Vergleich der drei Entscheidungssysteme zeigt jedoch, dass der Unterschied in der Performance geringer ausfällt als erwartet. Es ist zu beachten, dass die FPS während des Benchmarks auf 120 begrenzt wurde. 
 
+Zunächst bleibt die FPS-Rate bei allen Systemen konstant bei 120, bis eine bestimmte Anzahl von NPCs erreicht wird. Ab diesem Punkt sinken die FPS-Werte mit zunehmender NPC-Anzahl merklich ab.
+
+Einbrüche unter diese Grenze treten bei GOAP ab dem 15. NPC, bei BT ab dem 18. und bei der FSM ab dem 20. NPC auf. Allerdings erscheinen in einem linearen FPS-Spiel selten mehr als 20 NPCs gleichzeitig. 
+
+Zusammenfassend lässt sich feststellen, dass FSM das performanteste System darstellt, insbesondere bei einer hohen Anzahl an NPCs. Trotzdem können Leistungsprobleme auftreten, insbesondere bei einer übermäßigen Anzahl von Knoten \autocite{U2023}. Wobei die FSM wenige Knoten besitzt. Der BT liegt im Mittelfeld und weist eine Performance auf, die leicht unter FSM liegt. GOAP zeigt die niedrigsten FPS-Werte, was darauf hindeutet, dass dieses System mehr Rechenleistung benötigt.
 
 \begin{figure}[h]
   \centering
@@ -81,8 +91,11 @@ Außerdem können Leistungsprobleme auftreten, insbesondere bei einer übermäßigen 
   \label{FPS-Performance Benchmark}
 \end{figure}
 
+Die Abbildung \ref{} veranschaulicht die Ergebnisse des Speicher-Benchmarks. Auch in diesem Fall erweist sich GOAP als ressourcenintensiv, jedoch bleibt der Speicherverbrauch laut dem Benchmark konstant. Es ist jedoch wichtig zu betonen, dass während der Implementierung GOAP mehrfach Speicherlecks aufgetreten sind, was auf eine höhere Empfindlichkeit dieses Systems hinweist.
+
 
 \section{Bewertung}
+\label{chap:bewertung}
 
 Die Wahl des Entscheidungssystems hängt stark von den Anforderungen des Projekts ab.
 
@@ -110,7 +123,7 @@ Die Tabelle\ref{tab:es vergleich tabelle} veranschaulicht die abschließende Bewe
     Skalierbarkeit	& \harveyBallQuarter & \harveyBallHalf & \harveyBallFull\\
     Debugging	& \harveyBallHalf & \harveyBallThreeQuarter & \harveyBallQuarter\\
 		Performance & \harveyBallFull & \harveyBallThreeQuarter & \harveyBallHalf\\
-		Speicherverbrauch & \harveyBallFull & \harveyBallThreeQuarter & \harveyBallHalf\\
+		Speicherverbrauch & \harveyBallFull & \harveyBallFull & \harveyBallThreeQuarter\\
     \bottomrule
   \end{tabular}
 \end{table}

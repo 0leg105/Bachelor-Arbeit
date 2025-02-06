@@ -69,7 +69,7 @@ Primär wird C++ als Programmiersprache genutzt. Python ist ausschließlich für di
 
 
 \section{Entwicklung eines GameObjects}
-\label{chap:game-objects}
+\label{chap:komponenten}
 
 GameObjects sind Objekte der Spielwelt und werden über ihre Komponenten gesteuert. Eine Komponente kann einem GameObject beispielsweise die Funktion geben, die Spielumgebung wahrzunehmen und mit ihr zu interagieren. Eine Komponente wird über Skripte realisiert. \hyperref[chap:game engines]{Game-Engines} wie Godot, Unity und Unreal-Engine setzen bereits vordefinierte Komponenten mit ihren eigenen Methoden um. Meistens sind Komponenten in ihrer Funktion zu simpel, sodass ihre Skripte modifiziert oder erweitert werden müssen. Diese Skripte werden mit einer Programmiersprache angepasst, die, je nach Game-Engine, variieren kann.
 
@@ -97,6 +97,7 @@ ENDE KLASSE Komponente
 \end{lstlisting}
 
 \section{Game-AI}
+\label{chap:game-ai}
 
 Ein GameObject kann unter anderem ein Agent der Spielwelt sein und wird in diesem Fall als Non-Player Character (NPC) bezeichnet. Im Gegensatz zu der Spielfigur werden NPCs von dem Computer gesteuert. Die Aufgabe der NPCs ist es, die Spielwelt immersiver zu gestalten. Dafür nutzen Spieleentwickler akademische Forschungen aus dem Bereich der AI, um solche Algorithmen zu entwickeln, die NPCs der Spielwelt ein menschlicheres oder tierischeres Verhalten verleihen. Je nach Narrativ können NPCs mit der Spielfigur freundlich, neutral oder feindlich interagieren. Ein Beispiel für feindliche NPCs sind die Geister in Pac-Man. Darin versuchen sie, die Spielfigur in der Spielwelt zu fangen.
 
