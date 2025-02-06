@@ -3,17 +3,6 @@
 
 Das folgende Kapitel wird Goal Oriented Action Planning beschreiben. Es gehört zu den \hyperref[chap:entscheidungssysteme]{Entscheidungssystemen} in der Game-AI und besteht aus dem A* Suchalgorithmus. Es ist für die Planung an Aktionen zu einem bestimmten Ziel gedacht. Planung ist der Prozess der Suche einer Sequenz an Aktionen zur Erreichung eines Zieles. Die Suche kann dabei als Suchproblem dargestellt werden und durch Suchalgorithmen gelöst werden. Für das Verständnis wird daher Kenntnis der Themen Suchalgorithmen und Suchprobleme\ref{} empfohlen.
 
-%ergänzen:
-%\autocite{ai_standard}
-%- Many NPCs nowadays remain hard-coded with little or no room for planning and adaptability. Goals in GOAP are not created with hard-coded plans but instead are dynamically replanned to react to environmental changes
-%- GOAP offeers a more elegant structure that minimises code writing and maintenance. \autocite{}
-%- As well, the debugging process is simpli ed, with GOAP providing the guarantee of valid plans, while hard coded plans may contain mistakes.
-%- Code reusability is also encouraged with di erent NPCs being assigned to character types that share similar behaviour patterns
-%- Each planning problem involves an iterative process in which small amounts of processor time are granted for computation, until a solution is found.
-%- A number of issues still need to be addressed, such as the possible inclusion of hierarchical planning, and the potential integration of GOAP with scripting 
-%- With real-time planning, some complex planning problems will require a substantial amount of processing time. This can be a drawback with current games allocating only 10percent of the processing time to AI
-%- As well, the complexity of formulating a plan will increase as the number of actions and preconditions on actions grows, requiring even more processing power and time. Finally, implementing the GOAP architecture from scratch involves a considerable amount of time that game studios are not willing to spend.
-
 \section{Historie}
 \label{chap:goap historie}
 
@@ -49,78 +38,64 @@ Die Zustandswechsel werden durch die Goap-Aktion bestimmt, welche wiederum durch
 \subsection{GOAP Ziele}
 \label{chap:goap ziele}
 
-Ein Ziel $GOAL(g)$ in GOAP setzt die erwünschte Zielzustände für den Planer. So setzt das Ziel $EliminatePlayer$ den Zielzustand $\{\lnot PlayerAlive\}$.
-\[
-	\highlightbox{0.9\textwidth}{$
-		\begin{align*}
-			GOAL(EliminatePlayer) = \{\lnot PlayerAlive\}
-		\end{align*}
-	$}
-\]
+Ein Ziel \textit{GOAL}$(g)$ in GOAP setzt die erwünschte Zielzustände für den Planer. So setzt das Ziel \textit{EliminatePlayer} den Zielzustand $\{\lnot \textit{PlayerAlive}\}$.
 
-Die Auswahl des Zieles geschieht nach ihrer Priorität und ob dieses gültig ist. Das Ziel mit der höchsten Priorität und Gültigkeit wird bevorzugt. Die Gültigkeit und Priorität basiert dabei auf dem Zustand $s$ des NPC und seiner Umwelt. So ist das Ziel $EliminatePlayer$ mit dem Zustand $s$ nicht gültigt und besitzt eine hohe Priorität.
-\[
-	\highlightbox{0.9\textwidth}{$
-		\begin{align*}
-			s = \{\lnot PlayerVisible\} \\
-			PRIORITY(s,EliminatePlayer) = 100 \\
-			VALID(s,EliminatePlayer) = false
-		\end{align*}
-	$}
-\]
+\begin{align}
+	\textit{GOAL}(\textit{EliminatePlayer}) = \{\lnot \textit{PlayerAlive}\}
+\end{align}
+
+
+Die Auswahl des Zieles geschieht nach ihrer Priorität und ob dieses gültig ist. Das Ziel mit der höchsten Priorität und Gültigkeit wird bevorzugt. Die Gültigkeit und Priorität basiert dabei auf dem Zustand $s$ des NPC und seiner Umwelt. So ist das Ziel \textit{EliminatePlayer} mit dem Zustand $s$ nicht gültig und besitzt eine hohe Priorität.
+
+\begin{align}
+	s = \{\lnot \textit{PlayerVisible}\} \\
+	\textit{PRIORITY}(s,\textit{EliminatePlayer}) = 100 \\
+	\textit{VALID}(s,\textit{EliminatePlayer}) = \textit{false}
+\end{align}
 
 
 \subsection{GOAP Aktionen}
 \label{chap:goap actions}
 
-Die Goap-Aktion können Weltzustände oder auch direkte Zustände eines NPC ändern. So kann beispielsweise die Goap-Aktion \textit{Reload} den Zustand $s = \{\lnot GunLoaded\}$ mit seinem Effekt ändern.
-\[
-	\highlightbox{0.9\textwidth}{$
-		\begin{align*}
-			TRANSITIONS(s,Reload) &= \{GunLoaded\}
-		\end{align*}
-	$}
-\]
+Die Goap-Aktion können Weltzustände oder auch direkte Zustände eines NPC ändern. So kann beispielsweise die Goap-Aktion \textit{Reload} den Zustand $s = \{\lnot \textit{GunLoaded}\}$ mit seinem Effekt ändern.
 
-Dadurch haben Goap-Aktion die Möglichkeit Zielzustände zu erreichen. Man nehme an, dass der NPC das Ziel $Patrol$ verfolgt, mit dem gewünschten Zustand $AtPatrol$, und dass die Aktion $GoPatrol$ den Effekt $TRANSITIONS(s, GoPatrol) = {AtPatrol}$ hat. In diesem Fall kann die Goap-Aktion durch ihren Effekt den gewünschten Zielzustand erreichen.
+\begin{align}
+	\textit{TRANSITIONS}(s,\textit{Reload}) &= \{\textit{GunLoaded}\}
+\end{align}
 
-Eine Goap-Aktion hat auch Vorbedingungen als Zustände, diese Zustände können wiederum von anderen Goap-Aktionen erfüllt werden. So kann beispielsweise die Goap-Aktion $Reload$ die Vorbedingung der Goap-Aktion $Shoot$ erreichen.
-\[
-	\highlightbox{0.9\textwidth}{$
-		\begin{align*}
-			PRECONDITION(Shoot) = \{GunLoaded\}
-		\end{align*}
-	$}
-\]
 
-Eine Goap-Aktion setzt auch wie im Suchproblem\ref{} eine $ACTIONCOST$ Funktion um, die später zur Auswahl einer Goap-Aktion herangezogen wird. Wird die Goap-Aktion ausgewählt wird diese später von der FSM ausgeführt.
+Dadurch haben Goap-Aktion die Möglichkeit Zielzustände zu erreichen. Man nehme an, dass der NPC das Ziel \textit{Patrol} verfolgt, mit dem gewünschten Zustand \textit{AtPatrol}, und dass die Aktion \textit{GoPatrol} den Effekt \textit{TRANSITIONS}$(s, \textit{GoPatrol}) = {\textit{AtPatrol}}$ hat. In diesem Fall kann die Goap-Aktion durch ihren Effekt den gewünschten Zielzustand erreichen.
+
+Eine Goap-Aktion hat auch Vorbedingungen als Zustände, diese Zustände können wiederum von anderen Goap-Aktionen erfüllt werden. So kann beispielsweise die Goap-Aktion \textit{Reload} die Vorbedingung der Goap-Aktion \textit{Shoot} erreichen.
+
+\begin{align}
+	\textit{PRECONDITION}(\textit{Shoot}) = \{\textit{GunLoaded}\}
+\end{align}
+
+Eine Goap-Aktion setzt auch wie im Suchproblem\ref{} eine \textit{ACTIONCOST} Funktion um, die später zur Auswahl einer Goap-Aktion herangezogen wird. Wird die Goap-Aktion ausgewählt wird diese später von der FSM ausgeführt.
 
 
 \subsubsection{Fallbeispiel}
 \label{chap:goap action beispiel}
 
-Nehmen wir an, dass der NPC den Ausgangszustand $s_a$ und das Ziel $EliminatePlayer$ besitzt.
-\[
-	\highlightbox{0.9\textwidth}{$
-		\begin{align*}
-			s_a = \{PlayerVisible, \lnot GunLoaded\, \lnot AtCover\} \\
-			GOAL(EliminatePlayer) = \{\lnot PlayerAlive\}
-		\end{align*}
-	$}
-\]
+Nehmen wir an, dass der NPC den Ausgangszustand $s_a$ und das Ziel \textit{EliminatePlayer} besitzt.
 
-Der NPC muss nun versuchen das Ziel mit den möglichen Goap-Aktion den Zielzustand $\{\lnot PlayerAlive\}$ erreichen. Die möglichen Goap-Aktion werden dafür aus einer $ACTIONS(s)$ Funktion gelesen.
-\[
-	\highlightbox{0.9\textwidth}{$
-		\begin{align*}
-			ACTIONS(s) = \{Reload, MoveToCover\} \\
-			TRANSITIONS(s,Reload) = \{GunLoaded\} \\
-			TRANSITIONS(s,MoveToCover) = \{AtCover\}
-		\end{align*}
-	$}
-\]
+\begin{align}
+	s_a = \{\textit{PlayerVisible}, \lnot \textit{GunLoaded}\, \lnot \textit{AtCover}\} \\
+	\textit{GOAL}(\textit{EliminatePlayer}) = \{\lnot \textit{PlayerAlive}\}
+\end{align}
 
-Aus der $TRANSITIONS$ Funktion können wir entnehmen, dass keine der Goap-Aktion den Zustand $\lnot PlayerAlive$ direkt erreichen kann. Es muss ein Zustand entdeckt werden aus dem mit einer entsprechenden Goap-Aktion das Ziel erreicht werden kann. Eine Lösung wäre \textit{Brute Force}, das durchgehen aller möglichen Goap-Aktion bis letztlich das Ziel gefunden wird. Dies sorgt jedoch für einen hohen Rechenaufwand bei komplexen NPC mit vielen Goap-Aktion und Zuständen. Außerdem können beim Brute Force suboptimale Aktions-Sequenzen gefunden werden, da dieser die Kosten der Goap-Aktion nicht beachtet. In GOAP sucht der A*-Suchalgorithmus über den GOAP Planner die optimale Aktions-Sequenz.
+
+Der NPC muss nun versuchen das Ziel mit den möglichen Goap-Aktion den Zielzustand $\{\lnot \textit{PlayerAlive}\}$ erreichen. Die möglichen Goap-Aktion werden dafür aus einer $\textit{ACTIONS}(s)$ Funktion gelesen.
+
+\begin{align}
+	\textit{ACTIONS}(s) = \{\textit{Reload}, \textit{MoveToCover}\} \\
+	\textit{TRANSITIONS}(s,\textit{Reload}) = \{\textit{GunLoaded}\} \\
+	\textit{TRANSITIONS}(s,\textit{MoveToCover}) = \{\textit{AtCover}\}
+\end{align}
+
+
+Aus der \textit{TRANSITIONS} Funktion können wir entnehmen, dass keine der Goap-Aktion den Zustand $\lnot \textit{PlayerAlive}$ direkt erreichen kann. Es muss ein Zustand entdeckt werden aus dem mit einer entsprechenden Goap-Aktion das Ziel erreicht werden kann. Eine Lösung wäre \textit{Brute Force}, das durchgehen aller möglichen Goap-Aktion bis letztlich das Ziel gefunden wird. Dies sorgt jedoch für einen hohen Rechenaufwand bei komplexen NPC mit vielen Goap-Aktion und Zuständen. Außerdem können beim Brute Force suboptimale Aktions-Sequenzen gefunden werden, da dieser die Kosten der Goap-Aktion nicht beachtet. In GOAP sucht der A*-Suchalgorithmus über den GOAP Planner die optimale Aktions-Sequenz.
 
 
 \subsection{GOAP Planner}
@@ -144,7 +119,7 @@ Knoten speichern die nicht erfüllten Zustände des NPC für das erreichen des Z
     \begin{tabularx}{0.95\textwidth}{X X X}
       \toprule
       \textbf{A*} & \textbf{Navigation} & \textbf{Aktion-Plannung}\\
-      \toprule
+      \midrule
       Knoten & NavMesh Polygon & Zustand &
 			Kanten & NavMesh Polygon Kanten & Goap-Aktionen &
       \bottomrule
@@ -155,7 +130,7 @@ Knoten speichern die nicht erfüllten Zustände des NPC für das erreichen des Z
 \subsubsection{Bewertungsfunktion}
 \label{chap:goap bewertungsfunktion}
 
-Die Bewertungsfunktion des A*-Suchalgorithmus setzt sich aus $f(n) = g(n) + h(n)$ zusammen. In GOAP ist $g(n)$ die Funktion $ACTIONCOST(s,a,s^*)$, welche die Kosten der Kante darstellt, also die Kosten für die Ausführung der Goap-Aktion $a$, die vom Zustand $s$ zum Zielzustand $s^$ führt. Die Heuristik $h(n)$ wird durch die Summe der noch nicht erfüllten Zustände des jeweiligen Knotens dargestellt. Je geringer der Wert von $h(n)$, desto näher ist der Knoten dem Ziel. 
+Die Bewertungsfunktion des A*-Suchalgorithmus setzt sich aus $f(n) = g(n) + h(n)$ zusammen. In GOAP ist $g(n)$ die Funktion $\textit{ACTIONCOST}(s,a,s^*)$, welche die Kosten der Kante darstellt, also die Kosten für die Ausführung der Goap-Aktion $a$, die vom Zustand $s$ zum Zielzustand $s^$ führt. Die Heuristik $h(n)$ wird durch die Summe der noch nicht erfüllten Zustände des jeweiligen Knotens dargestellt. Je geringer der Wert von $h(n)$, desto näher ist der Knoten dem Ziel. 
 
 
 \subsubsection{Suche der Aktions-Sequenz}
@@ -168,14 +143,11 @@ Es ist zwar möglich aus dem Ausgangszustand zu suchen, könnte aber einem \text
 \label{chap:goap suchbeispiel}
 
 Wir setzten das Beispiel mit dem Wissen über den GOAP Planner fort. Dabei definiert $s_a$ den Ausgangszustand des NPC.
-\[
-	\highlightbox{0.9\textwidth}{$
-		\begin{align*}
-			s_a = \{PlayerAlive, PlayerVisible, \lnot AtPatrol, \lnot GunLoaded\, \\
-			\lnot AtCover, \lnot AtPlayer,  \lnot AtLastPlayerPostion\}
-		\end{align*}
-	$}
-\]
+
+\begin{align}
+	s_a = \{\textit{PlayerAlive}, \textit{PlayerVisible}, \lnot \textit{AtPatrol}, \lnot \textit{GunLoaded}\, \\
+	\lnot \textit{AtCover}, \lnot \textit{AtPlayer},  \lnot \textit{AtLastPlayerPostion}\}
+\end{align}
 
 
 \subsubsection{Auswahl des Zieles}
@@ -190,15 +162,15 @@ Wir setzten das Beispiel mit dem Wissen über den GOAP Planner fort. Dabei defin
     \begin{tabularx}{0.95\textwidth}{X X X R}
       \toprule
       \textbf{Goal} & \textbf{Ziel-Zustand} & \textbf{Gültigkeit} & \textbf{Priorität}\\
-      \toprule
-      EliminatePlayer & \lnot$ PlayerAlive & PlayerVisible & 3 \\
-			SearchEnemy & AtLastPlayerPostion & \lnot AtLastPlayerPostion & 2 \\
-			Patrol & \lnot$ AtPatrol & AtLastPlayerPostion & 1 &
+      \midrule
+      EliminatePlayer & \lnot \text{PlayerAlive} & PlayerVisible & 3 \\
+			SearchEnemy & AtLastPlayerPostion & \lnot \text{AtLastPlayerPostion} & 2 \\
+			Patrol & \lnot \text{AtPatrol} & AtLastPlayerPostion & 1 &
       \bottomrule
     \end{tabularx}
 \end{table}
 
-Der GOAP Planer wählt das Ziel mit der höchsten Priorität und Gültigkeit. Nehmen wir an, dass das Ziel \textit{Patrol} aufgrund der \textit{VALID(s,Patrol)} Funktion nicht gültig ist, so würde das Ziel ausfallen. Es verbleiben die Ziele: \textit{EliminatePlayer} und \textit{SearchEnemy}. Da \textit{EliminatePlayer} mit $PRIORTIY(s,EliminatePlayer) = 3$ die höhere Priorität hat, wird diese als Ziel ausgewählt.
+Der GOAP Planer wählt das Ziel mit der höchsten Priorität und Gültigkeit. Nehmen wir an, dass das Ziel \textit{Patrol} aufgrund der \textit{VALID(s,Patrol)} Funktion nicht gültig ist, so würde das Ziel ausfallen. Es verbleiben die Ziele: \textit{EliminatePlayer} und \textit{SearchEnemy}. Da \textit{EliminatePlayer} mit $\textit{PRIORTIY}(s,\textit{EliminatePlayer}) = 3$ die höhere Priorität hat, wird diese als Ziel ausgewählt.
 
 \subsubsection{Suche nach der Aktion-Sequenz}
 \label{chap:goap suche nach aktionen}
@@ -212,17 +184,17 @@ Der GOAP Planer wählt das Ziel mit der höchsten Priorität und Gültigkeit. Ne
     \begin{tabularx}{0.95\textwidth}{l l l l}
       \toprule
       \textbf{Aktion} & \textbf{Effekt} & \textbf{Vorausgesetzte Zustände} & \textbf{Kosten}\\
-      \toprule
-      Shoot & \lnot$ PlayerAlive & GunLoaded, PlayerVisible & 1\\
-			Melee & \lnot$ PlayerAlive & AtPlayer, PlayerVisible & 3\\
-      Reload & GunLoaded & \lnot$ GunLoaded & 1\\
+      \midrule
+      Shoot & \lnot \text{PlayerAlive} & GunLoaded, PlayerVisible & 1\\
+			Melee & \lnot \text{PlayerAlive} & AtPlayer, PlayerVisible & 3\\
+      Reload & GunLoaded & \lnot \text{GunLoaded} & 1\\
       GoTo & AtCover, AtPlayer, AtLastPlayerPostion & - & 0-10 &
       \bottomrule
     \end{tabularx}
 \end{table}
-$
 
-Der Algorithmus erstellt nun einen Suchbaum. Der Wurzelknoten im Suchbaum speichert, dabei den erwünschten Zielzustand des Zieles. Im Falle des Beispiels ist der Zielzustand $s_z = GOAL(EliminatePlayer) = \{\lnot PlayerAlive\}$.
+
+Der Algorithmus erstellt nun einen Suchbaum. Der Wurzelknoten im Suchbaum speichert, dabei den erwünschten Zielzustand des Zieles. Im Falle des Beispiels ist der Zielzustand $s_z = \textit{GOAL}(\textit{EliminatePlayer}) = \{\lnot \textit{PlayerAlive}\}$.
 
 \begin{figure}[h]
   \centering
@@ -232,9 +204,9 @@ Der Algorithmus erstellt nun einen Suchbaum. Der Wurzelknoten im Suchbaum speich
   \label{fig:goap1}
 \end{figure}
 
-Nun sucht der Planner alle möglichen Aktionen die den Zielzustand erreichen ($ACTIONS(s_z) = {Shoot, Melee}$). Es werden nicht erfüllte und vorausgesetzte Zustände der gefundenen Aktionen, sowie die Kosten $g(n)$ und $f(n)$ in den Knoten hinterlegt. Beide werden in die offene Liste hinzugefügt.
+Nun sucht der Planner alle möglichen Aktionen die den Zielzustand erreichen ($\textit{ACTIONS}(s_z) = {\textit{Shoot}, \textit{Melee}}$). Es werden nicht erfüllte und vorausgesetzte Zustände der gefundenen Aktionen, sowie die Kosten $g(n)$ und $f(n)$ in den Knoten hinterlegt. Beide werden in die offene Liste hinzugefügt.
 
-Zur weiteren Suche entscheidet sich der A* Algorithmus für den Knoten mit den geringsten Kosten aus der offenen Liste, welcher durch die Bewertungsfunktion $f(n) = g(n) + h(n)$ berechnet wurde. Die Kosten $g(n)$ werden durch die $ACTIONCOST$-Funktion gelesen. Die Heuristik $h(n)$ stellt sich durch die Summe an noch nicht erfüllten Zuständen. Im Beispiel expandiert A* den Knoten \textit{GunLoaded, AtCover} der durch die Aktion \textit{Shoot} generiert wurde. Der Zustand \textit{AtPlayer} bleibt weiterhin in der offenen Liste.
+Zur weiteren Suche entscheidet sich der A* Algorithmus für den Knoten mit den geringsten Kosten aus der offenen Liste, welcher durch die Bewertungsfunktion $f(n) = g(n) + h(n)$ berechnet wurde. Die Kosten $g(n)$ werden durch die $\textit{ACTIONCOST}$-Funktion gelesen. Die Heuristik $h(n)$ stellt sich durch die Summe an noch nicht erfüllten Zuständen. Im Beispiel expandiert A* den Knoten \textit{GunLoaded, AtCover} der durch die Aktion \textit{Shoot} generiert wurde. Der Zustand \textit{AtPlayer} bleibt weiterhin in der offenen Liste.
 
 \begin{figure}[h]
   \centering

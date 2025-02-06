@@ -1,9 +1,3 @@
-\newcommand{\highlightbox}[2]{%
-    \colorbox{cyan!20}{%
-        \parbox{#1}{\vspace{0.5em}\centering #2\vspace{0.5em}}%
-    }%
-}
-
 \lstdefinelanguage{Pseudo}{
 	keywords={FUNKTION, WENN, SOLANGE, DANN, FUER, JEDEN, JEDE ,ENDE, NAECHSTE, NAECHSTER, VON, FUNCTION, IMPORT, END if, then, void},
 	morecomment=[l]{//}
@@ -19,36 +13,26 @@ Ein Agent muss für ein bestimmtes Ziel die richtige Auswahl an Aktionen treffen
 
 Ein Suchproblem wird durch einen Satz möglicher Zustände, einen Ausgangszustand, Zielzustände, Aktionen, ein Übergangsmodell und Aktionskosten definiert. Ein Satz möglicher Zustände beschreibt die Umwelt des Agenten. Der Ausgangszustand $s$ gibt den Zustand an, von dem der Agent startet. Zielzustände definieren ein oder mehrere Ziele, die der Agent verfolgt.
 
-\[
-\highlightbox{0.9\textwidth}{$
-    \begin{aligned}
-			s = \{AtCover, GunLoaded, PlayerAlive\}
-    \end{aligned}
-$}
-\]
 
-Die Aktionen des Agenten können in bestimmten Zuständen $ACTIONS(s)$ ausgeführt werden.
+\begin{align}
+	s = \{\textit{AtCover}, \textit{GunLoaded}, \textit{PlayerAlive}\}
+\end{align}
 
-\[
-\highlightbox{0.9\textwidth}{$
-    \begin{aligned}
-			ACTIONS(GunLoaded) &= \{Shoot\} \\
-			ACTIONS(\lnot GunLoaded) &= \{Reload\}
-    \end{aligned}
-$}
-\]
 
-Ein Übergangsmodell $TRANSITION(s,a) = s^*$ beschreibt den resultierenden Zustand $s^*$, der aus einer Aktion $a$ im derzeitigen Zustand $s$ resultiert.
+Die Aktionen des Agenten können in bestimmten Zuständen \textit{ACTIONS}$(s)$ ausgeführt werden.
 
-\[
-\highlightbox{0.9\textwidth}{$
-    \begin{aligned}
-			TRANSITIONS(GunLoaded, Shoot) &= \lnot PlayerAlive
-    \end{aligned}
-$}
-\]
+\begin{align}
+	\textit{ACTIONS}(\textit{GunLoaded}) &= \{\textit{Shoot}\} \\
+	\textit{ACTIONS}(\lnot \textit{GunLoaded}) &= \{\textit{Reload}\}
+\end{align}
 
-Durch eine Aktion-Kosten-Funktion $ACTIONCOST(s,a,s^*)$ erhält man die Kosten einer Aktion $a$, die in einem Zustand $s$ ausgeführt wird und in einen neuen Zustand $s^*$ führen.
+Ein Übergangsmodell \textit{TRANSITION}$(s,a) = s^*$ beschreibt den resultierenden Zustand $s^*$, der aus einer Aktion $a$ im derzeitigen Zustand $s$ resultiert.
+
+\begin{align}
+	\textit{TRANSITIONS}(\textit{GunLoaded}, \textit{Shoot}) &= \lnot \textit{PlayerAlive}
+\end{align}
+
+Durch eine Aktion-Kosten-Funktion \textit{ACTIONCOST}$(s,a,s^*)$ erhält man die Kosten einer Aktion $a$, die in einem Zustand $s$ ausgeführt wird und in einen neuen Zustand $s^*$ führen.
 
 \section{Suchbaum}
 \label{chap:suchbaum}
@@ -100,7 +84,7 @@ Im Bereich der Suchalgorithmen wird zwischen informierten und uniformierten Algo
 
 Zu den informierten Suchalgorithmen gehört unter anderem die Bestensuche. Eine Bestensuche arbeitet sich schrittweise über Iterationen mithilfe von Expansionen zu einem Zielknoten vor. Vor der ersten Iteration wird ein Wurzelknoten mit dem Ausgangszustand generiert und der offenen Liste hinzugefügt. Die offenen Liste stellt dabei eine Vorrangwarteschlange (Priority Queue) dar. So wird sichergestellt, dass bei der ersten Iteration der Wurzelknoten betrachtet wird.
 
-In der Iteration werden Knoten aus der offenen Liste expandiert. Bei einer Expansion ermittelt der Algorithmus mithilfe der Funktion $TRANSITIONS(n)$ alle möglichen Kanten $ACTIONS(n)$, die vom aktuellen Knoten $n$ ausgehen und zu Kindknoten führen. Für die Kindknoten wird eine Bewertung durch die Bewertungsfunktion $f(n)$ berechnet, die je nach Suchalgorithmus variiert. Diese Kindknoten werden daraufhin sortiert nach ihrer Bewertung der offenen Liste hinzugefügt. Wenn ein Knoten expandiert wird, wird dieser aus der offenen Liste entfernt. Sollte der gelesene Knoten dem Ziel entsprechen, terminiert der Algorithmus und gibt den Knoten zurück. Ansonsten wird dieser expandiert und die resultierenden Kindknoten der offenen Liste hinzugefügt. Die Iteration wird solange fortgeführt bis der Zielknoten gefunden wurde oder sich keine Knoten in der offenen Liste befinden und somit keine Knoten zu dem Ziel führen.
+In der Iteration werden Knoten aus der offenen Liste expandiert. Bei einer Expansion ermittelt der Algorithmus mithilfe der Funktion \textit{TRANSITIONS}$(n)$ alle möglichen Kanten \textit{ACTIONS}$(n)$, die vom aktuellen Knoten $n$ ausgehen und zu Kindknoten führen. Für die Kindknoten wird eine Bewertung durch die Bewertungsfunktion $f(n)$ berechnet, die je nach Suchalgorithmus variiert. Diese Kindknoten werden daraufhin sortiert nach ihrer Bewertung der offenen Liste hinzugefügt. Wenn ein Knoten expandiert wird, wird dieser aus der offenen Liste entfernt. Sollte der gelesene Knoten dem Ziel entsprechen, terminiert der Algorithmus und gibt den Knoten zurück. Ansonsten wird dieser expandiert und die resultierenden Kindknoten der offenen Liste hinzugefügt. Die Iteration wird solange fortgeführt bis der Zielknoten gefunden wurde oder sich keine Knoten in der offenen Liste befinden und somit keine Knoten zu dem Ziel führen.
 
 Zu den Bestensuchen gehört unter anderem der \textit{Greedy best-first-search} und der A$^*$ Algorithmus, die sich in ihrer Bewertungsfunktion unterscheiden.
 
@@ -126,52 +110,40 @@ Der A$^*$ Algorithmus gehört zu den informierten und heuristischen Suchverfahre
 
 Bestensuchen benutzen eine Bewertungsfunktion $f(n)$, die dazu dient die Priorität eines Knoten $n$ während der Suche zu bewerten. Bei der Bewertungsfunktion des A$^*$ Algorithmus werden dabei alle Pfad-Kosten $g(n)$ vom Ausgangsknoten bis zu dem Knoten $n$ mit der Heuristik $h(n)$ des Knoten $n$ summiert.
 
-\[
-\highlightbox{0.9\textwidth}{$
-    \begin{aligned}
-			f(n) = g(n) + h(n)
-    \end{aligned}
-$}
-\]
 
-Mit jeder Erweiterung des Pfades von $n$ zu $n^{\ast}$ steigen die Kosten $g(n)$. Dies liegt an den positiven Aktion-Kosten $ACTIONCOST(n,a,n^*)$ der Kanten zwischen den Knoten.
+\begin{align}
+	f(n) = g(n) + h(n)
+\end{align}
 
-\[
-\highlightbox{0.9\textwidth}{$
-    \begin{aligned}
-			g(n) + ACTIONCOST(n,a,n^*) + h(n^*) &= g(n^*) + h(n^*)
-    \end{aligned}
-$}
-\]
+
+Mit jeder Erweiterung des Pfades von $n$ zu $n^{\ast}$ steigen die Kosten $g(n)$. Dies liegt an den positiven Aktion-Kosten \textit{ACTIONCOST}$(n,a,n^*)$ der Kanten zwischen den Knoten.
+
+
+\begin{align}
+	g(n) + \textit{ACTIONCOST}(n,a,n^*) + h(n^*) &= g(n^*) + h(n^*)
+\end{align}
 
 \subsubsection{Heuristik}
 
 Ein Suchalgorithmus sollte einen Pfad mit möglichst geringen Kosten zum Ziel finden, der als optimaler Pfad bezeichnet wird. Ob der A$^*$ Algorithmus einen optimalen Pfad findet, hängt von den Eigenschaften der Heuristik $h(n)$ ab. Eine Heuristik weist die Eigenschaften der Zulässigkeit und Konsistenz auf. Bei einer zulässigen Heuristik werden die Kosten stets unterschätzt oder genau geschätzt. Die Kosten einer solchen Heuristik bleiben stets im Intervall $[0, h^{\ast}(n)]$ der tatsächlichen Kosten des Zielknoten $h^{\ast}(n)$.
 
-\[
-\highlightbox{0.9\textwidth}{$
-    \begin{aligned}
+\begin{align}
 			0 \leq h(n) \leq h^*(n)
-    \end{aligned}
-$}
-\]
+\end{align}
 
 Eine konsistente Heuristik, muss gleichzeitig zulässig sein und die Dreiecksungleichung erfüllen. Umgekehrt muss eine zulässige Heuristik nicht konsistent sein. Die Dreiecksungleichung gibt an, dass die Heuristik $h(n)$ geringer sein soll als die Summe der Aktion $a$ und die Heuristik des folgenden Knoten $h(n^*)$.
 
-\[
-\highlightbox{0.9\textwidth}{$
-    \begin{aligned}
-			h(n) \leq ACTIONCOST(n,a,n^*) + h(n^*)
-    \end{aligned}
-$}
-\]
+
+\begin{align}
+	h(n) \leq \textit{ACTIONCOST}(n,a,n^*) + h(n^*)
+\end{align}
 
 Die konsistente Heuristik weist eine stärkere Eigenschaft auf, als eine zulässige Heuristik. Der expandierte Knoten bei einer konsistenten Heuristik wird optimal sein, weshalb dieser Knoten nicht erneut in die offene-Liste hinzufügt werden muss.
 
 Bei einer inkonsistenten Heuristik können Pfade auftreten, die zu dem selben Zustand führen. Dies führt dazu, dass mehrere Pfade mit demselben Zustand, aber unterschiedlichen Kosten, in der offenen Liste erscheinen, was zu höheren Zeit- und Speicherkosten führt.
 
 \subsubsection{Beweis für Optimalität}
-\label{chap:a stern beweis}
+\label{chap:a stern be}
 
 Arbeitet der A$^*$ Algorithmus mit einer zulässigen oder konsistenten Heuristik, so wird diese den optimalen, kostengünstigsten Pfad zu einem Ziel finden.
 
@@ -190,26 +162,20 @@ Vorraussetzung:
 Beweis:
 \begin{enumerate}
 	\item Da keine weiteren Schritte vom Zielzustand möglich sind gilt: $h(G_o) \land h(G_s_o) = 0$
-	\[
-	\highlightbox{0.9\textwidth}{$
-		\begin{align*}
+
+		\begin{align}
 			f(G_o) &= g(G_o) + h(G_o) \\
 			f(G_o) &= g(G_o) \\
 			f(G_s_o) &= g(G_s_o) + h(G_s_o) \\
 			f(G_s_o) &= g(G_s_o)
-		\end{align*}
-	$}
-	\]
+		\end{align}
+
 	
 	Da $G_s_$ suboptimal ist folgt, dass die Pfadkosten $f(n)$ von $G_s_o > G_o$ sind und somit: $f(G_s_o) > f(G_o)$.
 	\item Da $g(G_o)$ der tatsächliche Zielknoten ist und $h^*(n)$ die tatsächlichen Kosten von $G_o$ sind gilt:
-	\[
-	\highlightbox{0.9\textwidth}{$
-    \begin{align*}
+    \begin{align}
 			f(n) = g(n) + h(n) &< g(n) + h^*(n) = g(G_o) = f(G_o) \\
 			f(n) &< g(G_o)
-		\end{align*}
-	$}
-	\]
+		\end{align}
 \end{enumerate}
 Aus 1. und 2. folgt: $f(n) < f(G_o) < f(G_s_o)$. Somit würde der A$^*$ Algorithmus nicht zu $G_s_o$ führen und ist mit einer zulässigen Heuristik optimal.

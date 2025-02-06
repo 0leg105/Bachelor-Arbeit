@@ -329,6 +329,14 @@ Die Benchmarks benötigen eine Umgebung auf der die NPCs mit ihren jeweiligen En
   \label{fig:npc class}
 \end{figure}
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\textwidth, trim=20 20 20 20]{Implementation/ego shooter.pdf}
+	\captionsetup{justification=justified, format=plain}
+  \caption{Ego-Perspektive des Spieler und Spielwelt}
+  \label{fig:ego shooter}
+\end{figure}
+
 Der Performance-Benchmark\ref{}, speichert während der Ausführung die Häufigkeit der Bilder-Pro-Sekunde für die jeweilige Anzahl an NPCs im gesamten Szenario. Der Benchmark beginnt mit einem NPC und wächst kontinuierlich, wobei alle 30 Sekunden ein neuer NPC der jeweiligen Klasse in die Spielwelt instanziiert wird. Für jede NPC-Klasse wird der Benchmark dreimal ausgeführt. Abschließend wird aus den gesammelten Daten der durchschnittliche FPS-Wert für jede NPC-Anzahl berechnet.
 
 Der Speicher-Benchmark\ref{}, gibt den Speicherverbrauch des gesamten Szenario. Auch dieser Benchmark beginnt mit einem NPC und wächst kontinuierlich, wobei alle 10 Sekunden ein neuer NPC der jeweiligen Klasse in die Spielwelt instanziiert wird. Für jede NPC-Klasse wird der Benchmark einmal ausgeführt. Abschließend wird auch hier aus den gesammelten Daten der durchschnittliche Speicherverbrauch für jede NPC-Anzahl berechnet.

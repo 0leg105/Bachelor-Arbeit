@@ -90,7 +90,7 @@ Videospielentwickler verwenden für ihre NPCs oft nicht nur ein einzelnes Entsche
 
 So werden in Foren bis heute diskutiert, welche Videospiele mit ihrer Game-AI hervorstechen. Besonders werden Videospiele gelobt, welche GOAP als Entscheidungssystem umgesetzt haben. Zu diesen Spielen gehören unter anderem \textit{F.E.A.R. (2005)} und \textit{S.T.A.L.K.E.R. (2007)}.
 In Online Artikeln wie \autocite{vanceai}, \autocite{techopedia} und \autocite{gamerant} werden beide Titel weiterhin als Beispiele für herausragende Game-AI genannt. Sie stehen trotz ihren Alters dabei in einer Reihe mit aktuelleren Spielen, wie \textit{Alien Isolation (2014)} oder \textit{The Last of Us (2013)}.
-Angemerkt sein noch, dass es schwierig zu sagen ist, welche Entscheidungssysteme aktuell in Videospielen eingesetzt werden. Videospieleentwickler geben selten detaillierte Informationen über die von ihnen verwendeten Entscheidungssysteme. Die Tabelle X soll dabei einige bekanntere Videospiele und ihre Entscheidungssysteme darstellen.
+Angemerkt sein noch, dass es schwierig zu sagen ist, welche Entscheidungssysteme aktuell in Videospielen eingesetzt werden. Videospieleentwickler geben selten detaillierte Informationen über die von ihnen verwendeten Entscheidungssysteme. Die Tabelle\ref{tab:videospiele} stellt Videospiele und ihre Entscheidungssysteme dar.
 
 
 \subsection{Fortschrittliche Methoden des maschinellen Lernens}
@@ -132,28 +132,28 @@ Im Bereich der Videospielentwicklung ist das GOAP System in den Hintergrund gerü
 
 
 \begin{sidewaystable}[h]
-  \label{Videospiele und ihre Entscheidungssysteme}
+	\caption{Videospiele der letzten Jahre und ihre Entscheidungssysteme}
+  \label{tab:videospiele}
   \renewcommand{\arraystretch}{1.2}
   \centering
   \small
     \begin{tabularx}{0.95\textwidth}{l l x x x x}
 			\toprule
       \textbf{Videospiel} & \textbf{Entscheidungssystem} & \textbf{Genre} & \textbf{Entwicklerstudio} & \textbf{Erscheinungsjahr} & \textbf{Quelle} \\
-			\toprule
+			\midrule
+			Half-Life & FSM & FPS & Valve & 1998 & \autocite{halflife} \\
+			No One Lives Forever 2 & FSM & FPS & Monolith Productions & 2002 & \autocite{fear} \\
+			Halo 2 & BT & FPS & Bungie & 2004 & \autocite{aiag} \\
+			Spore & BT & Strategie & Maxis & 2008 & \autocite{spore} \\
 			Driver: San Francisco & BT & Rennspiel & Ubisoft & 2011 & \autocite{Ocio2021} \\
-      Spore & BT & Strategie & Maxis & 2008 & \autocite{spore} \\
-      Halo 2 & BT & FPS & Bungie & 2004 & \autocite{aiag} \\
-      Tomb Raider & GOAP & Action & Eidos Montreal & 2013 & \autocite{goap_gdc} \\
-      Half-Life & FSM & FPS & Valve & 1998 & \autocite{halflife} \\
+			The Last of Us & BT & TPS & Naughty Dog & 2013 & \autocite{panwar2022npcaiuscase} \\
+			Alien: Isolation & BT & FPS & Creative Assembly & 2014 & \autocite{vsvelch2020should} \\
+			Mafia III & BT & TPS & 2K Games & 2016 & \autocite{holba2021open} \\
+			F.E.A.R & GOAP & FPS & Monolith Productions & 2005 & \autocite{fear} \\
       S.T.A.L.K.E.R.: Shadow of Chernobyl & GOAP & FPS & GSC Game World & 2007 & \autocite{sielicki2018adaptation} \\
-      No One Lives Forever 2 & FSM & FPS & Monolith Productions & 2002 & \autocite{fear} \\
-      F.E.A.R & GOAP & FPS & Monolith Productions & 2005 & \autocite{fear} \\
       Deus Ex: Human Revolution & GOAP & FPS & Eidos Montreal & 2011 & \autocite{sielicki2018adaptation} \\
+			Tomb Raider & GOAP & TPS & Eidos Montreal & 2013 & \autocite{goap_gdc} \\
       Middle-earth: Shadow of Mordor & GOAP & Rollenspiel & Monolith Productions & 2014 & \autocite{goap_gdc} \\
-      Alien: Isolation & BT & FPS & Creative Assembly & 2014 & \autocite{vsvelch2020should} \\
-      The Last of Us & BT & TPS & Naughty Dog & 2013 & \autocite{panwar2022npcaiuscase} \\
-      Mafia III & BT & TPS & 2K Games & 2016 & \autocite{holba2021open} \\
       \bottomrule
     \end{tabularx}
-		\caption{Videospiele der letzten Jahre und ihre Entscheidungssysteme}
 \end{sidewaystable}
