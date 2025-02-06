@@ -1,27 +1,27 @@
 \chapter{Goal Oriented Action Planning}
 \label{chap:goap}
 
-Das folgende Kapitel wird GOAP beschreiben. Es geh\"{o}rt zu den dynamischen \hyperref[chap:entscheidungssysteme]{Entscheidungssystemen} in der Game-AI. Die Aktionen sind dabei nicht statisch verbunden, wie in den Ad-Hoc Behavioring Authoring Methoden\ref{}. Es ist f\"{u}r die Planung an Aktionen zu einem bestimmten Ziel gedacht. Planung ist der Prozess der Suche einer Sequenz an Aktionen zur Erreichung eines Zieles. Die Suche kann dabei als Suchproblem dargestellt werden und durch Suchalgorithmen gel\"{o}st werden. F\"{u}r das Verst\"{a}ndnis wird Kenntnis der Themen Suchalgorithmen und Suchprobleme\ref{} empfohlen.
+Das folgende Kapitel wird die Funktionsweise von GOAP beschreiben. Es geh\"{o}rt zu den dynamischen Entscheidungssystemen in der Game-AI. Die Aktionen sind dabei nicht statisch verbunden, wie in den Ad-Hoc Behavioring Authoring Methoden. Es ist f\"{u}r die Planung an Aktionen zu einem bestimmten Ziel gedacht. Planung ist der Prozess der Suche einer Sequenz an Aktionen zur Erreichung eines Zieles. Die Suche kann dabei als Suchproblem dargestellt werden und durch Suchalgorithmen gel\"{o}st werden. F\"{u}r das Verst\"{a}ndnis werden Kenntnisse der Themen Suchalgorithmen und Suchprobleme des Kapitel \ref{chap:suchproblem und suchalgorithmen} erfordert.
 
 \section{Historie}
 \label{chap:goap historie}
 
-Das Entscheidungssystem GOAP entstand in der Entwicklung des Videospiel \textit{F.E.A.R (2005)} durch das Entwicklerstudio \textit{Monolith}. Die Entwickler wollten ein Videospiel entwickeln, das wie ein Actionfilm wirkt, mit intensiven K\"{a}mpfen. F\"{u}r die intensiven K\"{a}mpfe ben\"{o}tigt man NPC, welche Deckung nehmen, blind feuern, \"{u}ber Fenster springen, Granaten werfen, untereinander kommunizieren und weitere Aktionen ausf\"{u}hren k\"{o}nnen.\autocite{}
+Das Entscheidungssystem GOAP entstand in der Entwicklung des Videospiel F.E.A.R durch das Entwicklerstudio Monolith. Die Entwickler wollten ein Videospiel entwickeln, das wie ein Actionfilm wirkt, mit intensiven K\"{a}mpfen. F\"{u}r die intensiven K\"{a}mpfe ben\"{o}tigt man NPC, welche Deckung nehmen, blind feuern, \"{u}ber Fenster springen, Granaten werfen, untereinander kommunizieren und weitere Aktionen ausf\"{u}hren k\"{o}nnen.\autocite{fear}
 
-Zuvor nutzte \textit{Monolith} Finite State Machines (\textit{FSM}) als Entscheidungssystem. Den Entwicklern fiel es jedoch zunehmend aufwendig, eine FSM mit neuen Zust\"{a}nden und den dazugeh\"{o}rigen Aktionen zu erweitern. In einem vorherigen Videospiel \textit{No One Lives Forever (2000)}, wurde veruscht eine dynamische FSM zu implementieren, die sich an Zielzust\"{a}nde anpassen konnte. Allerdings wurde auch diese L\"{o}sung als zu unflexibel wahrgenommen. Aus dem Versuch der dynamischen FSM und STRIPS hat Jeff Orkin das GOAP System entwickelt, welches Echtzeitplanung erf\"{u}llen soll. Eine der Herausforderungen, mit denen sich Jeff Orkin w\"{a}hrend der Entwicklung konfrontiert sah, war die Ber\"{u}cksichtigung der Performance.\autocite{retro_fear}
+Zuvor nutzte Monolith FSMs als Entscheidungssystem. Den Entwicklern fiel es jedoch zunehmend aufwendig, eine FSM mit neuen Zust\"{a}nden und den dazugeh\"{o}rigen Aktionen zu erweitern. In einem vorherigen Videospiel No One Lives Forever (2000), wurde veruscht eine dynamische FSM zu implementieren, die sich an Zielzust\"{a}nde anpassen konnte. Allerdings wurde auch diese L\"{o}sung als zu unflexibel wahrgenommen. Aus dem Versuch der dynamischen FSM und STRIPS hat Jeff Orkin das GOAP System entwickelt, welches Echtzeitplanung erf\"{u}llen soll. Eine der Herausforderungen, mit denen sich Jeff Orkin w\"{a}hrend der Entwicklung konfrontiert sah, war die Ber\"{u}cksichtigung der Performance.\autocite{retro_fear}
 
 
 
 \section{GOAP Bestandteile}
 \label{chap:goap bestandteile}
 
-Das GOAP -System basiert dabei auf dem STRIPS System. Wie auch STRIPS besitzt GOAP Ziele, welche einen gew\"{u}nschten Zustand beschreiben und Goap-Aktion mit Effekten die Zust\"{a}nde \"{a}ndern k\"{o}nnen. GOAP sucht nach einer Sequenz an Goap-Aktion, der Aktions-Sequenz, die das Ziel des NPC erreichen kann. Im Sinne von Jeff Orkins geschieht die eigentliche Ausf\"{u}hrung der Aktionen \"{u}ber eine Finite State Machine (FSM).\autocite{}
+Das GOAP -System basiert dabei auf dem STRIPS System und wurde von Jeff Orkin entwickelt. Wie auch STRIPS besitzt GOAP Ziele, welche einen gew\"{u}nschten Zustand beschreiben und Goap-Aktion mit Effekten die Zust\"{a}nde \"{a}ndern k\"{o}nnen. GOAP sucht nach einer Sequenz an Goap-Aktion, der Aktions-Sequenz, die das Ziel des NPC erreichen kann. Im Sinne von Jeff Orkins geschieht die eigentliche Ausf\"{u}hrung der Aktionen \"{u}ber eine FSM. Die Informationen zu den Grundlagen kommen aus \autocite{fear, fear2, fear3}
 
 
 \subsection{Finite State Machine in GOAP}
 \label{chap:fsm goap}
 
-Das Videospiel \textit{F.E.A.R (2005)} ben\"{o}tigt f\"{u}r die Ausf\"{u}hrung der Aktionen eine FSM. Die NPCs f\"{u}hren ihre Aktionen durch eine Kombination aus Animationen und Bewegungen aus. Beispielsweise sorgt eine Cover-Aktion daf\"{u}r, dass der NPC hinter eine Deckung l\"{a}uft und dort eine Deckungs-Animation abspielt. Eine Shoot-Aktion hingegen aktiviert eine entsprechende Schuss-Animation. Die FSM besteht dabei aus den drei Zust\"{a}nden GoTo, Animate und UseSmartObject. 
+Das Videospiel F.E.A.R (2005) ben\"{o}tigt f\"{u}r die Ausf\"{u}hrung der Aktionen eine FSM. Die NPCs f\"{u}hren ihre Aktionen durch eine Kombination aus Animationen und Bewegungen aus. Beispielsweise sorgt eine Cover-Aktion daf\"{u}r, dass der NPC hinter eine Deckung l\"{a}uft und dort eine Deckungs-Animation abspielt. Eine Shoot-Aktion hingegen aktiviert eine entsprechende Schuss-Animation. Die FSM besteht dabei aus den drei Zust\"{a}nden GoTo, Animate und UseSmartObject. 
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.7\textwidth]{GOAP/fsm.pdf}
@@ -30,7 +30,7 @@ Das Videospiel \textit{F.E.A.R (2005)} ben\"{o}tigt f\"{u}r die Ausf\"{u}hrung d
   \label{fig:Goap FSM}
 \end{figure}
 
-\textit{Monolith} hat durch die Zust\"{a}nde \textit{Animate} und \textit{UseSmartObject} Animationen umgesetzt. Der Unterschied zwischen den beiden Zust\"{a}nden besteht darin, dass \textit{UseSmartObject} Animationen steuert, die von \textit{SmartObjects} in der Spielwelt vorgegeben werden, w\"{a}hrend \textit{Animate} Animationen abspielt, die direkt im NPC gespeichert sind. Der Zustand \textit{GoTo} hat ebenfalls Animationen abgespielt, kombiniert diese jedoch mit der tats\"{a}chlichen Bewegung des NPCs durch die Spielwelt.
+Die Monolith-Entwickler hat durch die Zust\"{a}nde \textit{Animate} und \textit{UseSmartObject} Animationen umgesetzt. Der Unterschied zwischen den beiden Zust\"{a}nden besteht darin, dass \textit{UseSmartObject} Animationen steuert, die von \textit{SmartObjects} in der Spielwelt vorgegeben werden, w\"{a}hrend \textit{Animate} Animationen abspielt, die direkt im NPC gespeichert sind. Der Zustand \textit{GoTo} hat ebenfalls Animationen abgespielt, kombiniert diese jedoch mit der tats\"{a}chlichen Bewegung des NPCs durch die Spielwelt.
 
 Die Zustandswechsel werden durch die Goap-Aktion bestimmt, welche wiederum durch GOAP gegeben werden.
 
@@ -72,7 +72,7 @@ Eine Goap-Aktion hat auch Vorbedingungen als Zust\"{a}nde, diese Zust\"{a}nde k\
 	\textit{PRECONDITION}(\textit{Shoot}) = \{\textit{GunLoaded}\}
 \end{align}
 
-Eine Goap-Aktion setzt auch wie im Suchproblem\ref{} eine \textit{ACTIONCOST} Funktion um, die sp\"{a}ter zur Auswahl einer Goap-Aktion herangezogen wird. Wird die Goap-Aktion ausgew\"{a}hlt wird diese sp\"{a}ter von der FSM ausgef\"{u}hrt.
+Eine Goap-Aktion setzt auch wie im Suchproblem eine \textit{ACTIONCOST} Funktion um, die sp\"{a}ter zur Auswahl einer Goap-Aktion herangezogen wird. Wird die Goap-Aktion ausgew\"{a}hlt wird diese sp\"{a}ter von der FSM ausgef\"{u}hrt.
 
 
 \subsubsection{Fallbeispiel}
@@ -95,7 +95,7 @@ Der NPC muss nun versuchen das Ziel mit den m\"{o}glichen Goap-Aktion den Zielzu
 \end{align}
 
 
-Aus der \textit{TRANSITIONS} Funktion k\"{o}nnen wir entnehmen, dass keine der Goap-Aktion den Zustand $\lnot \textit{PlayerAlive}$ direkt erreichen kann. Es muss ein Zustand entdeckt werden aus dem mit einer entsprechenden Goap-Aktion das Ziel erreicht werden kann. Eine L\"{o}sung w\"{a}re \textit{Brute Force}, das durchgehen aller m\"{o}glichen Goap-Aktion bis letztlich das Ziel gefunden wird. Dies sorgt jedoch f\"{u}r einen hohen Rechenaufwand bei komplexen NPC mit vielen Goap-Aktion und Zust\"{a}nden. Au\ss{}erdem k\"{o}nnen beim Brute Force suboptimale Aktions-Sequenzen gefunden werden, da dieser die Kosten der Goap-Aktion nicht beachtet. In GOAP sucht der A*-Suchalgorithmus \"{u}ber den GOAP Planer die optimale Aktions-Sequenz.
+Aus der \textit{TRANSITIONS} Funktion k\"{o}nnen wir entnehmen, dass keine der Goap-Aktion den Zustand $\lnot \textit{PlayerAlive}$ direkt erreichen kann. Es muss ein Zustand entdeckt werden aus dem mit einer entsprechenden Goap-Aktion das Ziel erreicht werden kann. Eine L\"{o}sung w\"{a}re \textit{Brute Force}, das durchgehen aller m\"{o}glichen Goap-Aktion bis letztlich das Ziel gefunden wird. Dies sorgt jedoch f\"{u}r einen hohen Rechenaufwand bei komplexen NPC mit vielen Goap-Aktion und Zust\"{a}nden. Au\ss{}erdem k\"{o}nnen beim \textit{Brute Force} suboptimale Aktions-Sequenzen gefunden werden, da dieser die Kosten der Goap-Aktion nicht beachtet. In GOAP sucht der A*-Suchalgorithmus \"{u}ber den GOAP Planer die optimale Aktions-Sequenz.
 
 
 \subsection{GOAP Planer}
@@ -136,7 +136,7 @@ Die Bewertungsfunktion des A*-Suchalgorithmus setzt sich aus $f(n) = g(n) + h(n)
 \subsubsection{Suche der Aktions-Sequenz}
 \label{chap:goap suche}
 
-Es ist zwar m\"{o}glich aus dem Ausgangszustand zu suchen, k\"{o}nnte aber einem \textit{Brute Force}\ref{} \"{a}hneln und dadurch ineffizient sein. Die Kante wird nicht wie bei der Navigation vom Ausgangszustand ausgew\"{a}hlt, sondern aus dem Zielzustand $s_z$ aus. Von dort aus wird die Suche nach Kanten fortgesetzt, die die Vorbedingungen der zuvor gew\"{a}hlten Kante erf\"{u}llen. Die Suche wird fortgesetzt bis alle Vorbedingungen der Kanten erf\"{u}llt wurden. Der Planer speichert dabei die Auswahl der Goap-Aktionen in einer Aktions-Sequenz ab.
+Es ist zwar m\"{o}glich aus dem Ausgangszustand zu suchen, k\"{o}nnte aber einem \textit{Brute Force} \"{a}hneln und dadurch ineffizient sein. Die Kante wird nicht wie bei der Navigation vom Ausgangszustand ausgew\"{a}hlt, sondern aus dem Zielzustand $s_z$ aus. Von dort aus wird die Suche nach Kanten fortgesetzt, die die Vorbedingungen der zuvor gew\"{a}hlten Kante erf\"{u}llen. Die Suche wird fortgesetzt bis alle Vorbedingungen der Kanten erf\"{u}llt wurden. Der Planer speichert dabei die Auswahl der Goap-Aktionen in einer Aktions-Sequenz ab.
 
 
 \section{Suchbeispiel}
