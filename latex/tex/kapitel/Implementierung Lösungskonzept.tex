@@ -1,5 +1,3 @@
-\usepackage{svg}
-
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
@@ -44,22 +42,22 @@
 \chapter{Implementierung des Lösungskonzepts}
 \label{chap:implementierung lk}
 
-Die praktische Umsetzung des GOAP Systems wird nun in diesem Kapitel beschrieben. Es soll insbesondere auf die Umsetzung des GOAP-Entscheidungssystem eingegangen werden. Zunächst wird die grundlegende Architektur von GOAP mit ihren Modulen erläutert, gefolgt von einer Darstellung des Szenarios, in dem die \hyperref[chap:entscheidungssysteme]{Entscheidungssysteme} implementiert werden. Abschlie\ss{}end wird die Realisierung der Benchmarks behandelt.
+Die praktische Umsetzung des GOAP Systems wird nun in diesem Kapitel beschrieben. Es soll insbesondere auf die Umsetzung des GOAP-Entscheidungssystem eingegangen werden. Zunächst wird die grundlegende Architektur von GOAP mit ihren Modulen erläutert, gefolgt von einer Darstellung des Szenarios, in dem die Entscheidungssysteme implementiert werden. Abschlie\ss{}end wird die Realisierung der Benchmarks behandelt.
 
-So soll die Grundlegende GOAP Architektur anhand von UML-Notation dargestellt und beschrieben werden. Sie bildet die Grundlage für die Implementation des Entscheidungssystems im Szenario. Mithilfe von Pseudocode werden die in den UML-Klassendiagrammen dargestellten Methoden und Attribute weiter erläutert. Die Architektur basiert dabei auf den Informationen aus dem GOAP Grundkapitel\ref{}, wissenschaftlicher Literatur zum Thema GOAP und der F.E.A.R SDK\autocite{}.
+So soll die Grundlegende GOAP Architektur anhand von UML-Notation dargestellt und beschrieben werden. Sie bildet die Grundlage für die Implementation des Entscheidungssystems im Szenario. Mithilfe von Pseudocode werden die in den UML-Klassendiagrammen dargestellten Methoden und Attribute weiter erläutert. Die Architektur basiert dabei auf den Grundlagen der GOAP Kapitel \ref{chap:goap}, wissenschaftlicher Literatur zum Thema GOAP und der F.E.A.R SDK\autocite{}.
 
 \section{GOAP Architektur}
 \label{chap:goap architektur}
 
-Aus dem GOAP-Kapitel\ref{} geht hervor, dass ein GOAP-System aus einem Planner, Zielen, Aktionen und einer FSM besteht. Diese Module sollen ihre Aufgaben erfüllen, wie im Grundlagenkapitel zu GOAP beschrieben. Dafür müssen diese Module in einer Architektur zusammenarbeiten. Die grundlegende Architektur von GOAP wird in Abbildung\ref{} dargestellt.
+Aus dem GOAP-Kapitel \ref{chap:goap} geht hervor, dass ein GOAP-System aus einem Planner, Zielen, Aktionen und einer FSM besteht. Diese Module sollen ihre Aufgaben erfüllen, wie im Grundlagenkapitel zu GOAP beschrieben. Dafür müssen diese Module in einer Architektur zusammenarbeiten. Die grundlegende Architektur von GOAP wird in Abbildung \ref{fig:GOAP Architektur} dargestellt.
 
-Der Agent wird über eine GoapAgent Klasse realisiert. Sie soll in der Architektur die Hauptklasse darstellen und als Schnittstelle zur restlichen Spielwelt fungieren. Die Spielwelt benötigt nämlich eine Schnittstelle, um dem NPC Informationen zu übergeben, wie beispielsweise bestimmte Koordinaten zum erfüllen bestimmter Aktionen. Die zentrale Aufgabe des GoapAgent ist nämlich die Aktionen einer Aktionssequenz ausführen. Für die Ausführung der eigentlichen Aktionen werden dabei \hyperref[chap:game-objects]{Komponenten} benötigt, welche die Spielwelt manipulieren können. Die Klasse Npc\ref{} stellt diese Komponenten bereit. Ein Beispiel einer solchen Komponente ist die vision\_component, die es dem NPC ermöglicht den Spieler zu erfassen.
+Der Agent wird über eine GoapAgent Klasse realisiert. Sie soll in der Architektur die Hauptklasse darstellen und als Schnittstelle zur restlichen Spielwelt fungieren. Die Spielwelt benötigt nämlich eine Schnittstelle, um dem NPC Informationen zu übergeben, wie beispielsweise bestimmte Koordinaten zum erfüllen bestimmter Aktionen. Die zentrale Aufgabe des GoapAgent ist nämlich die Aktionen einer Aktionssequenz ausführen. Für die Ausführung der eigentlichen Aktionen werden dabei Komponenten benötigt, welche die Spielwelt manipulieren können. Die Klasse Npc\ref{} stellt diese Komponenten bereit. Ein Beispiel einer solchen Komponente ist die vision\_component, die es dem NPC ermöglicht den Spieler zu erfassen.
 
 Der StateManager verwaltet die Zustände des NPC, die von GoapAction und GoapGoal abgefragt werden. Diese Zustände können über die Komponenten der Oberklasse Npc oder durch nichtdeterministische Umstände der Spielwelt verändert werden. Ein Beispiel für einen Zustand der im StateManager verwaltet wird, ist die Sichtbarkeit der Spielfigur, die durch die vision\_component beeinflusst wird.
 
-Für die Generierung von Aktionssequenzen des GoapAgent ist die Klasse GoapPlanner zuständig. Wie in der Architektur dargestellt, besitzt der GoapPlanner Objekte der Klassen GoapGoal, GoapAction und AStarNode, welche dazu benötigt werden eine Aktionssequenz zu finden. Aus den GoapGoal Objekten wählt der GoapPlanner einen Zielzustand aus, für den eine Aktionssequenz gesucht wird. Der GoapPlanner sucht die Aktionssequenz mithilfe des A$^*$ Algorithmus\ref{}. Die Klasse AStarNode wird zur Generierung von Knoten für den Suchbaum des A$^*$ Algorithmus benötigt. Ein AStarNode setzt dabei die Eigenschaften eines Suchbaum-Knoten\ref{} um.
+Für die Generierung von Aktionssequenzen des GoapAgent ist die Klasse GoapPlanner zuständig. Wie in der Architektur dargestellt, besitzt der GoapPlanner Objekte der Klassen GoapGoal, GoapAction und AStarNode, welche dazu benötigt werden eine Aktionssequenz zu finden. Aus den GoapGoal Objekten wählt der GoapPlanner einen Zielzustand aus, für den eine Aktionssequenz gesucht wird. Der GoapPlanner sucht die Aktionssequenz mithilfe des A$^*$ Algorithmus\ref{}. Die Klasse AStarNode wird zur Generierung von Knoten für den Suchbaum des A$^*$ Algorithmus benötigt. Ein AStarNode setzt dabei die Eigenschaften eines Suchbaum-Knoten um, wie in Kapitel \ref{chap:knoten eines suchbaums} beschrieben.
 
-Die Klasse GoapAction stellt die Basisklasse für Aktionen dar. Eine Aktion repräsentiert dabei eine Kante im Suchbaum\ref{}.
+Die Klasse GoapAction stellt die Basisklasse für Aktionen dar. Eine Aktion repräsentiert dabei eine Kante im Suchbaum, siehe Kapitel \ref{chap:goap actions}.
 
 Es wird keine FSM in der Architektur umgesetzt, da die Implementation keine Animationen umfasst. Stattdessen geschieht die Ausführung der Aktionen direkt innerhalb der Klasse GoapAgent. Sollten Animationen vorhanden sein, können diese auch über die Klasse GoapAction ausgeführt werden. Es besteht keine zwingende Notwendigkeit, eine FSM innerhalb von GOAP umzusetzen. Ein Konzept für die Implementierung einer FSM wäre es, diese an den GoapAgent oder GoapPlanner zu koppeln und die Aktionssequenz von dort aus auszuführen. Die Aktionen würden dann auch die Knotenwechsel für die FSM durchführen.
 
@@ -74,7 +72,7 @@ Es wird keine FSM in der Architektur umgesetzt, da die Implementation keine Anim
 \subsection{GoapAgent}
 \label{chap:goapagent uml}
 
-Die Abbildung\ref{} stellt die Klasse GoapAgent dar. In den folgenden Unterkapiteln werden die Klassenattribute und Methoden in ihrer Funktion beschrieben. Der GoapAgent speichert folgende Klassenvariablen: goap\_planner, action\_sequence und den current\_step. Bei den Methoden handelt es sich um: update und follow\_sequence.
+Die Abbildung \ref{fig:GoapAgent} stellt die Klasse GoapAgent dar. In den folgenden Unterkapiteln werden die Klassenattribute und Methoden in ihrer Funktion beschrieben. Der GoapAgent speichert folgende Klassenvariablen: \textit{goap\_planner}, \textit{action\_sequence} und den \textit{current\_step}. Bei den Methoden handelt es sich um: \textit{update} und \textit{follow\_sequence}.
 
 \subsubsection{Klassenatribute}
 \label{chap:goapagent klassenatribute}
@@ -93,7 +91,7 @@ Der goap\_planner ist eine Referenz auf die Klasse GoapPlanner, welcher die acti
 \subsubsection{Methoden}
 \label{chap:goapagent methoden}
 
-Die update Methode ruft Methoden der Klassen und \hyperref[chap:game-objects]{Komponenten} innerhalb des NPC auf. Sie wird wiederum durch eine \_process Funktion jedes \textit{Frame} aufgerufen, um kontinuierliche Logik wie Bewegungen oder Raycasting des GoapAgent zu verarbeiten. Sie wird über die Komponente aufgerufen, welche das Objekt GoapAgent instanziiert. Der Parameter delta repräsentiert die Zeit seit dem letzten Frame und könnte an andere Methoden übergeben werden.
+Die update Methode ruft Methoden der Klassen und Komponenten innerhalb des NPC auf. Sie wird wiederum durch eine \textit{\_process} Funktion jedes \textit{Frame} aufgerufen, um kontinuierliche Logik wie Bewegungen oder Raycasting des \textit{GoapAgent} zu verarbeiten. Diese wird wiederum über die Komponente aufgerufen, die das Objekt GoapAgent instanziiert. Der Parameter \textit{delta} repräsentiert die Zeit seit dem letzten Frame und könnte an andere Methoden übergeben werden.
 
 % update Methode
 %\lstinputlisting[firstline=0, language=Pseudo, linerange={1-7}, caption={update Methode des GoapAgent}, label=lst:caption]{code/goap agent.txt}

@@ -1,29 +1,32 @@
-\documentclass{article}
 \usepackage{pgfplots}
+\usepackage{csvsimple}
+
 \pgfplotsset{compat=1.17}
 
-\begin{document}
+\chapter{Grafik}
 
 \begin{tikzpicture}
     \begin{axis}[
-				width=15cm,
-				height=15cm,
+        width=15cm,
+        height=15cm,
         xlabel={NPC-Anzahl},
         ylabel={Durchschnittliche FPS},
         title={Durchschnittliche FPS der Entscheidungssysteme},
         grid=major,
-        legend style={at={(1.05,1)}, anchor=north west},
+        legend style={at={(1.05,1)}, anchor=north west, font=\footnotesize}, % Anpassen der Schriftgröße der Legende
+        enlarge x limits=0.1, % Etwas mehr Platz für die x-Achse
+        enlarge y limits=0.1  % Etwas mehr Platz für die y-Achse
     ]
     \addplot 
-		table [x=NPC, y=FPS, col sep=comma] {csv/goap_plot_data.csv};
+        table [x=NPC, y=FPS, col sep=comma] {csv/goap\_plot\_data.csv};
     \addlegendentry{GOAP}
-		\addplot 
-		table [x=NPC, y=FPS, col sep=comma] {csv/fsm_plot_data.csv};
+    
+    \addplot 
+        table [x=NPC, y=FPS, col sep=comma] {csv/fsm\_plot\_data.csv};
     \addlegendentry{FSM}
-		\addplot 
-		table [x=NPC, y=FPS, col sep=comma] {csv/bt_plot_data.csv};
+    
+    \addplot 
+        table [x=NPC, y=FPS, col sep=comma] {csv/bt\_plot\_data.csv};
     \addlegendentry{BT}
     \end{axis}
 \end{tikzpicture}
-
-\end{document}
