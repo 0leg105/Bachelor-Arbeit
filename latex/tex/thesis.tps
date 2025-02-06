@@ -11,14 +11,14 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=2341
+NormalPos.right=2437
 NormalPos.bottom=1514
 Class=LaTeXView
-Document=kapitel\Zusammenfassung.tex
+Document=kapitel\Implementierung Lösungskonzept.tex
 
 [Frame0_View0,0]
-TopLine=0
-Cursor=1450
+TopLine=356
+Cursor=23845
 
 [Frame1]
 Flags=0
@@ -29,14 +29,14 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=2341
+NormalPos.right=2437
 NormalPos.bottom=1514
 Class=LaTeXView
-Document=thesis.tex
+Document=info_kapitel\kapitel3.tex
 
 [Frame1_View0,0]
-TopLine=80
-Cursor=3929
+TopLine=39
+Cursor=1702
 
 [Frame2]
 Flags=0
@@ -47,14 +47,14 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=2341
+NormalPos.right=2437
 NormalPos.bottom=1514
 Class=LaTeXView
-Document=kapitel\Videospiele.tex
+Document=thesis.tex
 
 [Frame2_View0,0]
-TopLine=0
-Cursor=0
+TopLine=83
+Cursor=4487
 
 [Frame3]
 Flags=0
@@ -65,14 +65,14 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=2341
+NormalPos.right=2437
 NormalPos.bottom=1514
 Class=LaTeXView
-Document=kapitel\Videospielentwicklung.tex
+Document=kapitel\Einleitung.tex
 
 [Frame3_View0,0]
-TopLine=0
-Cursor=0
+TopLine=8
+Cursor=4649
 
 [Frame4]
 Flags=0
@@ -83,14 +83,14 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=2341
+NormalPos.right=2437
 NormalPos.bottom=1514
 Class=LaTeXView
-Document=kapitel\Entscheidungssysteme.tex
+Document=kapitel\Videospiele.tex
 
 [Frame4_View0,0]
 TopLine=0
-Cursor=0
+Cursor=1461
 
 [Frame5]
 Flags=0
@@ -101,14 +101,14 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=2341
+NormalPos.right=2437
 NormalPos.bottom=1514
 Class=LaTeXView
-Document=kapitel\Suchprobleme und Suchalgorithmen.tex
+Document=kapitel\Videospielentwicklung.tex
 
 [Frame5_View0,0]
 TopLine=0
-Cursor=0
+Cursor=8284
 
 [Frame6]
 Flags=0
@@ -119,14 +119,14 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=2341
+NormalPos.right=2437
 NormalPos.bottom=1514
 Class=LaTeXView
-Document=kapitel\GOAP.tex
+Document=kapitel\Entscheidungssysteme.tex
 
 [Frame6_View0,0]
-TopLine=22
-Cursor=2437
+TopLine=73
+Cursor=8198
 
 [Frame7]
 Flags=0
@@ -137,14 +137,14 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=2341
+NormalPos.right=2437
 NormalPos.bottom=1514
 Class=LaTeXView
-Document=kapitel\State of the art.tex
+Document=kapitel\Suchprobleme und Suchalgorithmen.tex
 
 [Frame7_View0,0]
 TopLine=0
-Cursor=0
+Cursor=536
 
 [Frame8]
 Flags=0
@@ -155,14 +155,14 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=2341
+NormalPos.right=2437
 NormalPos.bottom=1514
 Class=LaTeXView
-Document=kapitel\Lösungskonzept.tex
+Document=kapitel\GOAP.tex
 
 [Frame8_View0,0]
-TopLine=0
-Cursor=0
+TopLine=238
+Cursor=6935
 
 [Frame9]
 Flags=0
@@ -173,14 +173,14 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=2341
+NormalPos.right=2437
 NormalPos.bottom=1514
 Class=LaTeXView
-Document=kapitel\Implementierung Lösungskonzept.tex
+Document=kapitel\State of the art.tex
 
 [Frame9_View0,0]
-TopLine=179
-Cursor=0
+TopLine=184
+Cursor=20386
 
 [Frame10]
 Flags=0
@@ -191,16 +191,70 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=2341
+NormalPos.right=2437
+NormalPos.bottom=1514
+Class=LaTeXView
+Document=kapitel\Lösungskonzept.tex
+
+[Frame10_View0,0]
+TopLine=0
+Cursor=447
+
+[Frame11]
+Flags=0
+ShowCmd=1
+MinPos.x=-1
+MinPos.y=-1
+MaxPos.x=-1
+MaxPos.y=-1
+NormalPos.left=4
+NormalPos.top=36
+NormalPos.right=2437
 NormalPos.bottom=1514
 Class=LaTeXView
 Document=kapitel\Bewertung.tex
 
-[Frame10_View0,0]
+[Frame11_View0,0]
+TopLine=122
+Cursor=11045
+
+[Frame12]
+Flags=0
+ShowCmd=1
+MinPos.x=-1
+MinPos.y=-1
+MaxPos.x=-1
+MaxPos.y=-1
+NormalPos.left=4
+NormalPos.top=36
+NormalPos.right=2437
+NormalPos.bottom=1514
+Class=LaTeXView
+Document=kapitel\Zusammenfassung.tex
+
+[Frame12_View0,0]
 TopLine=0
-Cursor=577
+Cursor=25
+
+[Frame13]
+Flags=0
+ShowCmd=1
+MinPos.x=-1
+MinPos.y=-1
+MaxPos.x=-1
+MaxPos.y=-1
+NormalPos.left=4
+NormalPos.top=36
+NormalPos.right=2437
+NormalPos.bottom=1514
+Class=LaTeXView
+Document=abstrakt.tex
+
+[Frame13_View0,0]
+TopLine=0
+Cursor=2148
 
 [SessionInfo]
-FrameCount=11
-ActiveFrame=0
+FrameCount=14
+ActiveFrame=10
 
