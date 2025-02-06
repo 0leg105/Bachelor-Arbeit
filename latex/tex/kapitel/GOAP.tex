@@ -6,7 +6,7 @@ Das folgende Kapitel wird GOAP beschreiben. Es geh\"{o}rt zu den dynamischen \hy
 \section{Historie}
 \label{chap:goap historie}
 
-Das Entscheidungssystem GOAP entstand in der Entwicklung des Videospiel \textit{F.E.A.R: First Encounter Assault Recon (2005)} durch das Entwicklerstudio \textit{Monolith}. Die Entwickler wollten ein Videospiel entwickeln, das wie ein Actionfilm wirkt, mit intensiven K\"{a}mpfen. F\"{u}r die intensiven K\"{a}mpfe ben\"{o}tigt man NPC, welche Deckung nehmen, blind feuern, \"{u}ber Fenster springen, Granaten werfen, untereinander kommunizieren und weitere Aktionen ausf\"{u}hren k\"{o}nnen.\autocite{}
+Das Entscheidungssystem GOAP entstand in der Entwicklung des Videospiel \textit{F.E.A.R (2005)} durch das Entwicklerstudio \textit{Monolith}. Die Entwickler wollten ein Videospiel entwickeln, das wie ein Actionfilm wirkt, mit intensiven K\"{a}mpfen. F\"{u}r die intensiven K\"{a}mpfe ben\"{o}tigt man NPC, welche Deckung nehmen, blind feuern, \"{u}ber Fenster springen, Granaten werfen, untereinander kommunizieren und weitere Aktionen ausf\"{u}hren k\"{o}nnen.\autocite{}
 
 Zuvor nutzte \textit{Monolith} Finite State Machines (\textit{FSM}) als Entscheidungssystem. Den Entwicklern fiel es jedoch zunehmend aufwendig, eine FSM mit neuen Zust\"{a}nden und den dazugeh\"{o}rigen Aktionen zu erweitern. In einem vorherigen Videospiel \textit{No One Lives Forever (2000)}, wurde veruscht eine dynamische FSM zu implementieren, die sich an Zielzust\"{a}nde anpassen konnte. Allerdings wurde auch diese L\"{o}sung als zu unflexibel wahrgenommen. Aus dem Versuch der dynamischen FSM und STRIPS hat Jeff Orkin das GOAP System entwickelt, welches Echtzeitplanung erf\"{u}llen soll. Eine der Herausforderungen, mit denen sich Jeff Orkin w\"{a}hrend der Entwicklung konfrontiert sah, war die Ber\"{u}cksichtigung der Performance.\autocite{retro_fear}
 
@@ -21,7 +21,7 @@ Das GOAP -System basiert dabei auf dem STRIPS System. Wie auch STRIPS besitzt GO
 \subsection{Finite State Machine in GOAP}
 \label{chap:fsm goap}
 
-Das Videospiel \textit{F.E.A.R} ben\"{o}tigt f\"{u}r die Ausf\"{u}hrung der Aktionen eine FSM. Die NPCs f\"{u}hren ihre Aktionen durch eine Kombination aus Animationen und Bewegungen aus. Beispielsweise sorgt eine Cover-Aktion daf\"{u}r, dass der NPC hinter eine Deckung l\"{a}uft und dort eine Deckungs-Animation abspielt. Eine Shoot-Aktion hingegen aktiviert eine entsprechende Schuss-Animation. Die FSM besteht dabei aus den drei Zust\"{a}nden GoTo, Animate und UseSmartObject. 
+Das Videospiel \textit{F.E.A.R (2005)} ben\"{o}tigt f\"{u}r die Ausf\"{u}hrung der Aktionen eine FSM. Die NPCs f\"{u}hren ihre Aktionen durch eine Kombination aus Animationen und Bewegungen aus. Beispielsweise sorgt eine Cover-Aktion daf\"{u}r, dass der NPC hinter eine Deckung l\"{a}uft und dort eine Deckungs-Animation abspielt. Eine Shoot-Aktion hingegen aktiviert eine entsprechende Schuss-Animation. Die FSM besteht dabei aus den drei Zust\"{a}nden GoTo, Animate und UseSmartObject. 
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.7\textwidth]{GOAP/fsm.pdf}
