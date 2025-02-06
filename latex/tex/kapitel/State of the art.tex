@@ -22,7 +22,7 @@ Auf der erfolgreichen Computerspiel Vertriebsplattform Steam von Valve wurden ve
   \includegraphics[width=15cm]{state_of_the_art/steam_veroffentlichungen}
 	\captionsetup{justification=justified, format=plain}
   \caption{Computerspiel Ver\"{o}ffentlichungen auf Steam \"{u}ber die Jahre}
-  \label{SteamDB Statistik}
+  \label{fig:steamdb}
 \end{figure}
 
 Folglich kann davon ausgegangen werden, dass es Stakeholder gibt, die sich f\"{u}r Videospiele interessieren.
@@ -100,9 +100,9 @@ Der Trend von fortschrittliche Methoden des maschinellen Lernens, hat an Bedeutu
 
 Es existieren wenige ver\"{o}ffentlichten Studien, die ihre Anwendung als \hyperref[chap:entscheidungssysteme]{Entscheidungssystem} f\"{u}r NPC dokumentieren, \autocite{U2023} daher werden diese nicht weit erl\"{a}utert. Dennoch gibt es Videospiele, welche diese Methoden f\"{u}r bestimmte Funktionen von NPC verwendet werden und in den folgenden Abschnitten erl\"{a}utert werden. Es w\"{a}re interessant diese Methoden ausf\"{u}hrlicher in der akademischen Forschung Richtung Game AI zu sehen, insbesondere in Richtung Entscheidungssysteme.
 
-Die Methoden des maschinellen Lernens kann man in supervised learning (SL), unsupervised learning (UL) und reinforcment learning(RL) unterteilen. So bekommt SL gelabelte Daten und UL Rohdaten mit denen sie trainieren. W\"{a}hrend RL auf Basis der Umgebung lernt und durch richtige Aktionen belohnt wird. So wird Deep Learning, ein Teil von SL, f\"{u}r Spracherkennung und natural language processing benutzt. Im Strategiespiel StarCraft wird RL f\"{u}r das \textit{micromanagement} der NPC benutzt. \autocite{inbook}
+Die Methoden des maschinellen Lernens kann man in supervised learning (SL), unsupervised learning (UL) und reinforcment learning(RL) unterteilen. So bekommt SL gelabelte Daten und UL Rohdaten mit denen sie trainieren. W\"{a}hrend RL auf Basis der Umgebung lernt und durch richtige Aktionen belohnt wird. So wird Deep Learning, ein Teil von SL, f\"{u}r Spracherkennung und natural language processing benutzt. Im Strategiespiel StarCraft wird RL f\"{u}r das \textit{micromanagement} der NPC benutzt. \autocite{review_game_ai}
 
-Die Evolution\"{a}re-Algorithmen sind inspiriert durch Darwins Theorie der Evolution. Sie optimieren dabei eine Population, wo jedes Individuum eine L\"{o}sung repr\"{a}sentiert und mit einer Fitness-Wert gekennzeichnet ist. Durch Iterationen finden Selektionen und Mutationen in der Population statt, welche den Fitness-Wert der optimalen L\"{o}sung erh\"{o}hen. Im Bereich der Videospielentwicklung optimierte der Algorithmus beispielsweise die Baureihenfolge der NPC im Strategiespiel StarCraft. \autocite{inbook}
+Die Evolution\"{a}re-Algorithmen sind inspiriert durch Darwins Theorie der Evolution. Sie optimieren dabei eine Population, wo jedes Individuum eine L\"{o}sung repr\"{a}sentiert und mit einer Fitness-Wert gekennzeichnet ist. Durch Iterationen finden Selektionen und Mutationen in der Population statt, welche den Fitness-Wert der optimalen L\"{o}sung erh\"{o}hen. Im Bereich der Videospielentwicklung optimierte der Algorithmus beispielsweise die Baureihenfolge der NPC im Strategiespiel StarCraft. \autocite{review_game_ai}
 
 
 \subsection{Finite State Machines}
@@ -128,7 +128,7 @@ Schaut man sich Studien bez\"{u}glich Entscheidungssysteme an, so kann man den B
 
 Im Vergleich zu BTs ist der Forschungsstand zu GOAP im Bereich der Game-AI weniger umfangreich. Dennoch existieren Studien, die Ans\"{a}tze zur Nutzung von GOAP beschreiben. So wurde in \autocite{Schwab2021} eine Methode beschrieben, die mittels GOAP ein BT konstruiert. Da das manuelle Erstellen von BTs eine aufwendige und stark parameterabh\"{a}ngige Aufgabe darstellt, bietet die automatische Konstruktion eine Alternative. Diese Methode beobachtet zun\"{a}chst das Verhalten, das GOAP in einer Monte-Carlo-Simulation zeigt, und nutzt anschlie\ss{}end einen genetischen Algorithmus, um einen geeigneten BT zu entwickeln. Die resultierenden BT zeichnen sich dadurch aus, dass sie verst\"{a}ndlich, anpassbar und ebenso leistungsf\"{a}hig wie manuell erstellte Modelle sind. \autocite{Schwab2021}
 
-Im Bereich der Videospielentwicklung ist das GOAP System in den Hintergrund ger\"{u}ckt. Derzeit gibt es einen Mangel an Bibliotheken, die Videospielentwicklern zur Verf\"{u}gung stehen und GOAP Systeme beinhalten. Studien wie \autocite{sielicki2018adaptation} fordern mehr Bibliotheken in Richtung GOAP Systeme. So hat die Studie selbst das GOAP System in der \hyperref[chap:game engines]{Game-Engine} Unreal Engine umgesetzt.
+Im Bereich der Videospielentwicklung ist das GOAP System in den Hintergrund ger\"{u}ckt. Derzeit gibt es einen Mangel an Bibliotheken, die Videospielentwicklern zur Verf\"{u}gung stehen und GOAP Systeme beinhalten. Studien wie \autocite{Romero2020DevelopingAA, sielicki2018adaptation} fordern mehr Bibliotheken in Richtung GOAP Systeme. So hat die Studie selbst das GOAP System in der \hyperref[chap:game engines]{Game-Engine} Unreal Engine umgesetzt.
 
 
 \begin{sidewaystable}[h]

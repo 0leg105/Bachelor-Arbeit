@@ -81,14 +81,14 @@ Zun\"{a}chst bleibt die BPS-Rate bei allen Systemen konstant bei 120, bis eine b
 
 Einbr\"{u}che unter diese Grenze treten bei GOAP ab dem 15. NPC, bei BT ab dem 18. und bei der FSM ab dem 20. NPC auf. Allerdings erscheinen in einem linearen FPS-Spiel selten mehr als 20 NPCs gleichzeitig. 
 
-Zusammenfassend l\"{a}sst sich feststellen, dass FSM das performanteste System darstellt, insbesondere bei einer hohen Anzahl an NPCs. Trotzdem k\"{o}nnen Leistungsprobleme auftreten, insbesondere bei einer \"{u}berm\"{a}\ss{}igen Anzahl von Knoten \autocite{U2023}. Wobei die FSM wenige Knoten besitzt. Der BT liegt im Mittelfeld und weist eine Performance auf, die leicht unter FSM liegt. GOAP zeigt die niedrigsten FPS-Werte, was darauf hindeutet, dass dieses System mehr Rechenleistung ben\"{o}tigt.
+Zusammenfassend l\"{a}sst sich feststellen, dass FSM das performanteste System darstellt, insbesondere bei einer hohen Anzahl an NPCs. Trotzdem k\"{o}nnen Leistungsprobleme auftreten, insbesondere bei einer \"{u}berm\"{a}\ss{}igen Anzahl von Knoten \autocite{U2023}. Wobei die FSM wenige Knoten besitzt. Der BT liegt im Mittelfeld und weist eine Performance auf, die leicht unter FSM liegt. GOAP zeigt die niedrigsten BPS-Werte, was darauf hindeutet, dass dieses System mehr Rechenleistung ben\"{o}tigt.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=16cm]{Vergleich/avg_fps}
 	\captionsetup{justification=justified, format=plain}
-  \caption{FPS-Performance Benchmark}
-  \label{FPS-Performance Benchmark}
+  \caption{BPS-Performance Benchmark}
+  \label{fig:bps benchmark}
 \end{figure}
 
 Die Abbildung \ref{} veranschaulicht die Ergebnisse des Speicher-Benchmarks. Auch in diesem Fall erweist sich GOAP als ressourcenintensiv, jedoch bleibt der Speicherverbrauch laut dem Benchmark konstant. Es ist jedoch wichtig zu betonen, dass w\"{a}hrend der Implementierung GOAP mehrfach Speicherlecks aufgetreten sind, was auf eine h\"{o}here Empfindlichkeit dieses Systems hinweist.
