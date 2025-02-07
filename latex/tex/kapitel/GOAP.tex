@@ -21,7 +21,10 @@ Das GOAP -System basiert dabei auf dem STRIPS System und wurde von Jeff Orkin en
 \subsection{Finite State Machine in GOAP}
 \label{chap:fsm goap}
 
-Das Videospiel F.E.A.R (2005) ben\"{o}tigt f\"{u}r die Ausf\"{u}hrung der Aktionen eine FSM. Die NPCs f\"{u}hren ihre Aktionen durch eine Kombination aus Animationen und Bewegungen aus. Beispielsweise sorgt eine Cover-Aktion daf\"{u}r, dass der NPC hinter eine Deckung l\"{a}uft und dort eine Deckungs-Animation abspielt. Eine Shoot-Aktion hingegen aktiviert eine entsprechende Schuss-Animation. Die FSM besteht dabei aus den drei Zust\"{a}nden GoTo, Animate und UseSmartObject. 
+Das Videospiel F.E.A.R (2005) ben\"{o}tigt f\"{u}r die Ausf\"{u}hrung der Aktionen eine FSM. Die NPCs f\"{u}hren ihre Aktionen durch eine Kombination aus Animationen und Bewegungen aus. Beispielsweise sorgt eine Cover-Aktion daf\"{u}r, dass der NPC hinter eine Deckung l\"{a}uft und dort eine Deckungs-Animation abspielt. Eine Shoot-Aktion hingegen aktiviert eine entsprechende Schuss-Animation. Die FSM (Abbildung \ref{fig:Goap FSM}) besteht dabei aus den drei Zust\"{a}nden GoTo, Animate und UseSmartObject.
+
+Die Monolith-Entwickler hat durch die Zust\"{a}nde \textit{Animate} und \textit{UseSmartObject} Animationen umgesetzt. Der Unterschied zwischen den beiden Zust\"{a}nden besteht darin, dass \textit{UseSmartObject} Animationen steuert, die von \textit{SmartObjects} in der Spielwelt vorgegeben werden, w\"{a}hrend \textit{Animate} Animationen abspielt, die direkt im NPC gespeichert sind. Der Zustand \textit{GoTo} hat ebenfalls Animationen abgespielt, kombiniert diese jedoch mit der tats\"{a}chlichen Bewegung des NPCs durch die Spielwelt. Die Zustandswechsel werden durch die Goap-Aktion bestimmt, die wiederum durch GOAP gegeben werden.
+
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.7\textwidth]{GOAP/fsm.pdf}
@@ -29,10 +32,6 @@ Das Videospiel F.E.A.R (2005) ben\"{o}tigt f\"{u}r die Ausf\"{u}hrung der Aktion
   \caption{GOAP Finite State Machine}
   \label{fig:Goap FSM}
 \end{figure}
-
-Die Monolith-Entwickler hat durch die Zust\"{a}nde \textit{Animate} und \textit{UseSmartObject} Animationen umgesetzt. Der Unterschied zwischen den beiden Zust\"{a}nden besteht darin, dass \textit{UseSmartObject} Animationen steuert, die von \textit{SmartObjects} in der Spielwelt vorgegeben werden, w\"{a}hrend \textit{Animate} Animationen abspielt, die direkt im NPC gespeichert sind. Der Zustand \textit{GoTo} hat ebenfalls Animationen abgespielt, kombiniert diese jedoch mit der tats\"{a}chlichen Bewegung des NPCs durch die Spielwelt.
-
-Die Zustandswechsel werden durch die Goap-Aktion bestimmt, die wiederum durch GOAP gegeben werden.
 
 
 \subsection{GOAP Ziele}
@@ -155,13 +154,13 @@ Wir setzten das Beispiel mit dem Wissen \"{u}ber den GOAP Planer fort. Dabei def
 
 \begin{table}[h]
   \caption{Ziel Tabelle}
-  \label{Kap4:Ziel}
+  \label{tab:goap goals table}
   \renewcommand{\arraystretch}{1.2}
   \centering
   \small
     \begin{tabularx}{0.95\textwidth}{X X X R}
       \toprule
-      \textbf{Goal} & \textbf{Ziel-Zustand} & \textbf{G\"{u}ltigkeit} & \textbf{Priorit\"{a}t}\\
+      \textbf{GOAP-Ziel} & \textbf{Ziel-Zustand} & \textbf{G\"{u}ltigkeit} & \textbf{Priorit\"{a}t}\\
       \midrule
       EliminatePlayer & \lnot \text{PlayerAlive} & PlayerVisible & 3 \\
 			SearchEnemy & AtLastPlayerPostion & \lnot \text{AtLastPlayerPostion} & 2 \\
@@ -170,7 +169,7 @@ Wir setzten das Beispiel mit dem Wissen \"{u}ber den GOAP Planer fort. Dabei def
     \end{tabularx}
 \end{table}
 
-Der GOAP Planer w\"{a}hlt das Ziel mit der h\"{o}chsten Priorit\"{a}t und G\"{u}ltigkeit. Nehmen wir an, dass das Ziel \textit{Patrol} aufgrund der \textit{VALID(s,Patrol)} Funktion nicht g\"{u}ltig ist, so w\"{u}rde das Ziel ausfallen. Es verbleiben die Ziele: \textit{EliminatePlayer} und \textit{SearchEnemy}. Da \textit{EliminatePlayer} mit $\textit{PRIORTIY}(s,\textit{EliminatePlayer}) = 3$ die h\"{o}here Priorit\"{a}t hat, wird diese als Ziel ausgew\"{a}hlt.
+Der GOAP Planer w\"{a}hlt das Ziel (Tabelle ref{goap goals table}) mit der h\"{o}chsten Priorit\"{a}t und G\"{u}ltigkeit. Nehmen wir an, dass das Ziel \textit{Patrol} aufgrund der \textit{VALID(s,Patrol)} Funktion nicht g\"{u}ltig ist, so w\"{u}rde das Ziel ausfallen. Es verbleiben die Ziele: \textit{EliminatePlayer} und \textit{SearchEnemy}. Da \textit{EliminatePlayer} mit $\textit{PRIORTIY}(s,\textit{EliminatePlayer}) = 3$ die h\"{o}here Priorit\"{a}t hat, wird diese als Ziel ausgew\"{a}hlt.
 
 \subsubsection{Suche nach der Aktion-Sequenz}
 \label{chap:goap suche nach aktionen}
@@ -183,7 +182,7 @@ Der GOAP Planer w\"{a}hlt das Ziel mit der h\"{o}chsten Priorit\"{a}t und G\"{u}
   \small
     \begin{tabularx}{0.95\textwidth}{l l l l}
       \toprule
-      \textbf{Aktion} & \textbf{Effekt} & \textbf{Vorausgesetzte Zust\"{a}nde} & \textbf{Kosten}\\
+      \textbf{GOAP-Aktion} & \textbf{Effekt} & \textbf{Vorausgesetzte Zust\"{a}nde} & \textbf{Kosten}\\
       \midrule
       Shoot & \lnot \text{PlayerAlive} & GunLoaded, PlayerVisible & 1\\
 			Melee & \lnot \text{PlayerAlive} & AtPlayer, PlayerVisible & 3\\
@@ -193,58 +192,76 @@ Der GOAP Planer w\"{a}hlt das Ziel mit der h\"{o}chsten Priorit\"{a}t und G\"{u}
     \end{tabularx}
 \end{table}
 
+\clearpage
 
-Der Algorithmus erstellt nun einen Suchbaum. Der Wurzelknoten im Suchbaum speichert, dabei den erw\"{u}nschten Zielzustand des Zieles. Im Falle des Beispiels ist der Zielzustand $s_z = \textit{GOAL}(\textit{EliminatePlayer}) = \{\lnot \textit{PlayerAlive}\}$.
+Erste Expansion (Abbildung \ref{fig:goap1}):
+\\
+Der Algorithmus erstellt nun einen Suchbaum. Der Wurzelknoten im Suchbaum speichert, dabei den erw\"{u}nschten Zielzustand des Zieles. Im Falle des Beispiels ist der Zielzustand $s_z = \textit{GOAL}(\textit{EliminatePlayer}) = \{\lnot \textit{PlayerAlive}\}$. Nun sucht der Planer alle m\"{o}glichen Aktionen die den Zielzustand erreichen ($\textit{ACTIONS}(s_z)$ $= {\textit{Shoot}, \textit{Melee}}$). Es werden nicht erf\"{u}llte und vorausgesetzte Zust\"{a}nde der gefundenen Aktionen, sowie die Kosten $g(n)$ und $f(n)$ in den Knoten hinterlegt. Beide werden in die offene Liste hinzugef\"{u}gt.
+
+Zur weiteren Suche entscheidet sich der A*-Algorithmus f\"{u}r den Knoten mit den geringsten Kosten aus der offenen Liste, die durch die Bewertungsfunktion $f(n) = g(n) + h(n)$ berechnet wurde. Die Kosten $g(n)$ werden durch die $\textit{ACTIONCOST}$-Funktion gelesen. Die Heuristik $h(n)$ stellt sich durch die Summe an noch nicht erf\"{u}llten Zust\"{a}nden. Im Beispiel (Abbildung \ref{fig:goap2}) expandiert A* den Knoten \textit{GunLoaded, AtCover} der durch die Aktion \textit{Shoot} generiert wurde. Der Zustand \textit{AtPlayer} bleibt weiterhin in der offenen Liste.
+
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.5\textwidth]{GOAP/goap baum 1}
+  \includegraphics[width=0.7\textwidth]{GOAP/goap baum 1}
 	\captionsetup{justification=justified, format=plain}
-  \caption{GOAP A* Suche: Gr\"{u}ne Knoten sind Knoten, die erweitert wurden. Blaue Knoten sind Knoten aus der offenen Liste.}
+  \caption{GOAP Suche: Gr\"{u}ne Knoten sind Knoten, die erweitert wurden. Blaue Knoten sind Knoten aus der offenen Liste.}
   \label{fig:goap1}
 \end{figure}
 
-Nun sucht der Planer alle m\"{o}glichen Aktionen die den Zielzustand erreichen ($\textit{ACTIONS}(s_z)$ $= {\textit{Shoot}, \textit{Melee}}$). Es werden nicht erf\"{u}llte und vorausgesetzte Zust\"{a}nde der gefundenen Aktionen, sowie die Kosten $g(n)$ und $f(n)$ in den Knoten hinterlegt. Beide werden in die offene Liste hinzugef\"{u}gt.
+\clearpage
 
-Zur weiteren Suche entscheidet sich der A*-Algorithmus f\"{u}r den Knoten mit den geringsten Kosten aus der offenen Liste, die durch die Bewertungsfunktion $f(n) = g(n) + h(n)$ berechnet wurde. Die Kosten $g(n)$ werden durch die $\textit{ACTIONCOST}$-Funktion gelesen. Die Heuristik $h(n)$ stellt sich durch die Summe an noch nicht erf\"{u}llten Zust\"{a}nden. Im Beispiel expandiert A* den Knoten \textit{GunLoaded, AtCover} der durch die Aktion \textit{Shoot} generiert wurde. Der Zustand \textit{AtPlayer} bleibt weiterhin in der offenen Liste.
+Zweite Expansion (Abbildung \ref{fig:goap2}):
+
+F\"{u}r den expandierten Knoten \textit{GunLoaded, AtCover} werden nun Aktionen gesucht, die die Zust\"{a}nde des Knoten erf\"{u}llen. In dem Beispiel sind es \textit{Reload} und \textit{GoTo}. Auch die Knoten die durch die Aktionen entstehen, werden in die offene Liste hinzugef\"{u}gt. Erneut w\"{a}hlt A* den Knoten mit den geringsten Kosten $f(n)$ zur Expansion. Der Knoten der durch die Aktion \textit{Reload} entstand, hat dabei die geringsten $f(n)$ Kosten und wird dementsprechend expandiert. 
+
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.6\textwidth]{GOAP/goap baum 2}
+  \includegraphics[width=0.7\textwidth]{GOAP/goap baum 2}
 	\captionsetup{justification=justified, format=plain}
-  \caption{GOAP A* Suche}
+  \caption{Zweite Expansion}
   \label{fig:goap2}
 \end{figure}
 
-F\"{u}r den expandierten Knoten \textit{GunLoaded, AtCover} werden nun Aktionen gesucht, die die Zust\"{a}nde des Knoten erf\"{u}llen. In dem Beispiel sind es \textit{Reload} und \textit{GoTo}. Auch die Knoten die durch die Aktionen entstehen, werden in die offene Liste hinzugef\"{u}gt. Erneut w\"{a}hlt A* den Knoten mit den geringsten Kosten $f(n)$ zur Expansion.
-\clearpage
+\clearpage 
+
+Dritte Expansion (Abbildung \ref{fig:goap3}):
+
+Der nachfolgende Knoten, der durch die Aktion \textit{GoTo} erzeugt wird, hat zwar einen leeren Zustand und w\"{a}re somit abgeschlossen, befindet sich jedoch gemeinsam mit dem \textit{AtPlayer}-Knoten, der geringere Kosten hat, noch in der offenen Liste. Somit wird der \textit{AtPlayer}-Knoten expandiert.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.6\textwidth]{GOAP/goap baum 3}
+  \includegraphics[width=0.7\textwidth]{GOAP/goap baum 3}
 	\captionsetup{justification=justified, format=plain}
-  \caption{GOAP A* Suche}
+  \caption{Dritte Expansion}
   \label{fig:goap3}
 \end{figure}
 
-Der Knoten der durch die Aktion \textit{Reload} entstand, hat dabei die geringsten $f(n)$ Kosten. Der nachfolgende Knoten, der durch die Aktion \textit{GoTo} erzeugt wird, hat zwar einen leeren Zustand und w\"{a}re somit abgeschlossen, befindet sich jedoch gemeinsam mit dem \textit{AtPlayer}-Knoten, der geringere Kosten hat, noch in der offenen Liste.
+\clearpage
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.6\textwidth]{GOAP/goap baum 4}
-	\captionsetup{justification=justified, format=plain}
-  \caption{GOAP A* Suche}
-  \label{fig:goap4}
-\end{figure}
+Vierte Expansion (Abbildung \ref{fig:goap4}):
 
 Aus der offenen Liste wird der n\"{a}chste Knoten mit dem Zustand \textit{AtPlayer} gew\"{a}hlt, da dieser die niedrigsten Kosten von allen anderen offenen Knoten hat. Dieser wird durch die Aktion \textit{GoToPlayer} erf\"{u}llt und f\"{u}hrt zu einem Knoten mit leerem Zustand.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.6\textwidth]{GOAP/goap baum final}
+  \includegraphics[width=0.7\textwidth]{GOAP/goap baum 4}
 	\captionsetup{justification=justified, format=plain}
-  \caption{GOAP A* Suche}
-  \label{fig:goap5}
+  \caption{Vierte Expansion}
+  \label{fig:goap4}
 \end{figure}
 
+\clearpage
+
+Generierung (Abbildung \ref{fig:goap5}):
+
 Letztlich wird der g\"{u}nstigste Knoten aus der offenen Liste genommen. Da dieser erf\"{u}llt ist, beziehungsweise keine weiteren Zust\"{a}nde besitzt, gibt der Planer nun die Goap-Aktionen, also die Kanten, die zu ihm gef\"{u}hrt habe in einer Aktions-Sequenz zur\"{u}ck. Im Beispiel w\"{a}re es die Aktions-Sequenz: [\textit{Melee, GoTo}]. Diese Aktions-Sequenz muss nun gespiegelt werden, da der A*-Suchalgorithmus vom Zielzustand angefangen hat. Somit w\"{a}re die richtige Aktions-Sequenz: [\textit{GoToPlayer, Melee}].
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\textwidth]{GOAP/goap baum final}
+	\captionsetup{justification=justified, format=plain}
+  \caption{Aktionssequenz Generierung}
+  \label{fig:goap5}
+\end{figure}

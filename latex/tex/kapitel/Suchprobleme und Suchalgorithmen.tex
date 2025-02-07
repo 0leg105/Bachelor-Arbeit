@@ -36,6 +36,14 @@ Die L\"{o}sung eines Suchproblems ist eine Aktionssequenz, die nach ihrer Ausf\"
 
 Ein Suchbaum ist eine Baumstruktur, die in der Informatik f\"{u}r das speichern von Daten benutzt wird. Die Struktur basiert auf einer Anordnung von Knoten, die mit anderen Knoten durch Kanten verbunden sind. Diese Knoten speichern, je nach Anwendung bestimmte Daten. Wenn der Suchbau einen Wurzelknoten, von dem aus s\"{a}mtliche anderen Knoten erreichbar sind oder der seinerseits von jedem anderen Knoten aus erreicht werden kann, handelt es sich um einem Wurzelbaum. Es gibt verschiedene Typen von Suchb\"{a}umen, die sich in ihren Eigenschaften und Zwecken unterscheiden, wie zum Beispiel Bin\"{a}re Suchb\"{a}ume oder AVL-B\"{a}ume. In Abbildung \ref{fig:suchabaum aufbau} wird ein abstrakter Suchbaum dargestellt.
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.6\textwidth]{Suchalgorithmen/suchbaum aufbau.pdf}
+	\captionsetup{justification=justified, format=plain}
+  \caption{Suchbaum Aufbau}
+  \label{fig:suchabaum aufbau}
+\end{figure}
+
 \subsection{Knoten eines Suchbaums}
 \label{chap:knoten eines suchbaums}
 
@@ -56,14 +64,6 @@ Die Kanten eines Suchbaums bestimmten ob dieser gerichtet oder ungerichtet ist. 
 \label{chap:balancierte und unbalancierte suchb\"{a}ume}
 
 Eine Eigenschaft des Suchbaums ist die Balance, die ihn als balanciert oder unbalanciert klassifiziert. Die Klassifizierung basiert auf der Anordnung der Knoten, insbesondere auf deren H\"{o}he. Die H\"{o}he entspricht der maximalen Anzahl an Kanten von der Wurzel bis zu einem Blatt. Bei einem balancierten Suchbaum, deren H\"{o}he so optimiert ist, dass Such-, Einf\"{u}ge- und L\"{o}schoperationen effizient durchgef\"{u}hrt werden k\"{o}nnen. Dabei sind die Knoten m\"{o}glichst gleichm\"{a}\ss{}ig verteilt, um eine \"{u}berm\"{a}\ss{}ige Baumh\"{o}he zu vermeiden. Der H\"{o}henunterschied zwischen den linken und rechten Teilb\"{a}umen darf h\"{o}chstens 1 betragen. Ein Baum gilt als unbalanciert, wenn der H\"{o}henunterschied gr\"{o}\ss{}er als 1 ist.
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.7\textwidth]{Suchalgorithmen/suchbaum aufbau.pdf}
-	\captionsetup{justification=justified, format=plain}
-  \caption{Suchbaum Aufbau}
-  \label{fig:suchabaum aufbau}
-\end{figure}
 
 \section{Suchalgorithmen}
 \label{chap:suchalgorithmen}

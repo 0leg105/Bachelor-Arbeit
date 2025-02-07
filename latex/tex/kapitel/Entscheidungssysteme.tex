@@ -11,7 +11,7 @@ Zu den popul\"{a}rsten Entscheidungssystemen der Game-AI geh\"{o}ren die Ad-Hoc 
 \subsection{Finite State Machine}
 \label{chap:fsm}
 
-Die FSM wird als Graph repr\"{a}sentiert. Die FSM speichert dabei Informationen in Knoten, die wiederum Kanten besitzen, die zu weiteren Knoten f\"{u}hren. Eine FSM kann sich zu jedem Zeitpunkt nur in einem Knoten befinden. Ein Knotenwechsel erfolgt, wenn die Bedingung f\"{u}r die entsprechende Kante erf\"{u}llt ist. 
+Die FSM wird als Graph repr\"{a}sentiert (Abbidlung \ref{fig:ES FSM}). Die FSM speichert dabei Informationen in Knoten, die wiederum Kanten besitzen, die zu weiteren Knoten f\"{u}hren. Eine FSM kann sich zu jedem Zeitpunkt nur in einem Knoten befinden. Ein Knotenwechsel erfolgt, wenn die Bedingung f\"{u}r die entsprechende Kante erf\"{u}llt ist. 
 
 In der Game-AI repr\"{a}sentieren die Knoten die Zust\"{a}nde des NPC, wie zum Beispiel das Patrouillieren oder Angreifen. Die Zust\"{a}nde der Knoten werden \"{u}ber Komponenten ausgef\"{u}hrt. So ben\"{o}tigt der Zustand des Patrouillierens solche Komponenten, die ihn zu bestimmten Punkten bewegen. Die \"{U}berg\"{a}nge \"{u}ber die Kanten zwischen den Zust\"{a}nden erfolgen \"{u}ber Bedingungen. So kann ein NPC vom Zustand des Patrouillierens in den des Angreifens wechseln, sobald die Bedingung erf\"{u}llt ist, dass der NPC den Spieler sieht. Die NPCs des FPS Half-Life wurde beispielsweise \"{u}ber eine FSM realisiert. \autocite{AIgames}
 
@@ -27,7 +27,7 @@ In der Game-AI repr\"{a}sentieren die Knoten die Zust\"{a}nde des NPC, wie zum B
 \subsection{Behavior Tree}
 \label{chap:bt}
 
-Der BT wird als Baumstruktur dargestellt. Anders als die FSM besitzt der BT keine Zust\"{a}nde, sondern Tasks. Diese Tasks lassen sich in verschiedene Kategorien einteilen und erhalten \"{u}ber den Prozessor Zeit, ihr Skript durchzuf\"{u}hren.
+Der BT wird als Baumstruktur dargestellt (Abbidlung \ref{fig:ES BT}). Anders als die FSM besitzt der BT keine Zust\"{a}nde, sondern Tasks. Diese Tasks lassen sich in verschiedene Kategorien einteilen und erhalten \"{u}ber den Prozessor Zeit, ihr Skript durchzuf\"{u}hren.
 
 % Run, Success oder Failure gro\ss{} klein?
 Nach der Ausf\"{u}hrung gibt das Skript des Tasks einen der folgenden Werte zur\"{u}ck: Run, Success oder Failure. Run impliziert, dass der Task noch aktiv ist, Success, dass der Task erfolgreich abgeschlossen wurde und Failure, dass der Task fehlgeschlagen ist. Bei jedem Ausf\"{u}hrung f\"{u}hrt ein BT eine Tiefensuche durch, bis ein niedrigstufiges Task Blatt entweder Success oder Run zur\"{u}ckgibt \autocite{qlbt}.
@@ -41,7 +41,7 @@ Die dritte Kategorie ist die Composite Task, die die Sammlung der Child-Tasks, a
   \includegraphics[width=\textwidth, trim=0cm 10cm 0cm 5cm, clip]{Entscheidungssysteme/behavior tree}
 	\captionsetup{justification=justified, format=plain}
   \caption{Behavior Tree Beispiel an einem FPS-NPC}
-  \label{BT}
+  \label{fig:ES BT}
 \end{figure}
 
 
