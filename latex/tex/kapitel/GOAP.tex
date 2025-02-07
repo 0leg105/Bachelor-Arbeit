@@ -101,7 +101,7 @@ Aus der \textit{TRANSITIONS} Funktion k\"{o}nnen wir entnehmen, dass keine der G
 \subsection{GOAP Planer}
 \label{chap:goap planer}
 
-Der GOAP Planer ist dabei die eigentliche L\"{o}sung des Suchproblems. Der Planer bestimmt das Ziel mit der h\"{o}chsten Priorit\"{a}t und G\"{u}ltigkeit. Die dazugeh\"{o}rige Aktions-Sequenz wird \"{u}ber den A*-Suchalgorithmus im GOAP Planer gesucht. Der A*-Suchalgorithmus\ref{} wird im Kapitel Suchalgorithmen ausf\"{u}hrlich beschrieben.
+Der GOAP Planer ist dabei die eigentliche L\"{o}sung des Suchproblems. Der Planer bestimmt das Ziel mit der h\"{o}chsten Priorit\"{a}t und G\"{u}ltigkeit. Die dazugeh\"{o}rige Aktions-Sequenz wird \"{u}ber den A*-Suchalgorithmus im GOAP Planer gesucht. Der A*-Suchalgorithmus wird im Kapitel \ref{chap:a stern suchalgorithmus} Suchalgorithmen ausf\"{u}hrlich beschrieben.
 
 \subsubsection{Knoten und Kanten}
 \label{chap:goap knoten und kanten}
@@ -204,7 +204,7 @@ Der Algorithmus erstellt nun einen Suchbaum. Der Wurzelknoten im Suchbaum speich
   \label{fig:goap1}
 \end{figure}
 
-Nun sucht der Planer alle m\"{o}glichen Aktionen die den Zielzustand erreichen ($\textit{ACTIONS}(s_z) = {\textit{Shoot}, \textit{Melee}}$). Es werden nicht erf\"{u}llte und vorausgesetzte Zust\"{a}nde der gefundenen Aktionen, sowie die Kosten $g(n)$ und $f(n)$ in den Knoten hinterlegt. Beide werden in die offene Liste hinzugef\"{u}gt.
+Nun sucht der Planer alle m\"{o}glichen Aktionen die den Zielzustand erreichen ($\textit{ACTIONS}(s_z)$ $= {\textit{Shoot}, \textit{Melee}}$). Es werden nicht erf\"{u}llte und vorausgesetzte Zust\"{a}nde der gefundenen Aktionen, sowie die Kosten $g(n)$ und $f(n)$ in den Knoten hinterlegt. Beide werden in die offene Liste hinzugef\"{u}gt.
 
 Zur weiteren Suche entscheidet sich der A* Algorithmus f\"{u}r den Knoten mit den geringsten Kosten aus der offenen Liste, welcher durch die Bewertungsfunktion $f(n) = g(n) + h(n)$ berechnet wurde. Die Kosten $g(n)$ werden durch die $\textit{ACTIONCOST}$-Funktion gelesen. Die Heuristik $h(n)$ stellt sich durch die Summe an noch nicht erf\"{u}llten Zust\"{a}nden. Im Beispiel expandiert A* den Knoten \textit{GunLoaded, AtCover} der durch die Aktion \textit{Shoot} generiert wurde. Der Zustand \textit{AtPlayer} bleibt weiterhin in der offenen Liste.
 

@@ -77,7 +77,7 @@ Es wird keine FSM in der Architektur umgesetzt, da die Implementation keine Anim
 
 Die Abbildung \ref{fig:GoapAgent} stellt die Klasse \textit{GoapAgent}, mit ihren Klassenattribute und Methoden dar.
 
-Der \textit{goap\_planner} ist eine Referenz auf die Klasse \textit{GoapPlanner}, welcher die \textit{action\_sequence} des \textit{GoapAgent} bestimmt. Das Array \textit{action\_sequence} speichert Objekte vom Typ der Klasse \textit{GoapAction}. Sie stellt die ermittelte Aktions-Sequenz durch den A*-Algorithmus dar. Die Integer-Klassenvaraible \textit{current\_step} handelt als Indexzeiger, welcher auf die aktuell auszuführende Aktion des \textit{action\_sequence} verweist.
+Der \textit{goap\_planner} ist eine Referenz auf die Klasse \textit{GoapPlanner}, welcher die \textit{action\_se"=quence} des \textit{GoapAgent} bestimmt. Das Array \textit{action\_sequence} speichert Objekte vom Typ der Klasse \textit{GoapAction}. Sie stellt die ermittelte Aktions-Sequenz durch den A*-Algorithmus dar. Die Integer-Klassenvaraible \textit{current\_step} handelt als Indexzeiger, welcher auf die aktuell auszuführende Aktion des \textit{action\_sequence} verweist.
 
 % Goap Agent
 \begin{figure}[h]
@@ -277,7 +277,7 @@ Die Gültigkeit einer Aktion soll die Durchführbarkeit wiedergeben. Der \textit
 
 Eine get\_preconditions Methode gibt die vorausgesetzten Zustände zurück, welche von anderen Aktionen erfüllt werden müssten. Ob eine Aktion einen Zustand erfüllen kann, hängt von der get\_effects Methode ab, welche ein \textit{Dictionary} mit dem Zustand und dessen Wert zurückgibt. Stimmt der Wert des Zustands mit dem Zielzustand überein, dann erfüllt die Aktion den Zustand.
 
-Die update Methode leitet die eigentliche Ausführung der Aktion ein und wird über den \textit{GoapAgent} gestartet. Die Hoffnung dabei ist, dass die Aktion den erwünschten Wert des Effekts umsetzt. Aufgrund der nicht-deterministischen Natur der Spielwelt kann es jedoch vorkommen, dass der angestrebte Effekt nicht erreicht wird. Wird der Effekt nicht erreicht, so wird eine neue Sequenz angefordert oder das Ziel ändert sich bis dahin. Die Ausführung der Aktion wird dabei über \hyperref[chap:game-objects]{Komponenten} der Klasse Npc umgesetzt. Die Methode get\_action\_name gibt den Klassennamen der \textit{GoapAction} zurück.
+Die update Methode leitet die eigentliche Ausführung der Aktion ein und wird über den \textit{GoapAgent} gestartet. Die Hoffnung dabei ist, dass die Aktion den erwünschten Wert des Effekts umsetzt. Aufgrund der nicht-deterministischen Natur der Spielwelt kann es jedoch vorkommen, dass der angestrebte Effekt nicht erreicht wird. Wird der Effekt nicht erreicht, so wird eine neue Sequenz angefordert oder das Ziel ändert sich bis dahin. Die Ausführung der Aktion wird dabei über Komponenten der Klasse Npc umgesetzt. Die Methode get\_action\_name gibt den Klassennamen der \textit{GoapAction} zurück.
 
 
 \section{Umsetzung des Szenario}
