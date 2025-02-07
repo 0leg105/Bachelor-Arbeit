@@ -76,7 +76,7 @@ Im Bereich der Suchalgorithmen wird zwischen informierten und uniformierten Algo
 \subsection{Expansion einer Bestensuche}
 \label{chap:bestensuche}
 
-Zu den informierten Suchalgorithmen geh\"{o}rt unter anderem die Bestensuche. Der Algorithmus wird im Pseudocode \ref{lst:pseudo bestensuche} erläutert. Eine Bestensuche arbeitet sich schrittweise \"{u}ber Iterationen mithilfe von Expansionen zu einem Zielknoten vor. Vor der ersten Iteration wird ein Wurzelknoten mit dem Ausgangszustand generiert und der offenen Liste hinzugef\"{u}gt. Die offenen Liste stellt dabei eine Vorrangwarteschlange (Priority Queue) dar. So wird sichergestellt, dass bei der ersten Iteration der Wurzelknoten betrachtet wird.
+Zu den informierten Suchalgorithmen geh\"{o}rt unter anderem die Bestensuche. Der Algorithmus wird im Pseudocode \ref{lst:pseudo bestensuche} erläutert. Eine Bestensuche arbeitet sich schrittweise \"{u}ber Iterationen mithilfe von Expansionen zu einem Zielknoten vor. Vor der ersten Iteration wird ein Wurzelknoten mit dem Ausgangszustand generiert und der offenen Liste hinzugef\"{u}gt. Die offenen Liste stellt dabei eine Priorit\"{ä}ts-Warteschlange dar. So wird sichergestellt, dass bei der ersten Iteration der Wurzelknoten betrachtet wird.
 
 In der Iteration werden Knoten aus der offenen Liste expandiert. Bei einer Expansion ermittelt der Algorithmus mithilfe der Funktion \textit{TRANSITIONS}$(n)$ alle m\"{o}glichen Kanten \textit{ACTIONS}$(n)$, die vom aktuellen Knoten $n$ ausgehen und zu Kindknoten f\"{u}hren. F\"{u}r die Kindknoten wird eine Bewertung durch die Bewertungsfunktion $f(n)$ berechnet, die je nach Suchalgorithmus variiert. Diese Kindknoten werden daraufhin sortiert nach ihrer Bewertung der offenen Liste hinzugef\"{u}gt. Wenn ein Knoten expandiert wird, wird dieser aus der offenen Liste entfernt. Sollte der gelesene Knoten dem Ziel entsprechen, terminiert der Algorithmus und gibt den Knoten zur\"{u}ck. Ansonsten wird dieser expandiert und die resultierenden Kindknoten der offenen Liste hinzugef\"{u}gt. Die Iteration wird solange fortgef\"{u}hrt bis der Zielknoten gefunden wurde oder sich keine Knoten in der offenen Liste befinden und somit keine Knoten zu dem Ziel f\"{u}hren.
 
@@ -96,7 +96,7 @@ Die Abbildung \ref{fig:bestensuche beispiel} veranschaulicht eine abstrakte Such
 
 \begin{lstlisting}[language=Pseudo, caption={Pseudocode: Bestensuche}, mathescape=true, label={lst:pseudo bestensuche}]
 FUNKTION bestensuche(Ausgangszustand) $\rightarrow$ Zielknoten
-    offenen Liste $\leftarrow$ Vorrangwarteschlange
+    offenen Liste $\leftarrow$ Prioritäts-Warteschlange
     offenen Liste $\leftarrow$ Knoten mit Ausgangszustand hinzufuegen
     SOLANGE offene Liste nicht leer
         Expansions Knoten $\leftarrow$ aus offenen Liste lesen und ihn daraus entfernen
