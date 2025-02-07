@@ -5,6 +5,13 @@ Die praktische Umsetzung des GOAP Systems wird nun in diesem Kapitel beschrieben
 
 So soll die Grundlegende GOAP Architektur anhand von UML-Notation dargestellt und beschrieben werden. Sie bildet die Grundlage für die Implementation des Entscheidungssystems im Szenario. Mithilfe von Pseudocode werden die in den UML-Klassendiagrammen dargestellten Methoden und Attribute weiter erläutert. Die Architektur basiert dabei auf den Grundlagen der GOAP Kapitel \ref{chap:goap}, wissenschaftlicher Literatur zum Thema GOAP und der F.E.A.R SDK\autocite{}.
 
+
+
+
+
+
+
+
 \section{GOAP Architektur}
 \label{chap:goap architektur}
 
@@ -31,14 +38,15 @@ Es wird keine FSM in der Architektur umgesetzt, da die Implementation keine Anim
 
 
 
+
+
+
 \subsection{\textit{GoapAgent}}
 \label{chap:goapagent uml}
 
-Die Abbildung \ref{fig:GoapAgent} stellt die Klasse \textit{GoapAgent}, mit ihren Klassenattribute und Methoden dar.
+Die Abbildung \ref{fig:GoapAgent} stellt die Klasse \textit{GoapAgent}, mit ihren Klassenattribute und Methoden dar. Der \textit{goap\_planner} ist eine Referenz auf die Klasse \textit{GoapPlanner}, welcher die \textit{action\_se"=quence} des \textit{GoapAgent} bestimmt. Das Array \textit{action\_sequence} speichert Objekte vom Typ der Klasse \textit{GoapAction}. Sie stellt die ermittelte Aktions-Sequenz durch den A*-Algorithmus dar. Die Integer-Klassenvaraible \textit{current\_step} handelt als Indexzeiger, welcher auf die aktuell auszuführende Aktion des \textit{action\_sequence} verweist.
 
-Der \textit{goap\_planner} ist eine Referenz auf die Klasse \textit{GoapPlanner}, welcher die \textit{action\_se"=quence} des \textit{GoapAgent} bestimmt. Das Array \textit{action\_sequence} speichert Objekte vom Typ der Klasse \textit{GoapAction}. Sie stellt die ermittelte Aktions-Sequenz durch den A*-Algorithmus dar. Die Integer-Klassenvaraible \textit{current\_step} handelt als Indexzeiger, welcher auf die aktuell auszuführende Aktion des \textit{action\_sequence} verweist.
 
-% Goap Agent
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.5\textwidth]{Lösungskonzept/agent.pdf}
@@ -47,35 +55,42 @@ Der \textit{goap\_planner} ist eine Referenz auf die Klasse \textit{GoapPlanner}
   \label{fig:GoapAgent}
 \end{figure}
 
+Die update Methode (Pseudocode \ref{lst:pseudo update}) ruft Methoden der Klassen und Komponenten innerhalb des NPC auf. Sie wird wiederum durch eine \textit{\_process} Funktion jedes \textit{Frame} aufgerufen, um Komponenten \textit{GoapAgent} und und Abfragen nach \textit{actions\_sequence} auszuführen. Der Parameter \textit{delta} repräsentiert die Zeit seit dem letzten \textit{Frame} und könnte an andere Methoden übergeben werden. Wurde eine neue \textit{action\_sequence} vom \textit{goap\_planner} gefunden, so wird die Objektvariable \textit{current\_step} auf $0$ zurückgesetzt und die neue \textit{action\_sequence} aus dem \textit{goap\_planner} abgerufen. Die \textit{action\_sequence} wird darauf durch die Methode \textit{follow\_sequence} ausgeführt.
 
-Die update Methode ruft Methoden der Klassen und Komponenten innerhalb des NPC auf. Sie wird wiederum durch eine \textit{\_process} Funktion jedes \textit{Frame} aufgerufen, um kontinuierliche Logik wie Bewegungen oder Raycasting des \textit{GoapAgent} zu verarbeiten. Diese wird wiederum über die Komponente aufgerufen, die das Objekt \textit{GoapAgent} instanziiert. Der Parameter \textit{delta} repräsentiert die Zeit seit dem letzten \textit{Frame} und könnte an andere Methoden übergeben werden.
+\"{U}ber die Methode \textit{follow\_sequence} geschieht die eigentliche Ausführung der Aktionen aus der \textit{action\_sequence}. Sollte \textit{action\_sequence} ungültig sein, so wird eine neue \textit{action\_sequence} durch \textit{goap\_planner.set\_create\_sequence(WAHR)} angefordert. Ansonsten wird mithilfe des \textit{current\_step} Index die jeweilige Aktion über ihre \textit{GoapAction} \textit{update} Methode ausgeführt. Bei erfolgreicher Ausführung der Aktion wird der \textit{current\_step} inkrementiert, um auf die nächste Aktion der \textit{action\_seqeunce} zuzugreifen.
 
-\begin{lstlisting}[language=Pseudo, caption={update Methode des \textit{GoapAgent}}, mathescape=true]
+
+\begin{lstlisting}[language=Pseudo, caption={update Methode des GoapAgent}, mathescape=true, label={lst:pseudo update}]
 FUNKTION update(delta) $\rightarrow$ void
-    WENN goap_planner neue action_sequence gefunden hat DANN
+    WENN goap_planner.update() $\rightarrow$ neue action_sequence gefunden DANN
         current_step $\leftarrow$ 0
         action_sequence $\leftarrow$ goap_planner.get_current_sequence()
     ENDE WENN
     follow_sequence(delta)
 ENDE update()
-\end{lstlisting}
 
-In der update Methode werden Abfragen gestellt, ob der \textit{goap\_planner} eine neue \textit{action\_sequence} generiert hat. Wurde eine neue \textit{action\_sequence} generiert, so wird die Objektvariable \textit{current\_step} auf $0$ zurückgesetzt und die neue \textit{action\_sequence} aus dem \textit{goap\_planner} abgerufen. Die \textit{action\_sequence} wird darauf durch die Methode \textit{follow\_sequence} ausgeführt werden.
-
-% follow_sequence Methode
-\"{U}ber die Methode \textit{follow\_sequence} geschieht die eigentliche Ausführung der Aktionen aus der \textit{action\_sequence}. Sollte \textit{action\_sequence} leer sein, bereits ausgeführt worden oder ungültig sein, so wird eine neue \textit{action\_sequence} von dem \textit{goap\_planner} gefordert werden. Ansonsten wird mithilfe des \textit{current\_step} Index die jeweilige Aktion über ihre \textit{GoapAction} \textit{update} Methode ausgeführt werden. Bei erfolgreicher Ausführung der Aktion wird der \textit{current\_step} inkrementiert, um auf die nächste Aktion der \textit{action\_seqeunce} zugreifen zu können.
-
-\begin{lstlisting}[language=Pseudo, caption={\textit{follow\_sequence} Methode des \textit{GoapAgent}}, mathescape=true]
-FUNKTION follow_sequence(delta) : void
+FUNKTION follow_sequence(delta) $\rightarrow$ void
 	WENN action_sequence leer ODER action_sequence durchgegangen ODER action_sequence[current_step] DANN
 		goap_planner.set_create_sequence(WAHR)
-		ENDE FUNKTION
+		ENDE follow_sequence()
 	ENDE WENN
 	WENN action_sequence[current_step].update(delta) ausgeführt DANN
 		current_step um 1 erhöhen
 	ENDE WENN
-ENDE FUNKTION
+ENDE follow_sequence()
 \end{lstlisting}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \subsection{\textit{GoapPlanner}}
@@ -90,18 +105,19 @@ ENDE FUNKTION
   \label{fig:goapplanner uml}
 \end{figure}
 
-Die Abbildung \ref{fig:goapplanner uml} zeigt den Aufbau des \textit{GoapPlanner}. Der \textit{GoapPlanner} arbeitet mit Zielen und Aktionen, welche durch die Arrays \textit{actions} und \textit{goals} gegeben werden. \"{U}ber \textit{current\_goal} wird das Ziel gespeichert, zu dem eine \textit{action\_sequence} gesucht wird. Die \textit{action\_sequence} ist die generierte Aktions-Sequenz durch den \textit{GoapPlanner} und wird in einem Array mit \textit{GoapAction} als Elementtyp gespeichert. Das \textit{current\_state} Dictionary speichert den derzeitigen Zustand des NPC. Die Initialisierung des \textit{current\_state} findet über den \textit{state\_manager} Parameter statt, welcher über die \textit{update} Methode übergeben wird. Das \textit{create\_sequence} Attribut informiert den \textit{GoapPlanner} darüber, ob eine neue \textit{action\_sequence} generiert werden soll. Das \textit{effect\_action\_dict} Dictionary speichert alle Zustände als \textit{key} und die Aktionen, welche den Zustand beeinflussen können als \textit{values}. So erhält man eine schnellere Zugriffszeit, als wenn man jeden Effekt einer Aktion im Array mit dem benötigten Zustand vergleicht. \"{A}hnlich zur Tabelle, wie im GOAP Grundlagenkapitel \ref{}.
+Die Abbildung \ref{fig:goapplanner uml} zeigt den Aufbau des \textit{GoapPlanner}. Der \textit{GoapPlanner} arbeitet mit Zielen und Aktionen, welche durch die Arrays \textit{actions} und \textit{goals} gegeben werden. Das \textit{current\_state} Dictionary speichert den derzeitigen Zustand des \textit{GoapAgent}. Die Initialisierung des \textit{current\_state} findet über den \textit{state\_manager} Parameter statt, welcher über die \textit{update} Methode übergeben wird. Das \textit{create\_sequence} Attribut informiert den \textit{GoapPlanner} darüber, ob eine neue \textit{action\_sequence} generiert werden soll. 
+
+Das \textit{effect\_action\_dict} Dictionary speichert alle Zustände als \textit{key} und die Aktionen, welche den Zustand beeinflussen können als \textit{values}. So erhält man eine schnellere Zugriffszeit, als wenn man jeden Effekt einer Aktion im Array mit dem benötigten Zustand vergleicht. \"{A}hnlich zur Tabelle, wie im GOAP Grundlagenkapitel \ref{tab:aktions tabelle}.
 
 % update
-Die \textit{GoapPlanner} Methode update wird über die update Methode des \textit{GoapAgent} aufgerufen. Hierbei werden Methoden und Abfragen durchgeführt, welche die current\_goal und die dazugehörige action\_sequence bestimmen. 
+Die Methode \textit{update} des \textit{GoapPlanner} (Pseudocode \ref{lst:pseudo planner update}) wird über die \textit{update}-Methode des \textit{GoapAgent} aufgerufen. Sie bestimmt das aktuelle Ziel (\textit{current_goal}) und die zugehörige Aktionssequenz (\textit{action_sequence}). Die Auswahl des besten Ziels erfolgt über die Methode \textit{get_best_goal}. Falls sich das Ziel während der Laufzeit ändert oder \textit{create_sequence} auf \textit{true} gesetzt ist, wird \textit{create_new_sequence} eine neue Aktionssequenz generieren. Dazu wird ein Wurzelknoten des Typs \textit{AStarNode} erstellt (Kapitel \ref{chap:astarnode uml}), der an den \textit{a_star_algorithm} übergeben wird.
 
-Für die Bestimmung des current\_goal ist die Methode get\_best\_goal verantwortlich. \"{A}ndert sich das Ziel während der Laufzeit oder wird über create\_sequence eine action\_sequence angefragt, so soll eine neue action\_sequence generiert werden. Die Suche geschieht über die Methode create\_new\_sequence. 
 
-\begin{lstlisting}[language=Pseudo, caption={update Methode des \textit{GoapAgent}}, mathescape=true]
+\begin{lstlisting}[language=Pseudo, caption={update Methode des GoapAgent}, mathescape=true, label={lst:pseudo planner update}]
 FUNKTION update(state_manager: StateManager) $\rightarrow$ bool
     current_state $\leftarrow$ state_manager.get_current_state()
     new_goal $\leftarrow$ get_best_goal()
-    WENN current_goal NICHT new_goal entspricht ODER create_sequence WAHR IST DANN
+    WENN current_goal NICHT = new_goal ODER create_sequence WAHR IST DANN
         current_goal $\leftarrow$ new_goal
         action_sequence $\leftarrow$ create_new_sequence()
         root_node Speicher freigeben
@@ -111,24 +127,20 @@ FUNKTION update(state_manager: StateManager) $\rightarrow$ bool
 ENDE FUNKTION
 \end{lstlisting}
 
-% create_new_sequence Methode
-Die Methode create\_new\_sequence leitet die Generierung einer action\_sequence ein. Dafür muss ein Wurzelknoten des Typen \textit{AStarNode} erstellt werden, welcher dem a\_star\_algorithm übergeben wird. Für den Wurzelknoten wird ein Dictionary über die Methode create\_current\_state\_of\_goals instanziiert, in dem die Werte der Zielzustände des current\_goal basierend auf den Werten des \textit{current\_state} des Agenten überschrieben werden. Das Dictionary wird als Zustand des Wurzelknoten dienen, mit dem die a\_star\_algorithm Methode nach der Aktions-Sequenz sucht. Die Funktionsweise der a\_star\_algorithm Methode wird im Pseudocode beschrieben. Sie sucht nach den Regeln der Bestensuche\ref{}.
+Die \textit{a_star_algorithm}-Methode (Pseudocode \ref{lst:pseudo astar}) sucht gemäß den Regeln der Bestensuche (Kapitel \ref{lst:pseudo bestensuche}) nach dem optimalen Pfad.
 
 % PriorityQueue
-Die open\_list wird über eine PriorityQueue realisiert. Man beachte, dass Godot 4.3 keine PriorityQueue besitzt und man diese selbst implementieren müsste. Eine PriorityQueue speichert Knoten, sortierter nach ihren $f(n)$ Kosten, sodass Knoten mit den niedrigsten Kosten bevorzugt abgerufen werden. 
+Darin speichert die \textit{open_list} Knoten, deren Zustände noch nicht erfüllt sind. Sie wird als Prioritätswarteschlange implementiert und enthält \textit{AStarNode}-Knoten, die nach ihren geschätzten Gesamtkosten $f(n)$ sortiert sind. Da Godot 4.3 keine native Prioritätswarteschlange bietet, muss diese manuell umgesetzt werden. Ein einfaches Array wäre möglich, würde aber die Zugriffszeiten erhöhen. Die \textit{closed\_list} ist ein Dictionary bereits besuchter \textit{AStarNodes}, und vermeidet Mehrfachbesuche.
+
+Wird eine Aktion gefunden, die den Zustand erfüllt, so wird untersucht ob der Effekt, der Aktion den Zustand umsetzen kann. Erfüllt der Effekt den gewünschten Zustand, so wird ein Kindknoten erstellt. Dieser Kindknoten speichert die Kante (Aktion) die zu dem Knoten geführt hat, sowie den Effekt auf den \textit{current\_state}. Die restlichen Inhalte des Knoten werden in der zuvor beschriebenen \textit{expand\_node} Methode instanziiert.
 
 % expand_node Methode
-Die expand\_node Methode fügt Kindknoten child\_node des expandierten Knoten expanded\_node in die open\_list, welche vorher von A$^*$ gewählt wurde. Es folgt die Instanziierung der Kosten $g(n)$, $h(n)$ und $f(n)$ des child\_node. Abschlie\ss{}end wird der child\_node in die \textit{open\_list} hinzugefügt.
-
-% get_child_nodes Methode
-Die get\_child\_nodes Methode sucht nach Kanten (Aktionen) welche die benötigten Zustände des Knoten erfüllen können. Dabei werden die benötigten Zustände mit den Zuständen der \textit{effect\_action\_dict} verglichen.
-
-Wird eine Aktion gefunden, welche den Zustand erfüllt, so wird untersucht ob der Effekt, der Aktion den Zustand umsetzen kann. Erfüllt der Effekt den gewünschten Zustand, so wird ein Kindknoten erstellt. Dieser Kindknoten speichert die Kante (Aktion) die zu dem Knoten geführt hat, sowie den Effekt auf den \textit{current\_state}. Die restlichen Inhalte des Knoten werden in der zuvor beschriebenen expand\_node Methode instanziiert.
+Die \textit{expand\_node} Methode fügt Kindknoten (\textit{child\_node}) des expandierten Knoten \textit{expanded\_node} in die open\_list, der zur Expansion gewählt wird. Darin folgt die Instanziierung der Pfad-Kosten des child\_node, der abschlie\ss{}end in die \textit{open\_list} hinzugefügt wird.
 
 % create_path Methode
-Wenn a\_star\_algorithm einen expand\_node expandiert und dieser keine zu erfüllenden Zustände mehr besitzt, wurde der optimale Pfad gefunden. Um nun die korrekte action\_sequence zu erhalten, müssen die Aktionen vom expand\_node rekursiv zum Wurzelknoten zurückverfolgt werden. Dies wird mithilfe einer \textit{create\_path} Methode durchgeführt.
+Wenn \textit{a\_star\_algorithm} einen \textit{expand\_node} expandiert und dieser keine zu erfüllenden Zustände mehr besitzt, wurde der optimale Pfad gefunden. Um nun die korrekte \textit{action\_sequence} zu erhalten, müssen die Aktionen vom \textit{expand\_node} rekursiv zum Wurzelknoten zurückverfolgt werden. Dies wird mithilfe einer \textit{create\_path} Methode durchgeführt und zurückgegeben.
 
-\begin{lstlisting}[language=Pseudo, caption={update Methode des \textit{GoapAgent}}, mathescape=true]
+\begin{lstlisting}[language=Pseudo, caption={a\_star\_algorithm Methode}, mathescape=true, label={lst:pseudo astar}]
 FUNKTION a_star_algorithm(root_node) $\rightarrow$ action_sequence
 	open_list $\leftarrow$ PriorityQueue
 	closed_list $\leftarrow$ Dictionary
@@ -164,10 +176,17 @@ FUNKTION expand_node(expanded_node, open_list, closed_list) $\rightarrow$ void
 ENDE expand_node()
 \end{lstlisting}
 
+
+
+
+
+
+
+
+
+
 \subsection{\textit{AStarNode}}
 \label{chap:astarnode uml}
-
-Der \textit{AStarNode} hat die Funktionsweise eines Knoten in einem Suchbaum. Abbildung \ref{fig:AStarNode} zeigt die Struktur der Klasse \textit{AStarNode} in der UML-Notation.
 
 \begin{figure}[h]
   \centering
@@ -178,20 +197,23 @@ Der \textit{AStarNode} hat die Funktionsweise eines Knoten in einem Suchbaum. Ab
 \end{figure}
 
 
-Ein \textit{AStarNode} speichert die Informationen des Suchproblems. Darunter die bis dahin erfüllten Zustände des Elternknoten parent\_node im Attribut \textit{current\_state}\_of\_goals, sowie alle Zielzustände die bis zu dem Knoten benötigt wurden im Attribut goal\_state. \"{U}ber das Klassenattribut parent\_node kann die create\_path Methode des \textit{GoapPlanner} rekursiv auf die Aktionen action des Typs \textit{GoapAction} zurückschlie\ss{}en. Die Kosten $f(n)$ werden unter f\_cost und $g(n)$ -Kosten unter g\_cost gespeichert.
+Ein \textit{AStarNode} wird durch den Godot Konstruktor \textit{\_init }instanziiert. Dabei werden die Eigenschaften eine Suchbaum Knoten gespeichert: Zustand(), Aktion(), Eltern-Knoten() und Pfad-Kosten().
 
 
-Durch den Godot Konstruktor \_init wird ein \textit{AStarNode} mit seinen Attributen instanziiert. Die Berechnung der Kosten passiert durch die \textit{GoapPlanner} Methode expand\_node. Dort werden über die setter- Methoden des \textit{AStarNode} set\_g\_cost und set\_f\_cost initialisiert. \"{U}ber die Methode get\_unsatasfied\_states werden alle Zustände zurückgegeben, welche noch nicht erreicht wurden. Die Grö\ss{}e des Arrays welches von get\_unsatasfied\_states gegeben wird repräsentiert die heuristischen Kosten $f(n)$ der Aktion. Die Heuristik Kosten werden ebenfalls in der expand\_node Methode des \textit{GoapPlanner} berechnet und initialisiert.
+Die Berechnung der $f(n)$-Kosten passiert durch die \textit{GoapPlanner} Methode \textit{expand\_node}. \"{U}ber die Methode \textit{get\_unsatasfied\_states} werden alle Zustände zurückgegeben, welche noch nicht erreicht wurden. Die Grö\ss{}e des Arrays welches von \textit{get\_unsatasfied\_states} gegeben wird repräsentiert die heuristischen Kosten $f(n)$ der Aktion. Die Heuristik Kosten werden ebenfalls in der expand\_node Methode des \textit{GoapPlanner} berechnet und initialisiert.
 
-Wird eine action gewählt, so wird ein \textit{AStarNode} mit den dazugehörigen Zuständen \textit{current\_state}\_of\_goals und goal\_states generiert werden. Die Generierung des neuen \textit{AStarNode} geschieht über die apply\_action\_to\_state Methode. Die Methode wird vom \textit{GoapPlanner} durch die Methode get\_child\_nodes auf dem expanded\_node aufgerufen. Dabei wird die action und der \textit{current\_state} als Parameter übergeben. Basierend auf den Parameter initialisiert die Methode, die Attribute goal\_states und \textit{current\_state}\_of\_goals für den neuen Knoten. Au\ss{}erdem initialisiert sie den zu expandierten Knoten als parent\_node sowie die Aktion als action.
+Wird eine action gewählt, so wird ein \textit{AStarNode} mit den dazugehörigen Zuständen \textit{current\_state\_of\_goals} und \textit{goal\_states} generiert werden. Die Generierung des neuen \textit{AStarNode} geschieht über die apply\_action\_to\_state Methode. Die Methode wird vom \textit{GoapPlanner} durch die Methode get\_child\_nodes auf dem expanded\_node aufgerufen. Dabei wird die action und der \textit{current\_state} als Parameter übergeben. Basierend auf den Parameter initialisiert die Methode, die Attribute goal\_states und \textit{current\_state}\_of\_goals für den neuen Knoten. Au\ss{}erdem initialisiert sie den zu expandierten Knoten als parent\_node sowie die Aktion als action.
 
-Die Prüfung ob die Zustände eines expanded\_node erfüllt wurden, wird durch is\_satasfied geprüft. Dazu schaut die Methode ob das Array welches über die Methode get\_unsatasfied\_states zurückgegeben wird leer ist. Sollte das Array leer sein, so gibt es keine zu erfüllenden Zustände und der \textit{AStarNode} ist der Zielknoten.
+Die Prüfung ob die Zustände eines expanded\_node erfüllt wurden, wird durch is\_satasfied geprüft. Dazu schaut die Methode ob das Array das über die Methode \textit{get\_unsatasfied\_states} zurückgegeben wird leer ist. Sollte das Array leer sein, so gibt es keine zu erfüllenden Zustände und der \textit{AStarNode} ist der Zielknoten.
+
+
+
 
 
 \subsection{GoapGoal}
 \label{chap:goapgoal uml}
 
-Ein GoapGoal repräsentiert ein Ziel. Der \textit{GoapPlanner} bewertet die verfügbaren Ziele, vergleicht sie miteinander und wählt eines aus, basierend auf deren Gültigkeit und Priorität. Der Zielzustand des jeweiligen GoapGoal wird als Ausgangszustand für Suche genutzt. Die Klasse GoapGoal wird in der folgenden Abbildung mittels UML-Notation dargestellt.
+Ein GoapGoal repräsentiert ein Goap-Ziel nach Kapitel \ref{} und wird in der Abbildung \ref{} dargestellt.
 
 \begin{figure}[t]
   \centering
@@ -201,18 +223,24 @@ Ein GoapGoal repräsentiert ein Ziel. Der \textit{GoapPlanner} bewertet die verf
   \label{fig:GoapGoal}
 \end{figure}
 
-Die Priorität und Gültigkeit wird aus dem Klassenattribut state\_manager abgeleitet. Die get\_best\_goal des \textit{GoapPlanner} benötigt die Gültigkeit und Priorität, um in folge dessen das Ziel auszuwählen. Die Abfragen geschehen durch die Methoden get\_priority und is\_valid. Ein Ziel wird erst dann berücksichtigt, wenn es durch die Methode is\_valid als gültig bestätigt wurde. Anschlie\ss{}end kann dessen Priorität mithilfe von get\_priority ermittelt werden. 
+Die Priorität und Gültigkeit wird aus dem Klassenattribut state\_manager dynamisch abgeleitet. Die get\_best\_goal Methode des \textit{GoapPlanner} benötigt die Gültigkeit und Priorität, um in folge dessen das Ziel auszuwählen. Die Abfragen geschehen durch die Methoden get\_priority und is\_valid. Ein Ziel wird erst dann berücksichtigt, wenn es durch die Methode is\_valid als gültig bestätigt wurde. Anschlie\ss{}end kann dessen Priorität mithilfe von get\_priority ermittelt werden. 
 
-\"{U}ber die Methode get\_desired\_state werden die Zielzustände aufgerufen, welche der \textit{GoapPlanner} zur Suche der action\_sequence benötigt. 
+\"{U}ber die Methode get\_desired\_state werden die Zielzustände aufgerufen, welche der \textit{GoapPlanner} zur Suche der \textit{action\_sequence} benötigt. 
 
 Die Methode get\_goal\_name gibt den Klassennamen des GoapGoal zurück, welche von Debug Methoden genutzt werden kann.
 
 
-%FORTSETZUNG
+
+
+
+
+
+
+
 \subsection{GoapAction}
 \label{chap:goapaction uml}
 
-Ein Aktion des Typs \textit{GoapAction}, repräsentieren die Kanten eines Suchbaums. Sie besitzen Daten zur Generierung eines neuen Knoten. Folgende Abbildung stellt die \textit{GoapAction} Klasse nach UML-Notation dar.
+Ein Aktion des Typs \textit{GoapAction}, repräsentieren die Kanten eines Suchbaums (Kapitel \ref{}). Sie besitzen Daten zur Generierung eines neuen Knoten. Abbildung \ref{} stellt die \textit{GoapAction} Klasse nach UML-Notation dar.
 
 \begin{figure}[h]
   \centering
@@ -222,13 +250,21 @@ Ein Aktion des Typs \textit{GoapAction}, repräsentieren die Kanten eines Suchba
   \label{fig:GoapAction}
 \end{figure}
 
-Mit Hilfe der Klassenattribute character\_body und state\_manager werden die Kosten $g(n)$ und die Gültigkeit der Aktion gelesen. Die Kosten $g(n)$ werden dabei über die get\_cost Methode berechnet.
+Mit Hilfe der Klassenattribute character\_body und state\_manager werden die Kosten $g(n)$ und die Gültigkeit der Aktion gelesen. Die Kosten $g(n)$ werden über die get\_cost Methode dynamisch berechnet.
 
 Die Gültigkeit einer Aktion soll die Durchführbarkeit wiedergeben. Der \textit{GoapPlanner} wählt nur Aktionen aus, welche im derzeitigen Zustand des NPC durchführbar sind. Die Gültigkeit der Aktionen wird auch vor der Ausführung der update Methode jeweiligen Aktion durch den \textit{GoapAgent} geprüft, da die Aktion zu einer Zeit ausgeführt werden kann in der sich der Zustand des NPC wieder ändern kann und somit auch die Gültigkeit. Für die Rückgabe der Gültigkeit ist die is\_valid Methode zuständig.
 
 Eine get\_preconditions Methode gibt die vorausgesetzten Zustände zurück, welche von anderen Aktionen erfüllt werden müssten. Ob eine Aktion einen Zustand erfüllen kann, hängt von der get\_effects Methode ab, welche ein \textit{Dictionary} mit dem Zustand und dessen Wert zurückgibt. Stimmt der Wert des Zustands mit dem Zielzustand überein, dann erfüllt die Aktion den Zustand.
 
 Die update Methode leitet die eigentliche Ausführung der Aktion ein und wird über den \textit{GoapAgent} gestartet. Die Hoffnung dabei ist, dass die Aktion den erwünschten Wert des Effekts umsetzt. Aufgrund der nicht-deterministischen Natur der Spielwelt kann es jedoch vorkommen, dass der angestrebte Effekt nicht erreicht wird. Wird der Effekt nicht erreicht, so wird eine neue Sequenz angefordert oder das Ziel ändert sich bis dahin. Die Ausführung der Aktion wird dabei über Komponenten der Klasse Npc umgesetzt. Die Methode get\_action\_name gibt den Klassennamen der \textit{GoapAction} zurück.
+
+
+
+
+
+
+
+
 
 
 \section{Umsetzung des Szenario}
