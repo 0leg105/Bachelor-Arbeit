@@ -1,44 +1,3 @@
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-
-\lstdefinelanguage{Godot}{
-	keywords={class_name, func, for, return, in range, is, var, not, continue, or},
-	morecomment=[l]{#}
-}
-
-\lstdefinelanguage{Pseudo}{
-	keywords={FUNCTION, IMPORT, END if, then, void},
-	morecomment=[l]{//}
-}
-
-\lstdefinelanguage{dict}{
-	keywords={class_name, func, for, return, in range, is, var, not, continue},
-}
-
-\lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},   
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
-    showstringspaces=false,
-    showtabs=false,                  
-    tabsize=2
-}
-
-\lstset{style=mystyle}
-
-
 \chapter{Implementierung des Lösungskonzepts}
 \label{chap:implementierung lk}
 
@@ -91,9 +50,6 @@ Der \textit{goap\_planner} ist eine Referenz auf die Klasse \textit{GoapPlanner}
 
 Die update Methode ruft Methoden der Klassen und Komponenten innerhalb des NPC auf. Sie wird wiederum durch eine \textit{\_process} Funktion jedes \textit{Frame} aufgerufen, um kontinuierliche Logik wie Bewegungen oder Raycasting des \textit{GoapAgent} zu verarbeiten. Diese wird wiederum über die Komponente aufgerufen, die das Objekt \textit{GoapAgent} instanziiert. Der Parameter \textit{delta} repräsentiert die Zeit seit dem letzten \textit{Frame} und könnte an andere Methoden übergeben werden.
 
-% update Methode
-%\lstinputlisting[firstline=0, language=Pseudo, linerange={1-7}, caption={update Methode des \textit{GoapAgent}}, label=lst:caption]{code/goap agent.txt}
-
 \begin{lstlisting}[language=Pseudo, caption={update Methode des \textit{GoapAgent}}, mathescape=true]
 FUNKTION update(delta) $\rightarrow$ void
     WENN goap_planner neue action_sequence gefunden hat DANN
@@ -120,11 +76,6 @@ FUNKTION follow_sequence(delta) : void
 	ENDE WENN
 ENDE FUNKTION
 \end{lstlisting}
-
-
-
-
-
 
 
 \subsection{\textit{GoapPlanner}}
@@ -154,9 +105,9 @@ FUNKTION update(state_manager: StateManager) $\rightarrow$ bool
         current_goal $\leftarrow$ new_goal
         action_sequence $\leftarrow$ create_new_sequence()
         root_node Speicher freigeben
-        ZUR\"{U}CKGEBEN WAHR
+        ZURÜCKGEBEN WAHR
     ENDE WENN
-    ZUR\"{U}CKGEBEN FALSCH
+    ZURÜCKGEBEN FALSCH
 ENDE FUNKTION
 \end{lstlisting}
 
@@ -186,17 +137,17 @@ FUNKTION a_star_algorithm(root_node) $\rightarrow$ action_sequence
 		expanded_node $\leftarrow$ open_list.pop()
 		WENN expanded_node.is_satisfied() DANN
 			open_list Speicher freigeben
-			ZUR\"{U}CKGEBEN create_path(expanded_node)
+			ZURÜCKGEBEN $\rightarrow$ create_path(expanded_node)
 		ENDE WENN
 		expanded_node in closed_list hinzufügen
 		expand_node(expanded_node, open_list, closed_list)
 	ENDE SOLANGE
 	open_list Speicher freigeben
-	ZUR\"{U}CKGEBEN []
-ENDE FUNKTION
+	ZURÜCKGEBEN $\rightarrow$ []
+ENDE a_star_algorithm()
 
 FUNKTION expand_node(expanded_node, open_list, closed_list) $\rightarrow$ void
-	F\"{U}R JEDES child_node IN get_child_nodes(expanded_node)
+	FÜR JEDES child_node IN get_child_nodes(expanded_node)
 		WENN child_node IN closed_list DANN
 			FORTSETZEN
 		ENDE WENN
@@ -209,8 +160,8 @@ FUNKTION expand_node(expanded_node, open_list, closed_list) $\rightarrow$ void
 		child_node.set_g_cost(child_node_g_cost)
 		child_node.set_f_cost(child_node_f_cost)
 		open_list.push(child_node)
-	ENDE F\"{U}R
-ENDE FUNKTION
+	ENDE FÜR
+ENDE expand_node()
 \end{lstlisting}
 
 \subsection{\textit{AStarNode}}

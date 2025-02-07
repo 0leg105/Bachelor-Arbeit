@@ -1,5 +1,10 @@
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
 \lstdefinelanguage{Pseudo}{
-	keywords={KLASSE, IMPORTIERE, OEFFENTLICH FUNKTION, ENDE, void},
+	keywords={FUNKTION, WENN, SOLANGE, DANN, FUER, JEDEN, JEDE ,ENDE, NAECHSTE, NAECHSTER, VON, FUNCTION, IMPORT, END if, then, void, IMPORTIERE, OEFFENTLICH},
 	morecomment=[l]{//}
 }
 
@@ -62,7 +67,6 @@ Unitys prim\"{a}re Programmiersprache ist C#. Unity unterst\"{u}tzt auch visuell
 \label{chap:unreal-engine}
 
 Die Unreal-Engine wurde mit dem FPS Unreal 1998 ver\"{o}ffentlicht und von Epic Games entwickelt. Die Unreal-Engine ist kostenlos erh\"{a}ltlich. Dabei fallen Lizenzgeb\"{u}hren von 5\%erst ab einem Bruttoproduktumsatz von 1 Million USD an.\footnote{https://www.unrealengine.com/de/license} Durch die Game-Engine ist es m\"{o}glich, Videospiele in 2D und 3D Umgebung zu entwickeln. Sie fokussiert sich dabei auf die 3D Umgebung und 3D Grafik und ist vielseitig portabel, unter anderem auf Desktop-, Mobile, Konsolen- und Virtual-Reality-Plattformen. 
-%Editor weiter erl\"{a}utern
 Prim\"{a}r wird C++ als Programmiersprache genutzt. Python ist ausschlie\ss{}lich f\"{u}r die Werkzeuge im Editor vorgesehen und kann nicht f\"{u}r die Spiellogik verwendet werden.\footnote{https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-engine-programming-and-scripting}
 
 
@@ -71,9 +75,9 @@ Prim\"{a}r wird C++ als Programmiersprache genutzt. Python ist ausschlie\ss{}lic
 
 GameObjects sind Objekte der Spielwelt und werden \"{u}ber ihre Komponenten gesteuert. Eine Komponente kann einem GameObject beispielsweise die Funktion geben, die Spielumgebung wahrzunehmen und mit ihr zu interagieren. Eine Komponente wird \"{u}ber Skripte realisiert. Game-Engines wie Godot, Unity und Unreal-Engine setzen bereits vordefinierte Komponenten mit ihren eigenen Methoden um. Meistens sind Komponenten in ihrer Funktion zu simpel, sodass ihre Skripte modifiziert oder erweitert werden m\"{u}ssen. Diese Skripte werden mit einer Programmiersprache angepasst, die, je nach Game-Engine, variieren kann.
 
-Die folgende Abbildung veranschaulicht den grundlegenden Aufbau eines solchen Skripts in Pseudocode.
+Der Pseudocode \ref{lst:pseudo komponenten} veranschaulicht den grundlegenden Aufbau eines solchen Skripts.
 
-\begin{lstlisting}[language=Pseudo, caption={Aufbau eines Komponenten Skripts}, mathescape=true]
+\begin{lstlisting}[language=Pseudo, caption={Aufbau eines Komponenten Skripts}, mathescape=true, label={lst:pseudo komponenten}]
 IMPORTIERE Game-Engine Module
 KLASSE Komponente
 	//Deklaration und Initialisierung von Variablen

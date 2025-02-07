@@ -1,8 +1,3 @@
-\lstdefinelanguage{Pseudo}{
-	keywords={FUNKTION, WENN, SOLANGE, DANN, FUER, JEDEN, JEDE ,ENDE, NAECHSTE, NAECHSTER, VON, FUNCTION, IMPORT, END if, then, void},
-	morecomment=[l]{//}
-}
-
 \chapter{Suchproblem und Suchalgorithmen}
 \label{chap:suchproblem und suchalgorithmen}
 
@@ -81,7 +76,7 @@ Im Bereich der Suchalgorithmen wird zwischen informierten und uniformierten Algo
 \subsection{Expansion einer Bestensuche}
 \label{chap:bestensuche}
 
-Zu den informierten Suchalgorithmen geh\"{o}rt unter anderem die Bestensuche. Eine Bestensuche arbeitet sich schrittweise \"{u}ber Iterationen mithilfe von Expansionen zu einem Zielknoten vor. Vor der ersten Iteration wird ein Wurzelknoten mit dem Ausgangszustand generiert und der offenen Liste hinzugef\"{u}gt. Die offenen Liste stellt dabei eine Vorrangwarteschlange (Priority Queue) dar. So wird sichergestellt, dass bei der ersten Iteration der Wurzelknoten betrachtet wird.
+Zu den informierten Suchalgorithmen geh\"{o}rt unter anderem die Bestensuche. Der Algorithmus wird im Pseudocode \ref{lst:pseudo bestensuche} erläutert. Eine Bestensuche arbeitet sich schrittweise \"{u}ber Iterationen mithilfe von Expansionen zu einem Zielknoten vor. Vor der ersten Iteration wird ein Wurzelknoten mit dem Ausgangszustand generiert und der offenen Liste hinzugef\"{u}gt. Die offenen Liste stellt dabei eine Vorrangwarteschlange (Priority Queue) dar. So wird sichergestellt, dass bei der ersten Iteration der Wurzelknoten betrachtet wird.
 
 In der Iteration werden Knoten aus der offenen Liste expandiert. Bei einer Expansion ermittelt der Algorithmus mithilfe der Funktion \textit{TRANSITIONS}$(n)$ alle m\"{o}glichen Kanten \textit{ACTIONS}$(n)$, die vom aktuellen Knoten $n$ ausgehen und zu Kindknoten f\"{u}hren. F\"{u}r die Kindknoten wird eine Bewertung durch die Bewertungsfunktion $f(n)$ berechnet, die je nach Suchalgorithmus variiert. Diese Kindknoten werden daraufhin sortiert nach ihrer Bewertung der offenen Liste hinzugef\"{u}gt. Wenn ein Knoten expandiert wird, wird dieser aus der offenen Liste entfernt. Sollte der gelesene Knoten dem Ziel entsprechen, terminiert der Algorithmus und gibt den Knoten zur\"{u}ck. Ansonsten wird dieser expandiert und die resultierenden Kindknoten der offenen Liste hinzugef\"{u}gt. Die Iteration wird solange fortgef\"{u}hrt bis der Zielknoten gefunden wurde oder sich keine Knoten in der offenen Liste befinden und somit keine Knoten zu dem Ziel f\"{u}hren.
 
@@ -89,15 +84,44 @@ Zu den Bestensuchen geh\"{o}rt unter anderem der Greedy best-first-search und de
 
 Die Abbildung \ref{fig:bestensuche beispiel} veranschaulicht eine abstrakte Suche in einem Suchbaum unter Verwendung der Bestensuche. Dabei sind die gr\"{u}nen Knoten bereits expandierte Knoten, w\"{a}hrend die blauen Knoten zur offenen Liste geh\"{o}ren. Gestrichelte Knoten und Kanten repr\"{a}sentieren nicht entdeckte Elemente, w\"{a}hrend die Bl\"{a}tter des Baums potenzielle Zielknoten darstellen. Der gefundene Pfad [\textit{A, C, E}] weist mit $f(n) = 6$ die geringsten Kosten auf und stellt somit den optimalen Pfad dar.
 
-\lstinputlisting[firstline=0, language=Pseudo, linerange={31-55}, caption={Pseudocode Bestensuche}, label=lst:caption]{code/goap_agent.py}
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.7\textwidth]{Suchalgorithmen/bfs suchbaum}
+  \includegraphics[width=0.6\textwidth]{Suchalgorithmen/bfs suchbaum}
 	\captionsetup{justification=justified, format=plain}
   \caption{Suchbeispiel \"{u}ber Bestensuche}
   \label{fig:bestensuche beispiel}
 \end{figure}
+
+
+\begin{lstlisting}[language=Pseudo, caption={Pseudocode: Bestensuche}, mathescape=true, label={lst:pseudo bestensuche}]
+FUNKTION bestensuche(Ausgangszustand) $\rightarrow$ Zielknoten
+    offenen Liste $\leftarrow$ Vorrangwarteschlange
+    offenen Liste $\leftarrow$ Knoten mit Ausgangszustand hinzufuegen
+    SOLANGE offene Liste nicht leer
+        Expansions Knoten $\leftarrow$ aus offenen Liste lesen und ihn daraus entfernen
+        WENN Expansions Knoten Ziel erfuellt DANN
+            ZURÜCKGEBEN $\rightarrow$ Expansions Knoten
+            ENDE bestensuche()
+        ENDE WENN
+        FUER JEDEN Kindknoten VON expandiere(Knoten)
+            offenen Liste $\leftarrow$ Kindknoten hinzufuegen
+        NAECHSTER Knoten
+    ENDE SOLANGE
+    ZURÜCKGEBEN $\rightarrow$ Kein Zielknoten gefunden
+ENDE bestensuche()
+
+FUNKTION expandiere(Knoten) $\rightarrow$ Kindknoten Array
+    Kindknoten $\leftarrow$ Array
+    s $\leftarrow$ Knoten Zustand speichern
+    FUER JEDE Kante VON ACTION(s)
+        Kindknoten $\leftarrow$ durch Kante generieren
+        f(Kindknoten) in Kindknoten speichern
+        Kindknoten Array $\leftarrow$ Kindknoten hinzufuegen
+    NAECHSTE Kante
+    ZURÜCKGEBEN $\rightarrow$ Kindknoten Array
+ENDE expandiere()
+\end{lstlisting}
 
 \subsection{A$^*$ Algorithmus}
 \label{chap:a stern suchalgorithmus}
