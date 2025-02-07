@@ -100,15 +100,15 @@ ENDE KLASSE Komponente
 
 Ein GameObject kann unter anderem ein Agent der Spielwelt sein und wird in diesem Fall als Non-Player-Character (NPC) bezeichnet. Im Gegensatz zu der Spielfigur werden NPCs von dem Computer gesteuert. Die Aufgabe der NPCs ist es, die Spielwelt immersiver zu gestalten. Daf\"{u}r nutzen Spieleentwickler akademische Forschungen aus dem Bereich der AI, um solche Algorithmen zu entwickeln, die NPCs der Spielwelt ein menschlicheres oder tierischeres Verhalten verleihen. Je nach Narrativ k\"{o}nnen NPCs mit der Spielfigur freundlich, neutral oder feindlich interagieren. Ein Beispiel f\"{u}r feindliche NPCs sind die Geister in Pac-Man. Darin versuchen sie, die Spielfigur in der Spielwelt zu fangen.
 
-Die Game-AI wird \"{u}ber Komponenten realisiert und l\"{a}sst sich in drei Bereiche unterteilen: Bewegung (\textit{Movement}), Entscheidungsfindung (\textit{Decision making}) und Strategie (\textit{Strategy}). W\"{a}hrend Bewegung und Entscheidungsfindung sich auf einzelne NPCs beziehen, wird die Strategie-AI auf Gruppen von NPCs (\textit{Group AI}) angewendet. Nicht alle Videospiele ben\"{o}tigen alle der drei genannten Bereiche. So ben\"{o}tigt Schach keine Game-AI f\"{u}r Bewegung oder Entscheidungsfindung, sondern ausschlie\ss{}lich f\"{u}r Strategie.
+Die Game-AI wird \"{u}ber Komponenten realisiert (Abbildung \ref{fig:game-ai model}) und l\"{a}sst sich in drei Bereiche unterteilen: Bewegung (\textit{Movement}), Entscheidungsfindung (\textit{Decision making}) und Strategie (\textit{Strategy}). W\"{a}hrend Bewegung und Entscheidungsfindung sich auf einzelne NPCs beziehen, wird die Strategie-AI auf Gruppen von NPCs (\textit{Group AI}) angewendet. Nicht alle Videospiele ben\"{o}tigen alle der drei genannten Bereiche. So ben\"{o}tigt Schach keine Game-AI f\"{u}r Bewegung oder Entscheidungsfindung, sondern ausschlie\ss{}lich f\"{u}r Strategie.
 
 Der Bereich der Bewegungs-AI arbeitet haupts\"{a}chlich mit Algorithmen, die daf\"{u}r sorgen, dass ein NPC von einer Position zu der N\"{a}chsten gelangt, Hindernissen ausweicht oder den optimalen Pfad zu einem Ziel findet.
 
-Eine Strategie-AI sorgt f\"{u}r die Koordination einer ganzen Gruppe von NPCs. Sie soll dabei die Entscheidungsfindung der NPCs beeinflussen. Beispielsweise hat die Strategie-AI des FPS Half-Life die feindlichen NPCs dazu gebracht, die Spielerfigur zu flankieren.
+Eine Strategie-AI sorgt f\"{u}r die Koordination einer ganzen Gruppe von NPCs. Sie soll dabei die Entscheidungsfindung der NPCs beeinflussen. Beispielsweise hat die Strategie-AI des FPS Half-Life die feindlichen NPCs dazu gebracht, die Spielerfigur zu flankieren. \autocite{AIgames}
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.8\textwidth]{Videospielentwicklung/game-ai model}
+  \includegraphics[width=\textwidth]{Videospielentwicklung/game-ai model}
 	\captionsetup{justification=justified, format=plain}
   \caption{Game-AI Model: Die Thesis fokussiert sich auf den Bereich der Entscheidungsfindung (\textit{Decisionmaking}) in gr\"{u}n markiert}
   \label{fig:game-ai model}
