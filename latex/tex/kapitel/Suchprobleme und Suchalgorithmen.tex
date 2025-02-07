@@ -58,25 +58,25 @@ Ein Knoten speichert dabei:
 \subsection{Gerichtete und ungerichtete Suchb\"{a}ume} \label{gerichtete Graphen}
 \label{chap:gerichtet und ungerichtete suchb\"{a}ume}
 
-Die Kanten eines Suchbaums bestimmten ob dieser gerichtet oder ungerichtet ist. In einem ungerichteten Suchbaum sind die Kanten zwischen den Knoten bidirektional, sodass sie keine feste Richtung vorgeben. Wenn eine Kante in einem ungerichteten Suchbaum die Knoten A und B verbindet, dann ist die Kante in beide Richtungen durchquerbar. Wodurch man mit der Kante sowohl von A nach B, als auch von B nach A navigieren kann. In einem ungerichteten Suchbaum kann jeder Knoten der Wurzelknoten sein. Bei einem gerichteten Suchbaum verbindet eine Kante zwei Knoten, wobei eine klare Richtung von einem Knoten zu dem anderen Knoten vorgegeben ist. Das bedeutet, dass die Kante nur in eine Richtung durchquerbar ist: vom Elternknoten zu dem Kindknoten.
+Die Kanten eines Suchbaums bestimmten ob dieser gerichtet oder ungerichtet ist. In einem ungerichteten Suchbaum sind die Kanten zwischen den Knoten bidirektional, sodass sie keine feste Richtung vorgeben. Wenn eine Kante in einem ungerichteten Suchbaum die Knoten A und B verbindet, dann ist die Kante in beide Richtungen durchquerbar. Wodurch man mit der Kante sowohl von A nach B, als auch von B nach A navigieren kann. In einem ungerichteten Suchbaum kann jeder Knoten der Wurzelknoten sein. Bei einem gerichteten Suchbaum verbindet eine Kante zwei Knoten, wobei eine klare Richtung von einem Knoten zu dem anderen Knoten vorgegeben ist. Das bedeutet, dass die Kante nur in eine Richtung durchquerbar ist: vom Elternknoten zu dem Kindknoten. Angemerkt sei, dass es sich im Falle des GOAP-Systems um einen gerichteten Suchbaum handelt.
 
 \subsection{Balancierte und unbalancierte Suchb\"{a}ume}
 \label{chap:balancierte und unbalancierte suchb\"{a}ume}
 
-Eine Eigenschaft des Suchbaums ist die Balance, die ihn als balanciert oder unbalanciert klassifiziert. Die Klassifizierung basiert auf der Anordnung der Knoten, insbesondere auf deren H\"{o}he. Die H\"{o}he entspricht der maximalen Anzahl an Kanten von der Wurzel bis zu einem Blatt. Bei einem balancierten Suchbaum, deren H\"{o}he so optimiert ist, dass Such-, Einf\"{u}ge- und L\"{o}schoperationen effizient durchgef\"{u}hrt werden k\"{o}nnen. Dabei sind die Knoten m\"{o}glichst gleichm\"{a}\ss{}ig verteilt, um eine \"{u}berm\"{a}\ss{}ige Baumh\"{o}he zu vermeiden. Der H\"{o}henunterschied zwischen den linken und rechten Teilb\"{a}umen darf h\"{o}chstens 1 betragen. Ein Baum gilt als unbalanciert, wenn der H\"{o}henunterschied gr\"{o}\ss{}er als 1 ist.
+Eine Eigenschaft des Suchbaums ist die Balance, die ihn als balanciert oder unbalanciert klassifiziert. Die Klassifizierung basiert auf der Anordnung der Knoten, insbesondere auf deren H\"{o}he. Die H\"{o}he entspricht der maximalen Anzahl an Kanten von der Wurzel bis zu einem Blatt. Bei einem balancierten Suchbaum, deren H\"{o}he so optimiert ist, dass Such-, Einf\"{u}ge- und L\"{o}schoperationen effizient durchgef\"{u}hrt werden k\"{o}nnen. Dabei sind die Knoten m\"{o}glichst gleichm\"{a}\ss{}ig verteilt, um eine \"{u}berm\"{a}\ss{}ige Baumh\"{o}he zu vermeiden. Der H\"{o}henunterschied zwischen den linken und rechten Teilb\"{a}umen darf h\"{o}chstens 1 betragen. Ein Baum gilt als unbalanciert, wenn der H\"{o}henunterschied gr\"{o}\ss{}er als 1 ist. Hier sein angemerkt, dass GOAP keine Balance einh\"{a}lt und somit unbalanciert ist.
 
 \section{Suchalgorithmen}
 \label{chap:suchalgorithmen}
 
 Das Suchproblem soll mit seinen Informationen durch einen Suchalgorithmus gel\"{o}st werden. Ein Suchalgorithmus sucht \"{u}ber einen Suchbaum einen Pfad zu dem Ziel. Wie effizient der gefundene Weg, h\"{a}ngt von dem Suchalgorithmus ab. 
 
-Im Bereich der Suchalgorithmen wird zwischen informierten und uniformierten Algorithmen unterschieden. Informierte Algorithmen k\"{o}nnen die Distanz zu dem Ziel mithilfe einer Heuristik sch\"{a}tzen, w\"{a}hrend uniformierte eine solche Sch\"{a}tzung nicht durchf\"{u}hren k\"{o}nnen. Ein weiterer Unterschied ist die Zeit und Speicherkomplexit\"{a}t. W\"{a}hrend uninformierte Algorithmen wie die Tiefensuche weniger Speicher ben\"{o}tigen, k\"{o}nnen sie ineffizient sein, da sie keine Richtung zu dem Ziel ber\"{u}cksichtigen. Informierte Algorithmen sind speicherintensiver, k\"{o}nnen aber Pfade schneller durch die Informationen der Heuristik finden. Unter die uninformierten Suchalgorithmen fallen die Breitensuche, Dijkstra und Tiefensuche. Zu den informierten Suchalgorithmen geh\"{o}rt unter anderem die Bestensuchen.
+Im Bereich der Suchalgorithmen wird zwischen informierten und uniformierten Algorithmen unterschieden. Informierte Algorithmen k\"{o}nnen die Distanz zu dem Ziel mithilfe einer Heuristik sch\"{a}tzen, w\"{a}hrend uniformierte eine solche Sch\"{a}tzung nicht durchf\"{u}hren k\"{o}nnen. Ein weiterer Unterschied ist die Zeit und Speicherkomplexit\"{a}t. W\"{a}hrend uninformierte Algorithmen wie die Tiefensuche weniger Speicher ben\"{o}tigen, k\"{o}nnen sie ineffizient sein, da sie keine Richtung zu dem Ziel ber\"{u}cksichtigen. Informierte Algorithmen sind speicherintensiver, k\"{o}nnen aber Pfade schneller durch die Informationen der Heuristik finden. Unter die uninformierten Suchalgorithmen fallen die Breitensuche, Dijkstra und Tiefensuche. Zu den informierten Suchalgorithmen geh\"{o}ren unter anderem die Bestensuchen.
 
 
 \subsection{Expansion einer Bestensuche}
 \label{chap:bestensuche}
 
-Zu den informierten Suchalgorithmen geh\"{o}rt unter anderem die Bestensuche. Der Algorithmus wird im Pseudocode \ref{lst:pseudo bestensuche} erläutert. Eine Bestensuche arbeitet sich schrittweise \"{u}ber Iterationen mithilfe von Expansionen zu einem Zielknoten vor. Vor der ersten Iteration wird ein Wurzelknoten mit dem Ausgangszustand generiert und der offenen Liste hinzugef\"{u}gt. Die offenen Liste stellt dabei eine Priorit\"{ä}ts-Warteschlange dar. So wird sichergestellt, dass bei der ersten Iteration der Wurzelknoten betrachtet wird.
+Der Algorithmus der Bestensuche wird im Pseudocode \ref{lst:pseudo bestensuche} erl\"{a}utert. Eine Bestensuche arbeitet sich schrittweise \"{u}ber Iterationen mithilfe von Expansionen zu einem Zielknoten vor. Vor der ersten Iteration wird ein Wurzelknoten mit dem Ausgangszustand generiert und der offenen Liste hinzugef\"{u}gt. Die offenen Liste stellt dabei eine Priorit\"{a}ts-Warteschlange dar. So wird sichergestellt, dass bei der ersten Iteration der Wurzelknoten betrachtet wird.
 
 In der Iteration werden Knoten aus der offenen Liste expandiert. Bei einer Expansion ermittelt der Algorithmus mithilfe der Funktion \textit{TRANSITIONS}$(n)$ alle m\"{o}glichen Kanten \textit{ACTIONS}$(n)$, die vom aktuellen Knoten $n$ ausgehen und zu Kindknoten f\"{u}hren. F\"{u}r die Kindknoten wird eine Bewertung durch die Bewertungsfunktion $f(n)$ berechnet, die je nach Suchalgorithmus variiert. Diese Kindknoten werden daraufhin sortiert nach ihrer Bewertung der offenen Liste hinzugef\"{u}gt. Wenn ein Knoten expandiert wird, wird dieser aus der offenen Liste entfernt. Sollte der gelesene Knoten dem Ziel entsprechen, terminiert der Algorithmus und gibt den Knoten zur\"{u}ck. Ansonsten wird dieser expandiert und die resultierenden Kindknoten der offenen Liste hinzugef\"{u}gt. Die Iteration wird solange fortgef\"{u}hrt bis der Zielknoten gefunden wurde oder sich keine Knoten in der offenen Liste befinden und somit keine Knoten zu dem Ziel f\"{u}hren.
 
@@ -126,7 +126,7 @@ ENDE expandiere()
 \subsection{A* Algorithmus}
 \label{chap:a stern suchalgorithmus}
 
-Der A* Algorithmus geh\"{o}rt zu den informierten und heuristischen Suchverfahren und ist eine Form der Bestensuche. Er ist ein vollst\"{a}ndiger Algorithmus, was bedeutet, dass er einen Pfad zu dem Ziel und findet, wenn einer vorhanden ist. Der A*-Algorithmus wird h\"{a}ufig in Routenplanern eingesetzt. Unter anderem benutzten, Game-Engines wie Godot 4.3 den A*-Algorithmus f\"{u}r die Navigation von NPCs.
+Der A* Algorithmus geh\"{o}rt zu den informierten und heuristischen Suchverfahren und ist eine Form der Bestensuche. Er ist ein vollst\"{a}ndiger Algorithmus, was bedeutet, dass er einen Pfad zu dem Ziel findet, wenn einer vorhanden ist. Der A*-Algorithmus wird h\"{a}ufig in Routenplanern eingesetzt. Unter anderem benutzten, Game-Engines wie Godot 4.3 den A*-Algorithmus f\"{u}r die Navigation von NPCs.
 
 \subsubsection{Bewertungsfunktion}
 \label{chap:a stern bewertungsfunktion}
@@ -173,7 +173,7 @@ Arbeitet der A*-Algorithmus mit einer zul\"{a}ssigen oder konsistenten Heuristik
 Vorraussetzung:
 \begin{itemize}
 \item Der A*-Algorithmus expandiert auf Knoten mit der geringsten $f(n)$
-\item Wir haben zwei m\"{o}gliche Zielknoten:
+\item Es gibt zwei m\"{o}gliche Zielknoten:
 \begin{itemize}
 	\item optimaler Zielknoten: $G_o$
 	\item suboptimaler Zielknoten: $G_s_o$
