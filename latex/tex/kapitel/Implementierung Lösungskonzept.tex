@@ -51,12 +51,12 @@ Die Abbildung \ref{fig:GoapAgent} stellt die Klasse \textit{GoapAgent}, mit ihre
   \label{fig:GoapAgent}
 \end{figure}
 
-Die \textit{update}-Methode (Pseudocode \ref{lst:pseudo update}) ruft Methoden der Klassen und Komponenten innerhalb des NPC auf. Sie wird wiederum durch eine \textit{\_process} Funktion jedes \textit{Frame} aufgerufen, um Komponenten des \textit{GoapAgent} und und Abfragen nach einer neuen \textit{actions\_sequence} auszuführen. Der Parameter \textit{delta} repräsentiert die Zeit seit dem letzten \textit{Frame} und könnte an andere Methoden übergeben werden. Wurde eine neue \textit{action\_sequence} vom \textit{goap\_planner} gefunden, so wird die Instanzvariable \textit{current\_step} auf $0$ zurückgesetzt und die neue \textit{action\_sequence} aus dem \textit{goap\_planner} abgerufen. Die \textit{action\_sequence} wird daraufhin durch die Methode \textit{follow\_sequence} ausgeführt.
+Die \textit{update}-Methode (Pseudocode \ref{lst:pseudo update}) ruft Methoden der Klassen und Komponenten innerhalb des NPC auf. Sie wird wiederum durch eine \textit{\_process} Funktion jedes \textit{Frame} aufgerufen, um Komponenten des \textit{GoapAgent} und und Abfragen nach einer neuen \textit{actions\_"=sequence} auszuführen. Der Parameter \textit{delta} repräsentiert die Zeit seit dem letzten \textit{Frame} und könnte an andere Methoden übergeben werden. Wurde eine neue \textit{action\_sequence} vom \textit{goap\_planner} gefunden, so wird die Instanzvariable \textit{current\_step} auf $0$ zurückgesetzt und die neue \textit{action\_sequence} aus dem \textit{goap\_planner} abgerufen. Die \textit{action\_sequence} wird daraufhin durch die Methode \textit{follow\_sequence} ausgeführt.
 
 \"{U}ber die Methode \textit{follow\_sequence} geschieht die eigentliche Ausführung der Aktionen aus der \textit{action\_sequence}. Sollte \textit{action\_sequence} ungültig sein, so wird eine neue \textit{action\_sequence} durch \textit{goap\_planner.set\_create\_sequence(WAHR)} angefordert. Ansonsten wird mithilfe des \textit{current\_step} Index die jeweilige Aktion über ihre \textit{GoapAction} \textit{update} Methode ausgeführt. Bei erfolgreicher Ausführung der Aktion wird der \textit{current\_step} inkrementiert, um auf die nächste Aktion der \textit{action\_seqeunce} zuzugreifen.
 
 
-\begin{lstlisting}[language=Pseudo, caption={update Methode des GoapAgent}, mathescape=true, label={lst:pseudo update}]
+\begin{lstlisting}[language=Pseudo, caption={update und follow\_sequence Methode des GoapAgent}, mathescape=true, label={lst:pseudo update}]
 FUNKTION update(delta) $\rightarrow$ void
     WENN goap_planner.update() $\rightarrow$ neue action_sequence gefunden DANN
         current_step $\leftarrow$ 0
@@ -107,7 +107,7 @@ Das \textit{effect\_action\_dict} Dictionary speichert alle möglichen Effekte a
 % update
 Die Methode \textit{update} des \textit{GoapPlanner} (Pseudocode \ref{lst:pseudo planner update}) wird über die \textit{update}-Methode des \textit{GoapAgent} aufgerufen. Sie bestimmt das aktuelle Ziel (\textit{current\_goal}) und die zugehörige Aktionssequenz (\textit{action\_sequence}). Die Auswahl des besten Ziels erfolgt über die Methode \textit{get\_best\_goal}. Falls sich das Ziel während der Laufzeit ändert oder \textit{create\_sequence} auf \textit{true} gesetzt ist, wird \textit{create\_new\_sequence} eine neue Aktionssequenz generiert. Dazu wird ein Wurzelknoten des Typs \textit{AStarNode} erstellt, der an die \textit{a\_star\_algorithm} Methode übergeben wird. Ein \textit{AStarNode} (Klasse \ref{fig:AStarNode}) wird durch den Godot-Konstruktor \textit{\_init} instanziiert und besitzt die Eigenschaften eines Suchbaum-Knoten.
 
-\begin{lstlisting}[language=Pseudo, caption={update Methode des GoapAgent}, mathescape=true, label={lst:pseudo planner update}]
+\begin{lstlisting}[language=Pseudo, caption={update Methode des GoapPlanner}, mathescape=true, label={lst:pseudo planner update}]
 FUNKTION update(state_manager: StateManager) $\rightarrow$ bool
     current_state $\leftarrow$ state_manager.get_current_state()
     new_goal $\leftarrow$ get_best_goal()
@@ -131,7 +131,7 @@ ENDE FUNKTION
 
 Die \textit{a\_star\_algorithm}-Methode (Pseudocode \ref{lst:pseudo astar}) sucht gemäß den Regeln der Bestensuche (Kapitel \ref{lst:pseudo bestensuche}) als A*-Algorithmus nach dem optimalen Pfad.
 
-Darin speichert die \textit{open\_list} Knoten, deren Zustände noch nicht erfüllt sind. Sie wird als Prioritäts-Warteschlange implementiert und enthält \textit{AStarNode}-Knoten, die nach ihren geschätzten Gesamtkosten $f(n)$ sortiert sind. Da Godot 4.3 keine native Prioritäts-Warteschlange bietet, muss diese manuell umgesetzt werden. Ein einfaches Array wäre möglich, würde aber die Zugriffszeiten erhöhen. Die Umsetzung der Prioritäts-Warteschlange ist \autocite{oleg} zu entnehmen. Die \textit{closed\_list} ist ein Dictionary bereits besuchter \textit{AStarNodes}, und wird Mehrfachbesuche von bereits besuchten Knoten vermeiden. 
+Darin speichert die \textit{open\_list} Knoten, deren Zustände noch nicht erfüllt sind. Sie wird als Prioritäts-Warteschlange implementiert und enthält \textit{AStarNode}-Knoten, die nach ihren geschätzten Gesamtkosten $f(n)$ sortiert sind. Da Godot 4.3 keine native Prioritäts-Warteschlange bietet, muss diese manuell umgesetzt werden. Ein einfaches Array wäre möglich, würde aber die Zugriffszeiten erhöhen. Die Umsetzung der Prioritäts"=Warteschlange ist \autocite{oleg} zu entnehmen. Die \textit{closed\_list} ist ein Dictionary bereits besuchter \textit{AStarNodes}, und wird Mehrfachbesuche von bereits besuchten Knoten vermeiden. 
 
 Zunächst wird der \textit{root\_node} in die \textit{open\_list} eingefügt. Anschließend beginnt eine Schleife, die so lange läuft, wie noch Knoten in der \textit{open\_list} vorhanden sind. In jeder Iteration wird der Knoten mit den geringsten Kosten aus der \textit{open\_list} entnommen und als \textit{expanded\_node} gesetzt. Sollte dieser Knoten bereits alle Bedingungen erfüllen, wird die Methode \textit{create\_path} aufgerufen, um die optimale Aktionssequenz zu rekonstruieren, und das Ergebnis wird zurückgegeben. Falls der \textit{expanded\_node} noch zu erfüllende Zustände besitzt, wird er in die \textit{closed\_list} aufgenommen und an die Methode \textit{expand\_node} weitergegeben. Falls die \textit{open\_list} nach Abschluss der Schleife leer ist, wird eine leere Aktionssequenz zurückgegeben, da kein gültiger Pfad gefunden wurde.
 
