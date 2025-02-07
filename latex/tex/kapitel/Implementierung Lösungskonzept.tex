@@ -1,10 +1,7 @@
 \chapter{Implementierung des Lösungskonzepts}
 \label{chap:implementierung lk}
 
-Die praktische Umsetzung des GOAP-Systems wird nun in diesem Kapitel beschrieben. Es wird insbesondere auf die Umsetzung des GOAP-Entscheidungssystems eingegangen. Zunächst wird die grundlegende Architektur von GOAP mit ihren Modulen erläutert, gefolgt von einer Darstellung des Szenarios, in dem die Entscheidungssysteme implementiert werden. Abschlie\ss{}end wird die Realisierung der Benchmarks behandelt.
-
-
-
+Die praktische Umsetzung des GOAP-Systems wird nun in diesem Kapitel beschrieben. Es wird insbesondere auf die Umsetzung des GOAP-Entscheidungssystems eingegangen. Zunächst wird die grundlegende Architektur von GOAP mit ihren Modulen erläutert, gefolgt von einer Darstellung des Szenarios, in dem die Entscheidungssysteme implementiert werden. Abschlie\ss{}end wird die Realisierung der Benchmarks behandelt. Die Implementierung ist mit Quellcode ist unter \autocite{oleg} verfügbar.
 
 
 
@@ -133,7 +130,7 @@ ENDE FUNKTION
 
 Die \textit{a\_star\_algorithm}-Methode (Pseudocode \ref{lst:pseudo astar}) sucht gemäß den Regeln der Bestensuche (Kapitel \ref{lst:pseudo bestensuche}) als A*-Algorithmus nach dem optimalen Pfad.
 
-Darin speichert die \textit{open\_list} Knoten, deren Zustände noch nicht erfüllt sind. Sie wird als Prioritäts-Warteschlange implementiert und enthält \textit{AStarNode}-Knoten, die nach ihren geschätzten Gesamtkosten $f(n)$ sortiert sind. Da Godot 4.3 keine native Prioritäts-Warteschlange bietet, muss diese manuell umgesetzt werden. Ein einfaches Array wäre möglich, würde aber die Zugriffszeiten erhöhen. Eine Umsetzung ist dem Anhang zu entnehmen ref{}. Die \textit{closed\_list} ist ein Dictionary bereits besuchter \textit{AStarNodes}, und wird Mehrfachbesuche von bereits besuchten Knoten vermeiden. 
+Darin speichert die \textit{open\_list} Knoten, deren Zustände noch nicht erfüllt sind. Sie wird als Prioritäts-Warteschlange implementiert und enthält \textit{AStarNode}-Knoten, die nach ihren geschätzten Gesamtkosten $f(n)$ sortiert sind. Da Godot 4.3 keine native Prioritäts-Warteschlange bietet, muss diese manuell umgesetzt werden. Ein einfaches Array wäre möglich, würde aber die Zugriffszeiten erhöhen. Die Umsetzung der Prioritäts-Warteschlange ist \autocite{oleg} zu entnehmen. Die \textit{closed\_list} ist ein Dictionary bereits besuchter \textit{AStarNodes}, und wird Mehrfachbesuche von bereits besuchten Knoten vermeiden. 
 
 Zunächst wird der \textit{root\_node} in die \textit{open\_list} eingefügt. Anschließend beginnt eine Schleife, die so lange läuft, wie noch Knoten in der \textit{open\_list} vorhanden sind. In jeder Iteration wird der Knoten mit den geringsten Kosten aus der \textit{open\_list} entnommen und als \textit{expanded\_node} gesetzt. Sollte dieser Knoten bereits alle Bedingungen erfüllen, wird die Methode \textit{create\_path} aufgerufen, um die optimale Aktionssequenz zu rekonstruieren, und das Ergebnis wird zurückgegeben. Falls der \textit{expanded\_node} noch zu erfüllende Zustände besitzt, wird er in die \textit{closed\_list} aufgenommen und an die Methode \textit{expand\_node} weitergegeben. Falls die \textit{open\_list} nach Abschluss der Schleife leer ist, wird eine leere Aktionssequenz zurückgegeben, da kein gültiger Pfad gefunden wurde.
 

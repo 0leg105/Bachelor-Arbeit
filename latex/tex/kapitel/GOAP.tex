@@ -6,16 +6,16 @@ Das folgende Kapitel wird die Funktionsweise von GOAP beschreiben. Es geh\"{o}rt
 \section{Historie}
 \label{chap:goap historie}
 
-Das Entscheidungssystem GOAP entstand in der Entwicklung des Videospiel F.E.A.R durch das Entwicklerstudio Monolith. Die Entwickler wollten ein Videospiel entwickeln, das wie ein Actionfilm wirkt, mit intensiven K\"{a}mpfen. F\"{u}r die intensiven K\"{a}mpfe ben\"{o}tigt man NPC, welche Deckung nehmen, blind feuern, \"{u}ber Fenster springen, Granaten werfen, untereinander kommunizieren und weitere Aktionen ausf\"{u}hren k\"{o}nnen.\autocite{fear}
+Das Entscheidungssystem GOAP entstand in der Entwicklung des Videospiel F.E.A.R durch das Entwicklerstudio Monolith. Die Entwickler wollten ein Videospiel entwickeln, das wie ein Actionfilm wirkt, mit intensiven K\"{a}mpfen. F\"{u}r die intensiven K\"{a}mpfe ben\"{o}tigt man NPC, die Deckung nehmen, blind feuern, \"{u}ber Fenster springen, Granaten werfen, untereinander kommunizieren und weitere Aktionen ausf\"{u}hren k\"{o}nnen.\autocite{fear}
 
-Zuvor nutzte Monolith FSMs als Entscheidungssystem. Den Entwicklern fiel es jedoch zunehmend aufwendig, eine FSM mit neuen Zust\"{a}nden und den dazugeh\"{o}rigen Aktionen zu erweitern. In einem vorherigen Videospiel No One Lives Forever (2000), wurde veruscht eine dynamische FSM zu implementieren, die sich an Zielzust\"{a}nde anpassen konnte. Allerdings wurde auch diese L\"{o}sung als zu unflexibel wahrgenommen. Aus dem Versuch der dynamischen FSM und STRIPS hat Jeff Orkin das GOAP System entwickelt, welches Echtzeitplanung erf\"{u}llen soll. Eine der Herausforderungen, mit denen sich Jeff Orkin w\"{a}hrend der Entwicklung konfrontiert sah, war die Ber\"{u}cksichtigung der Performance.\autocite{retro_fear}
+Zuvor nutzte Monolith FSMs als Entscheidungssystem. Den Entwicklern fiel es jedoch zunehmend aufwendig, eine FSM mit neuen Zust\"{a}nden und den dazugeh\"{o}rigen Aktionen zu erweitern. In einem vorherigen Videospiel No One Lives Forever (2000), wurde veruscht eine dynamische FSM zu implementieren, die sich an Zielzust\"{a}nde anpassen konnte. Allerdings wurde auch diese L\"{o}sung als zu unflexibel wahrgenommen. Aus dem Versuch der dynamischen FSM und STRIPS hat Jeff Orkin das GOAP System entwickelt, die Echtzeitplanung erf\"{u}llt. Eine der Herausforderungen, mit denen sich Jeff Orkin w\"{a}hrend der Entwicklung konfrontiert sah, war die Ber\"{u}cksichtigung der Performance. \autocite{retro_fear}
 
 
 
 \section{GOAP Bestandteile}
 \label{chap:goap bestandteile}
 
-Das GOAP -System basiert dabei auf dem STRIPS System und wurde von Jeff Orkin entwickelt. Wie auch STRIPS besitzt GOAP Ziele, welche einen gew\"{u}nschten Zustand beschreiben und Goap-Aktion mit Effekten die Zust\"{a}nde \"{a}ndern k\"{o}nnen. GOAP sucht nach einer Sequenz an Goap-Aktion, der Aktions-Sequenz, die das Ziel des NPC erreichen kann. Im Sinne von Jeff Orkins geschieht die eigentliche Ausf\"{u}hrung der Aktionen \"{u}ber eine FSM. Die Informationen zu den Grundlagen kommen aus \autocite{fear, fear2, fear3}
+Das GOAP -System basiert dabei auf dem STRIPS System und wurde von Jeff Orkin entwickelt. Wie auch STRIPS besitzt GOAP-Ziele, die einen gew\"{u}nschten Zustand beschreiben und Goap-Aktion mit Effekten die Zust\"{a}nde \"{a}ndern k\"{o}nnen. GOAP sucht nach einer Sequenz an Goap-Aktion, der Aktions-Sequenz, die das Ziel des NPC erreichen kann. Im Sinne von Jeff Orkins geschieht die eigentliche Ausf\"{u}hrung der Aktionen \"{u}ber eine FSM. Die Informationen zu den Grundlagen kommen aus \autocite{fear, fear2, fear3}
 
 
 \subsection{Finite State Machine in GOAP}
@@ -32,7 +32,7 @@ Das Videospiel F.E.A.R (2005) ben\"{o}tigt f\"{u}r die Ausf\"{u}hrung der Aktion
 
 Die Monolith-Entwickler hat durch die Zust\"{a}nde \textit{Animate} und \textit{UseSmartObject} Animationen umgesetzt. Der Unterschied zwischen den beiden Zust\"{a}nden besteht darin, dass \textit{UseSmartObject} Animationen steuert, die von \textit{SmartObjects} in der Spielwelt vorgegeben werden, w\"{a}hrend \textit{Animate} Animationen abspielt, die direkt im NPC gespeichert sind. Der Zustand \textit{GoTo} hat ebenfalls Animationen abgespielt, kombiniert diese jedoch mit der tats\"{a}chlichen Bewegung des NPCs durch die Spielwelt.
 
-Die Zustandswechsel werden durch die Goap-Aktion bestimmt, welche wiederum durch GOAP gegeben werden.
+Die Zustandswechsel werden durch die Goap-Aktion bestimmt, die wiederum durch GOAP gegeben werden.
 
 
 \subsection{GOAP Ziele}
@@ -130,7 +130,7 @@ Knoten speichern die nicht erf\"{u}llten Zust\"{a}nde des NPC f\"{u}r das erreic
 \subsubsection{Bewertungsfunktion}
 \label{chap:goap bewertungsfunktion}
 
-Die Bewertungsfunktion des A*-Suchalgorithmus setzt sich aus $f(n) = g(n) + h(n)$ zusammen. In GOAP ist $g(n)$ die Funktion $\textit{ACTIONCOST}(s,a,s^*)$, welche die Kosten der Kante darstellt, also die Kosten f\"{u}r die Ausf\"{u}hrung der Goap-Aktion $a$, die vom Zustand $s$ zum Zielzustand $s^$ f\"{u}hrt. Die Heuristik $h(n)$ wird durch die Summe der noch nicht erf\"{u}llten Zust\"{a}nde des jeweiligen Knotens dargestellt. Je geringer der Wert von $h(n)$, desto n\"{a}her ist der Knoten dem Ziel. 
+Die Bewertungsfunktion des A*-Suchalgorithmus setzt sich aus $f(n) = g(n) + h(n)$ zusammen. In GOAP ist $g(n)$ die Funktion $\textit{ACTIONCOST}(s,a,s^*)$, die die Kosten der Kante darstellt, also die Kosten f\"{u}r die Ausf\"{u}hrung der Goap-Aktion $a$, die vom Zustand $s$ zum Zielzustand $s^$ f\"{u}hrt. Die Heuristik $h(n)$ wird durch die Summe der noch nicht erf\"{u}llten Zust\"{a}nde des jeweiligen Knotens dargestellt. Je geringer der Wert von $h(n)$, desto n\"{a}her ist der Knoten dem Ziel. 
 
 
 \subsubsection{Suche der Aktions-Sequenz}
@@ -200,13 +200,13 @@ Der Algorithmus erstellt nun einen Suchbaum. Der Wurzelknoten im Suchbaum speich
   \centering
   \includegraphics[width=0.5\textwidth]{GOAP/goap baum 1}
 	\captionsetup{justification=justified, format=plain}
-  \caption{GOAP A* Suche: Gr\"{u}ne Knoten sind Knoten, welche erweitert wurden. Blaue Knoten sind Knoten aus der offenen Liste.}
+  \caption{GOAP A* Suche: Gr\"{u}ne Knoten sind Knoten, die erweitert wurden. Blaue Knoten sind Knoten aus der offenen Liste.}
   \label{fig:goap1}
 \end{figure}
 
 Nun sucht der Planer alle m\"{o}glichen Aktionen die den Zielzustand erreichen ($\textit{ACTIONS}(s_z)$ $= {\textit{Shoot}, \textit{Melee}}$). Es werden nicht erf\"{u}llte und vorausgesetzte Zust\"{a}nde der gefundenen Aktionen, sowie die Kosten $g(n)$ und $f(n)$ in den Knoten hinterlegt. Beide werden in die offene Liste hinzugef\"{u}gt.
 
-Zur weiteren Suche entscheidet sich der A* Algorithmus f\"{u}r den Knoten mit den geringsten Kosten aus der offenen Liste, welcher durch die Bewertungsfunktion $f(n) = g(n) + h(n)$ berechnet wurde. Die Kosten $g(n)$ werden durch die $\textit{ACTIONCOST}$-Funktion gelesen. Die Heuristik $h(n)$ stellt sich durch die Summe an noch nicht erf\"{u}llten Zust\"{a}nden. Im Beispiel expandiert A* den Knoten \textit{GunLoaded, AtCover} der durch die Aktion \textit{Shoot} generiert wurde. Der Zustand \textit{AtPlayer} bleibt weiterhin in der offenen Liste.
+Zur weiteren Suche entscheidet sich der A*-Algorithmus f\"{u}r den Knoten mit den geringsten Kosten aus der offenen Liste, die durch die Bewertungsfunktion $f(n) = g(n) + h(n)$ berechnet wurde. Die Kosten $g(n)$ werden durch die $\textit{ACTIONCOST}$-Funktion gelesen. Die Heuristik $h(n)$ stellt sich durch die Summe an noch nicht erf\"{u}llten Zust\"{a}nden. Im Beispiel expandiert A* den Knoten \textit{GunLoaded, AtCover} der durch die Aktion \textit{Shoot} generiert wurde. Der Zustand \textit{AtPlayer} bleibt weiterhin in der offenen Liste.
 
 \begin{figure}[h]
   \centering
