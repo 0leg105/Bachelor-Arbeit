@@ -15,7 +15,7 @@ Zuvor nutzte Monolith FSMs als Entscheidungssysteme. Den Entwicklern fiel es jed
 \section{GOAP Bestandteile}
 \label{chap:goap bestandteile}
 
-Das GOAP-System basiert dabei auf dem STRIPS System. Wie auch STRIPS besitzt GOAP Ziele (GOAP-Ziele), die einen gew\"{u}nschten Zustand beschreiben und Aktionen (GOAP-Aktione) mit Effekten die Zust\"{a}nde \"{a}ndern k\"{o}nnen. So sucht GOAP nach einer Sequenz an GOAP-Aktionen, der Aktions-Sequenz, die das GOAP-Ziel des NPC erreichen kann. Im Sinne von Jeff Orkins geschieht die eigentliche Ausf\"{u}hrung der Aktionen \"{u}ber eine FSM. Die Informationen zu den Grundlagen kommen aus \autocite{fear, fear2, fear3}
+Das GOAP-System basiert dabei auf dem STRIPS System. Wie auch STRIPS besitzt GOAP Ziele (GOAP-Ziele), die einen gew\"{u}nschten Zustand beschreiben und Aktionen (GOAP-Aktione) mit Effekten die Zust\"{a}nde \"{a}ndern k\"{o}nnen. So sucht GOAP nach einer Sequenz an GOAP-Aktionen, der Aktions-Sequenz, die das GOAP-Ziel des NPC erreichen kann. Im Sinne von Jeff Orkins geschieht die eigentliche Ausf\"{u}hrung der Aktionen \"{u}ber eine FSM. Die Informationen zu den Grundlagen kommen aus \autocite{fear, fear2, fear3}.
 
 
 \subsection{Finite State Machine in GOAP}
@@ -169,7 +169,7 @@ Wir setzten das Beispiel mit dem Wissen \"{u}ber den GOAP Planer fort. Dabei def
     \end{tabularx}
 \end{table}
 
-Der GOAP Planer w\"{a}hlt das GOAP-Ziel (Tabelle \ref{tab:goap goals table}) mit der h\"{o}chsten Priorit\"{a}t und G\"{u}ltigkeit. Das GOAP-Ziel \textit{Patrol} ist aufgrund der \textit{VALID(s,Patrol)} Funktion ung\"{u}ltig, da ${AtLastPlayerPostion}$ nicht mit dem Wert von $s_a$ übereinstimmt und somit ausf\"{a}llt. Es verbleiben die Ziele: \textit{EliminatePlayer} und \textit{SearchEnemy}. Da \textit{EliminatePlayer} mit $\textit{PRIORTIY}(s,\textit{EliminatePlayer}) = 3$ die h\"{o}here Priorit\"{a}t hat, wird diese als GOAP-Ziel ausgew\"{a}hlt.
+Der GOAP Planer w\"{a}hlt das GOAP-Ziel (Tabelle \ref{tab:goap goals table}) mit der h\"{o}chsten Priorit\"{a}t und G\"{u}ltigkeit. Das GOAP-Ziel \textit{Patrol} ist aufgrund der \textit{VALID(s,Patrol)} Funktion ung\"{u}ltig, da \textit{{AtLastPlayerPostion}} nicht mit dem Wert von $s_a$ übereinstimmt und somit ausf\"{a}llt. Es verbleiben die Ziele: \textit{EliminatePlayer} und \textit{SearchEnemy}. Da \textit{EliminatePlayer} mit $\textit{PRIORTIY}$ $(s,\textit{EliminatePlayer}) = 3$ die h\"{o}here Priorit\"{a}t hat, wird diese als GOAP-Ziel ausgew\"{a}hlt.
 
 \subsubsection{Suche nach der Aktion-Sequenz}
 \label{chap:goap suche nach aktionen}

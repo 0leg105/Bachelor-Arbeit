@@ -1,7 +1,7 @@
 \chapter{Implementierung des Lösungskonzepts}
 \label{chap:implementierung lk}
 
-Die praktische Umsetzung des GOAP-Systems wird nun in diesem Kapitel beschrieben. Es wird insbesondere auf die Umsetzung des GOAP-Entscheidungssystems eingegangen. Zunächst wird die grundlegende Architektur von GOAP mit ihren Modulen erläutert, gefolgt von einer Darstellung des Szenarios, in dem die Entscheidungssysteme implementiert werden. Abschlie\ss{}end wird die Realisierung der Benchmarks behandelt. Die Implementierung ist mit Quellcode ist unter \autocite{oleg} verfügbar.
+Die praktische Umsetzung des GOAP-Systems wird nun in diesem Kapitel beschrieben. Es wird insbesondere auf die Umsetzung des GOAP-Entscheidungssystems eingegangen. Zunächst wird die grundlegende Architektur von GOAP mit ihren Modulen erläutert, gefolgt von einer Darstellung des Szenarios, in dem die Entscheidungssysteme implementiert werden. Abschlie\ss{}end wird die Realisierung der Benchmarks behandelt. Die Implementierung ist mit Quellcode unter \autocite{oleg} verfügbar.
 
 
 
@@ -41,7 +41,7 @@ In der Architektur wird keine FSM umgesetzt, da die NPCs keine Animationen umfas
 \subsection{GoapAgent}
 \label{chap:goapagent uml}
 
-Die Abbildung \ref{fig:GoapAgent} stellt die Klasse \textit{GoapAgent}, mit ihren Klassenattributen und Methoden dar. Der \textit{goap\_planner} ist eine Referenz auf die Klasse \textit{GoapPlanner}, die die \textit{action\_se"=quence} des \textit{GoapAgent} bestimmt. Das Array \textit{action\_sequence} speichert Objekte vom Typ der Klasse \textit{GoapAction}. Sie stellt die ermittelte Aktions-Sequenz durch den A*-Algorithmus dar. Die Integer-Klassenvariable \textit{current\_step} fungiert als Indexzeiger, der auf die aktuell auszuführende Aktion des \textit{action\_sequence} verweist.
+Die Abbildung \ref{fig:GoapAgent} stellt die Klasse \textit{GoapAgent}, mit ihren Klassenattributen und Methoden dar. Der \textit{goap\_planner} ist eine Referenz auf die Klasse \textit{GoapPlanner}, die die \textit{action\_sequence} des \textit{GoapAgent} bestimmt. Das Array \textit{action\_sequence} speichert Objekte vom Typ der Klasse \textit{GoapAction}. Sie stellt die ermittelte Aktions-Sequenz durch den A*-Algorithmus dar. Die Integer-Klassenvariable \textit{current\_step} fungiert als Indexzeiger, der auf die aktuell auszuführende Aktion des \textit{action\_sequence} verweist.
 
 \begin{figure}[h]
   \centering
