@@ -17,8 +17,8 @@ Class=LaTeXView
 Document=kapitel\Implementierung Lösungskonzept.tex
 
 [Frame0_View0,0]
-TopLine=24
-Cursor=4583
+TopLine=234
+Cursor=18748
 
 [Frame1]
 Flags=0
@@ -89,7 +89,7 @@ Class=LaTeXView
 Document=kapitel\Videospielentwicklung.tex
 
 [Frame4_View0,0]
-TopLine=66
+TopLine=73
 Cursor=9302
 
 [Frame5]
@@ -107,7 +107,7 @@ Class=LaTeXView
 Document=kapitel\Entscheidungssysteme.tex
 
 [Frame5_View0,0]
-TopLine=44
+TopLine=50
 Cursor=9261
 
 [Frame6]
@@ -143,7 +143,7 @@ Class=LaTeXView
 Document=kapitel\GOAP.tex
 
 [Frame7_View0,0]
-TopLine=144
+TopLine=159
 Cursor=12140
 
 [Frame8]
@@ -161,7 +161,7 @@ Class=LaTeXView
 Document=kapitel\State of the art.tex
 
 [Frame8_View0,0]
-TopLine=115
+TopLine=125
 Cursor=14313
 
 [Frame9]
@@ -256,5 +256,5 @@ Cursor=34
 
 [SessionInfo]
 FrameCount=14
-ActiveFrame=10
+ActiveFrame=0
 

@@ -13,6 +13,7 @@ Die praktische Umsetzung des GOAP-Systems wird nun in diesem Kapitel beschrieben
 
 Die grundlegende GOAP Architektur wird anhand von UML-Notationen in der Abbildung \ref{fig:GOAP Architektur} dargestellt und erläutert. Die Architektur basiert dabei auf den Informationen des GOAP-Kapitels \ref{chap:goap} und der F.E.A.R SDK \autocite{fearsdk}. Sie stellt die Grundlage für die Implementierung des Entscheidungssystems. Aus dem GOAP-Kapitel geht hervor, dass ein GOAP-System aus einem Planner, GOAP-Zielen, GOAP-Aktionen und einer FSM besteht. Diese einzelnen Module werden mit ihren Aufgaben in der Architektur umgesetzt und folglich erläutert.
 
+\vspace{10mm}
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.8\textwidth, trim=20 20 20 20]{Implementation/goap arc.pdf}
@@ -228,6 +229,7 @@ Die \textit{update} Methode leitet die eigentliche Ausführung der Aktion durch 
 
 Die Benchmarks benötigen eine Umgebung, auf der die NPCs mit ihren jeweiligen Entscheidungssystemen getestet werden. Zu diesem Zweck agieren die NPCs in einer 2D kartierbaren Spielwelt, die in der Abbildung \ref{fig:ego shooter} dargestellt wird. Die NPC-Klassen unterscheiden sich in ihren Entscheidungssystemen, die Komponenten, die für eine Ausführung einer Aktion benötigt werden bleiben für alle NPC-Klassen identisch und werden mit der Oberklasse Npc vererbt. Bei den Komponenten handelt es sich um: Vision-, Health-, Hit-, Melee-, Shoot-, Neighbor-, Move, LookAt-, Patrol-, Cover-, Vision- und PlayerBlock-Component. Sie ändern dabei die Zustände des StateManager, die in der GOAP-Architektur erläutert wird.
 
+\vspace{5mm}
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.7\textwidth, trim=20 20 20 20]{Implementation/npc class.pdf}
