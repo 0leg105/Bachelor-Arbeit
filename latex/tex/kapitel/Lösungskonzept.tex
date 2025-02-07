@@ -1,14 +1,14 @@
 \chapter{L\"{o}sungskonzept}
 \label{chap:loesungskonzept}
 
-Ziel dieser Thesis ist es, die Entscheidungssysteme FSM, BT und GOAP zu vergleichen und anschlie\ss{}end zu bewerten. Die Entscheidungssysteme werden auf die folgenden Punkte verglichen: Erlernbarkeit, Implementation, Skalierbarkeit, Debugging, Performance und Speicherverbrauch.
+Ziel dieser Thesis ist es, die Entscheidungssysteme FSM, BT und GOAP zu vergleichen und anschlie\ss{}end zu bewerten. Die Entscheidungssysteme werden auf die folgenden Punkte verglichen: Erlernbarkeit, Implementierung, Skalierbarkeit, Debugging, Performance und Speicherverbrauch.
 
 F\"{u}r den Vergleich und die abschlie\ss{}ende Bewertung werden sowohl wissenschaftliche Literatur als auch eigene Erfahrungen herangezogen. Letztere basieren auf einer Implementierung der drei genannten Entscheidungssysteme in einem spezifischen Szenario. Aus diesem Szenario wird anschlie\ss{}end \"{u}ber Benchmarks die Performance und der Speicherverbrauch gemessen. Es soll insbesondere die Umsetzung des GOAP-Entscheidungssystem beschrieben werden. Die beiden Entscheidungssysteme FSM und BT wurden in den Grundkapitel\ref{chap:ahba} erl\"{a}utert.
 
 \section{Implementierung}
 \label{chap:lk implementierung}
 
-Durch eine eigenst\"{a}ndige Implementation sollen praktische Erfahrungen in den Vergleich und die Bewertung der Entscheidungssysteme einflie\ss{}en. Die Implementierung erfolgt in Form eines FPS Szenario unter Verwendung der Game-Engine Godot 4.3. Die Spielwelt des Implementation ist dabei 2D-kartierbar und enth\"{a}lt Deckungen wie W\"{a}nde und S\"{a}ulen sowie eine vom Spieler gesteuerte Spielfigur und verschiedene NPC-Klassen. Der Spieler kann sich auf der Spielwelt frei bewegen und von NPCs erkannt werden. Diese NPCs sind dem Spieler feindlich gesinnt und besitzen einfache Aktionen und Ziele. Ihr Ziel ist es, den Spieler zu finden und zu eliminieren.
+Durch eine eigenst\"{a}ndige Implementierung sollen praktische Erfahrungen in den Vergleich und die Bewertung der Entscheidungssysteme einflie\ss{}en. Die Implementierung erfolgt in Form eines FPS Szenario unter Verwendung der Game-Engine Godot 4.3. Die Spielwelt der Implementierung ist dabei 2D-kartierbar und enth\"{a}lt Deckungen wie W\"{a}nde und S\"{a}ulen sowie eine vom Spieler gesteuerte Spielfigur und verschiedene NPC-Klassen. Der Spieler kann sich auf der Spielwelt frei bewegen und von NPCs erkannt werden. Diese NPCs sind dem Spieler feindlich gesinnt und besitzen einfache Aktionen und Ziele. Ihr Ziel ist es, den Spieler zu finden und zu eliminieren.
 
 Um das Ziel zu erreichen, werden Aktionen in Form von Komponenten realisiert wie: schie\ss{}en, bewegen, umschauen, sehen, patrouillieren, Spieler-, Deckung suchen und nachladen. Die NPC-Klassen unterscheiden sich in ihren verwendeten Entscheidungssystemen, nutzen jedoch dieselben Komponenten zur Ausf\"{u}hrung ihrer Aktionen. Zwar werden f\"{u}r das Szenario eigenst\"{a}ndige Komponenten entwickelt, diese werden jedoch nicht weiter beschrieben.
 
