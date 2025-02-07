@@ -1,7 +1,7 @@
 \chapter{Suchproblem und Suchalgorithmen}
 \label{chap:suchproblem und suchalgorithmen}
 
-Ein Agent muss f\"{u}r ein bestimmtes Ziel die richtige Auswahl an Aktionen treffen, die nach ihrer Ausf\"{u}hrung den Zielzustand erreichen. Der Prozess der Bestimmung der Abfolge von Aktionen wird als Suche bezeichnet und mithilfe von Suchalgorithmen, wie A$^*$, durchgef\"{u}hrt. F\"{u}r diesen Prozess ben\"{o}tigt der Agent einen solchen Raum mit Regeln und Informationen, der im Suchproblem definiert wird. Ein Suchalgorithmus sucht die richtige Auswahl an Aktionen und gibt sie in eine Aktions-Sequenz wieder. Die Suche der Aktionen geschieht \"{u}ber einen Suchbaum, der durch das Suchproblem definiert wird. Die Informationen des Kapitels basieren auf den wissenschaftlichen Arbeiten \autocite{RN2020, 4082128, Felner2011}.
+Ein Agent muss f\"{u}r ein bestimmtes Ziel die richtige Auswahl an Aktionen treffen, die nach ihrer Ausf\"{u}hrung den Zielzustand erreichen. Der Prozess der Bestimmung der Abfolge von Aktionen wird als Suche bezeichnet und mithilfe von Suchalgorithmen, wie A*, durchgef\"{u}hrt. F\"{u}r diesen Prozess ben\"{o}tigt der Agent einen solchen Raum mit Regeln und Informationen, der im Suchproblem definiert wird. Ein Suchalgorithmus sucht die richtige Auswahl an Aktionen und gibt sie in eine Aktions-Sequenz wieder. Die Suche der Aktionen geschieht \"{u}ber einen Suchbaum, der durch das Suchproblem definiert wird. Die Informationen des Kapitels basieren auf den wissenschaftlichen Arbeiten \autocite{RN2020, 4082128, Felner2011}.
 
 \section{Suchproblem}
 \label{chap:suchproblem}
@@ -123,15 +123,15 @@ FUNKTION expandiere(Knoten) $\rightarrow$ Kindknoten Array
 ENDE expandiere()
 \end{lstlisting}
 
-\subsection{A$^*$ Algorithmus}
+\subsection{A* Algorithmus}
 \label{chap:a stern suchalgorithmus}
 
-Der A$^*$ Algorithmus geh\"{o}rt zu den informierten und heuristischen Suchverfahren und ist eine Form der Bestensuche. Er ist ein vollst\"{a}ndiger Algorithmus, was bedeutet, dass er einen Pfad zu dem Ziel und findet, wenn einer vorhanden ist. Der A$^$-Algorithmus wird h\"{a}ufig in Routenplanern eingesetzt. Unter anderem benutzten, Game-Engines wie Godot 4.3 den A$^*$-Algorithmus f\"{u}r die Navigation von NPCs.
+Der A* Algorithmus geh\"{o}rt zu den informierten und heuristischen Suchverfahren und ist eine Form der Bestensuche. Er ist ein vollst\"{a}ndiger Algorithmus, was bedeutet, dass er einen Pfad zu dem Ziel und findet, wenn einer vorhanden ist. Der A*-Algorithmus wird h\"{a}ufig in Routenplanern eingesetzt. Unter anderem benutzten, Game-Engines wie Godot 4.3 den A*-Algorithmus f\"{u}r die Navigation von NPCs.
 
 \subsubsection{Bewertungsfunktion}
 \label{chap:a stern bewertungsfunktion}
 
-Bestensuchen benutzen eine Bewertungsfunktion $f(n)$, die dazu dient die Priorit\"{a}t eines Knoten $n$ w\"{a}hrend der Suche zu bewerten. Bei der Bewertungsfunktion des A$^*$ Algorithmus werden dabei alle Pfad-Kosten $g(n)$ vom Ausgangsknoten bis zu dem Knoten $n$ mit der Heuristik $h(n)$ des Knoten $n$ summiert.
+Bestensuchen benutzen eine Bewertungsfunktion $f(n)$, die dazu dient die Priorit\"{a}t eines Knoten $n$ w\"{a}hrend der Suche zu bewerten. Bei der Bewertungsfunktion des A*-Algorithmus werden dabei alle Pfad-Kosten $g(n)$ vom Ausgangsknoten bis zu dem Knoten $n$ mit der Heuristik $h(n)$ des Knoten $n$ summiert.
 
 
 \begin{align}
@@ -148,7 +148,7 @@ Mit jeder Erweiterung des Pfades von $n$ zu $n^{\ast}$ steigen die Kosten $g(n)$
 
 \subsubsection{Heuristik}
 
-Ein Suchalgorithmus sollte einen Pfad mit m\"{o}glichst geringen Kosten zum Ziel finden, der als optimaler Pfad bezeichnet wird. Ob der A$^*$ Algorithmus einen optimalen Pfad findet, h\"{a}ngt von den Eigenschaften der Heuristik $h(n)$ ab. Eine Heuristik weist die Eigenschaften der Zul\"{a}ssigkeit und Konsistenz auf. Bei einer zul\"{a}ssigen Heuristik werden die Kosten stets untersch\"{a}tzt oder genau gesch\"{a}tzt. Die Kosten einer solchen Heuristik bleiben stets im Intervall $[0, h^{\ast}(n)]$ der tats\"{a}chlichen Kosten des Zielknoten $h^{\ast}(n)$.
+Ein Suchalgorithmus sollte einen Pfad mit m\"{o}glichst geringen Kosten zum Ziel finden, der als optimaler Pfad bezeichnet wird. Ob der A*-Algorithmus einen optimalen Pfad findet, h\"{a}ngt von den Eigenschaften der Heuristik $h(n)$ ab. Eine Heuristik weist die Eigenschaften der Zul\"{a}ssigkeit und Konsistenz auf. Bei einer zul\"{a}ssigen Heuristik werden die Kosten stets untersch\"{a}tzt oder genau gesch\"{a}tzt. Die Kosten einer solchen Heuristik bleiben stets im Intervall $[0, h^{\ast}(n)]$ der tats\"{a}chlichen Kosten des Zielknoten $h^{\ast}(n)$.
 
 \begin{align}
 			0 \leq h(n) \leq h^*(n)
@@ -168,11 +168,11 @@ Bei einer inkonsistenten Heuristik k\"{o}nnen Pfade auftreten, die zu dem selben
 \subsubsection{Beweis f\"{u}r Optimalit\"{a}t}
 \label{chap:a stern be}
 
-Arbeitet der A$^*$ Algorithmus mit einer zul\"{a}ssigen oder konsistenten Heuristik, so wird diese den optimalen, kosteng\"{u}nstigsten Pfad zu einem Ziel finden.
+Arbeitet der A*-Algorithmus mit einer zul\"{a}ssigen oder konsistenten Heuristik, so wird diese den optimalen, kosteng\"{u}nstigsten Pfad zu einem Ziel finden.
 
 Vorraussetzung:
 \begin{itemize}
-\item Der A$^*$ Algorithmus expandiert auf Knoten mit der geringsten $f(n)$
+\item Der A*-Algorithmus expandiert auf Knoten mit der geringsten $f(n)$
 \item Wir haben zwei m\"{o}gliche Zielknoten:
 \begin{itemize}
 	\item optimaler Zielknoten: $G_o$
@@ -201,4 +201,4 @@ Beweis:
 			f(n) &< g(G_o)
 		\end{align}
 \end{enumerate}
-Aus 1. und 2. folgt: $f(n) < f(G_o) < f(G_s_o)$. Somit w\"{u}rde der A$^*$ Algorithmus nicht zu $G_s_o$ f\"{u}hren und ist mit einer zul\"{a}ssigen Heuristik optimal.
+Aus 1. und 2. folgt: $f(n) < f(G_o) < f(G_s_o)$. Somit w\"{u}rde der A*-Algorithmus nicht zu $G_s_o$ f\"{u}hren und ist mit einer zul\"{a}ssigen Heuristik optimal.

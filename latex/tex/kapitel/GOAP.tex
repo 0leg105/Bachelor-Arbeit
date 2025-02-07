@@ -94,18 +94,18 @@ Der NPC muss nun versuchen das Ziel mit den m\"{o}glichen Goap-Aktion den Zielzu
 \end{align}
 
 
-Aus der \textit{TRANSITIONS} Funktion k\"{o}nnen wir entnehmen, dass keine der Goap-Aktion den Zustand $\lnot \textit{PlayerAlive}$ direkt erreichen kann. Es muss ein Zustand entdeckt werden aus dem mit einer entsprechenden Goap-Aktion das Ziel erreicht werden kann. Eine L\"{o}sung w\"{a}re \textit{Brute Force}, das durchgehen aller m\"{o}glichen Goap-Aktion bis letztlich das Ziel gefunden wird. Dies sorgt jedoch f\"{u}r einen hohen Rechenaufwand bei komplexen NPC mit vielen Goap-Aktion und Zust\"{a}nden. Au\ss{}erdem k\"{o}nnen beim \textit{Brute Force} suboptimale Aktions-Sequenzen gefunden werden, da dieser die Kosten der Goap-Aktion nicht beachtet. In GOAP sucht der A*-Suchalgorithmus \"{u}ber den GOAP Planer die optimale Aktions-Sequenz.
+Aus der \textit{TRANSITIONS} Funktion k\"{o}nnen wir entnehmen, dass keine der Goap-Aktion den Zustand $\lnot \textit{PlayerAlive}$ direkt erreichen kann. Es muss ein Zustand entdeckt werden aus dem mit einer entsprechenden Goap-Aktion das Ziel erreicht werden kann. Eine L\"{o}sung w\"{a}re \textit{Brute Force}, das durchgehen aller m\"{o}glichen Goap-Aktion bis letztlich das Ziel gefunden wird. Dies sorgt jedoch f\"{u}r einen hohen Rechenaufwand bei komplexen NPC mit vielen Goap-Aktion und Zust\"{a}nden. Au\ss{}erdem k\"{o}nnen beim \textit{Brute Force} suboptimale Aktions-Sequenzen gefunden werden, da dieser die Kosten der Goap-Aktion nicht beachtet. In GOAP sucht der A*-Algorithmus \"{u}ber den GOAP Planer die optimale Aktions-Sequenz.
 
 
 \subsection{GOAP Planer}
 \label{chap:goap planer}
 
-Der GOAP Planer ist dabei die eigentliche L\"{o}sung des Suchproblems. Der Planer bestimmt das Ziel mit der h\"{o}chsten Priorit\"{a}t und G\"{u}ltigkeit. Die dazugeh\"{o}rige Aktions-Sequenz wird \"{u}ber den A*-Suchalgorithmus im GOAP Planer gesucht. Der A*-Suchalgorithmus wird im Kapitel \ref{chap:a stern suchalgorithmus} Suchalgorithmen ausf\"{u}hrlich beschrieben.
+Der GOAP Planer ist dabei die eigentliche L\"{o}sung des Suchproblems. Der Planer bestimmt das Ziel mit der h\"{o}chsten Priorit\"{a}t und G\"{u}ltigkeit. Die dazugeh\"{o}rige Aktions-Sequenz wird \"{u}ber den A*-Algorithmus im GOAP Planer gesucht. Der A*-Algorithmus wird im Kapitel \ref{chap:a stern suchalgorithmus} Suchalgorithmen ausf\"{u}hrlich beschrieben.
 
 \subsubsection{Knoten und Kanten}
 \label{chap:goap knoten und kanten}
 
-Der A*-Suchalgorithmus ist in der Videospiel-Entwicklung f\"{u}r die Suche des Navigation-Pfades bekannt. Er kann aber auch f\"{u}r andere Suchprobleme genutzt werden, wie f\"{u}r die Suche einer Aktion-Sequenz. Wie auch f\"{u}r die Navigation erzeugt der A*-Suchalgorithmus einen Suchbaum, mit dem Unterschied, dass die Knoten Zust\"{a}nde des NPC sind, die durch die Kanten also Goap-Aktionen erzeugt werden.
+Der A*-Algorithmus ist in der Videospiel-Entwicklung f\"{u}r die Suche des Navigation-Pfades bekannt. Er kann aber auch f\"{u}r andere Suchprobleme genutzt werden, wie f\"{u}r die Suche einer Aktion-Sequenz. Wie auch f\"{u}r die Navigation erzeugt der A*-Algorithmus einen Suchbaum, mit dem Unterschied, dass die Knoten Zust\"{a}nde des NPC sind, die durch die Kanten also Goap-Aktionen erzeugt werden.
 
 Knoten speichern die nicht erf\"{u}llten Zust\"{a}nde des NPC f\"{u}r das erreichen des Zieles ab, w\"{a}hrend Kanten die Goap-Aktionen darstellen die von einem Knoten zu einem neuen Knoten f\"{u}hren.
 
@@ -129,7 +129,7 @@ Knoten speichern die nicht erf\"{u}llten Zust\"{a}nde des NPC f\"{u}r das erreic
 \subsubsection{Bewertungsfunktion}
 \label{chap:goap bewertungsfunktion}
 
-Die Bewertungsfunktion des A*-Suchalgorithmus setzt sich aus $f(n) = g(n) + h(n)$ zusammen. In GOAP ist $g(n)$ die Funktion $\textit{ACTIONCOST}(s,a,s^*)$, die die Kosten der Kante darstellt, also die Kosten f\"{u}r die Ausf\"{u}hrung der Goap-Aktion $a$, die vom Zustand $s$ zum Zielzustand $s^$ f\"{u}hrt. Die Heuristik $h(n)$ wird durch die Summe der noch nicht erf\"{u}llten Zust\"{a}nde des jeweiligen Knotens dargestellt. Je geringer der Wert von $h(n)$, desto n\"{a}her ist der Knoten dem Ziel. 
+Die Bewertungsfunktion des A*-Algorithmus setzt sich aus $f(n) = g(n) + h(n)$ zusammen. In GOAP ist $g(n)$ die Funktion $\textit{ACTIONCOST}(s,a,s^*)$, die die Kosten der Kante darstellt, also die Kosten f\"{u}r die Ausf\"{u}hrung der Goap-Aktion $a$, die vom Zustand $s$ zum Zielzustand $s^$ f\"{u}hrt. Die Heuristik $h(n)$ wird durch die Summe der noch nicht erf\"{u}llten Zust\"{a}nde des jeweiligen Knotens dargestellt. Je geringer der Wert von $h(n)$, desto n\"{a}her ist der Knoten dem Ziel. 
 
 
 \subsubsection{Suche der Aktions-Sequenz}
@@ -257,7 +257,7 @@ Aus der offenen Liste wird der n\"{a}chste Knoten mit dem Zustand \textit{AtPlay
 
 \textit{Generierung (Abbildung \ref{fig:goap5}):}
 
-Letztlich wird der g\"{u}nstigste Knoten aus der offenen Liste genommen. Da dieser erf\"{u}llt ist, beziehungsweise keine weiteren Zust\"{a}nde besitzt, gibt der Planer nun die Goap-Aktionen, also die Kanten, die zu ihm gef\"{u}hrt habe in einer Aktions-Sequenz zur\"{u}ck. Im Beispiel w\"{a}re es die Aktions-Sequenz: [\textit{Melee, GoTo}]. Diese Aktions-Sequenz muss nun gespiegelt werden, da der A*-Suchalgorithmus vom Zielzustand angefangen hat. Somit w\"{a}re die richtige Aktions-Sequenz: [\textit{GoToPlayer, Melee}].
+Letztlich wird der g\"{u}nstigste Knoten aus der offenen Liste genommen. Da dieser erf\"{u}llt ist, beziehungsweise keine weiteren Zust\"{a}nde besitzt, gibt der Planer nun die Goap-Aktionen, also die Kanten, die zu ihm gef\"{u}hrt habe in einer Aktions-Sequenz zur\"{u}ck. Im Beispiel w\"{a}re es die Aktions-Sequenz: [\textit{Melee, GoTo}]. Diese Aktions-Sequenz muss nun gespiegelt werden, da der A*-Algorithmus vom Zielzustand angefangen hat. Somit w\"{a}re die richtige Aktions-Sequenz: [\textit{GoToPlayer, Melee}].
 
 \begin{figure}[h]
   \centering
